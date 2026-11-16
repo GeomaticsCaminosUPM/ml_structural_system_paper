@@ -1,0 +1,22 @@
+extends: ../main.yaml
+
+models:
+  enabled:
+    - LogisticRegression
+    - RandomForest
+    - XGBoost
+    - CatBoost
+    - HistGradientBoosting
+
+cost_matrix:
+  label_encoding:
+    ADO: 0
+    CR: 1
+    M: 2
+
+preprocessing:
+  id_col: block_id
+  data:
+    source:
+      - ../../data/guatemala/zona10.gpkg
+      - ../../data/guatemala/zona1.gpkg

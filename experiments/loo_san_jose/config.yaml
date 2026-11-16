@@ -1,0 +1,28 @@
+extends: ../main.yaml
+
+models:
+  enabled:
+    - LogisticRegression
+    - RandomForest
+    - XGBoost
+    - CatBoost
+    - HistGradientBoosting
+
+cost_matrix:
+  label_encoding:
+    ADO: 0
+    CR: 1
+    M: 2
+    W: 3
+
+preprocessing:
+  id_col: block_id
+  data:
+    train_source:
+      - ../../data/guatemala/zona10.gpkg
+      - ../../data/guatemala/zona1.gpkg
+      - ../../data/santo_domingo/naco.gpkg
+      - ../../data/santo_domingo/ensanche_quisquella.gpkg
+    test_source:
+      - ../../data/san_jose/esquivel.gpkg
+      - ../../data/san_jose/mata_redonda.gpkg

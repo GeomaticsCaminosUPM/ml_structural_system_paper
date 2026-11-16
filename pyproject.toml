@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ml_structural_system"
+version = "0.1.0"
+description = "Data and code to reproduce the paper on spatial transferability of machine learning classifiers for building structural-system identification."
+requires-python = ">=3.12"
+# Pinned to the versions used for the paper: even patch releases of
+# scikit-learn can shift the reported scores slightly.
+dependencies = [
+    "pandas==2.3.3",
+    "numpy==2.2.6",
+    "scikit-learn==1.9.0",
+    "imbalanced-learn==0.14.2",
+    "xgboost==3.3.0",
+    "catboost==1.2.10",
+    "mlflow==3.14.0",
+    "joblib==1.5.3",
+    "pyyaml==6.0.3",
+    "geopandas==1.1.4",
+    "torch==2.12.1",
+    "tqdm==4.66.5",
+    "shap==0.52.0",
+    "footprint-attributes",
+    "matplotlib==3.11.0",
+]
+
+[project.scripts]
+mlss = "ml_structural_system.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["ml_structural_system*"]
+
+# CPU-only by default. To use a CUDA build on Linux/Windows instead,
+# uncomment the block below (adjust the cu1xx tag to your CUDA version)
+# before running `uv sync`/`pip install -e .`. An NVIDIA driver is still
+# required to actually use the GPU either way; XGBoost and CatBoost run on
+# CPU too, just slower. torch is only used to detect a CUDA device.
+#
+# [[tool.uv.index]]
+# name = "pytorch"
+# url = "https://download.pytorch.org/whl/cu130"
+# explicit = true
+#
+# [tool.uv.sources]
+# torch = { index = "pytorch" }
+
+[tool.uv.sources]
+footprint-attributes = { git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes" }

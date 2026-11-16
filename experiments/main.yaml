@@ -1,0 +1,162 @@
+random_state: 42
+n_splits: 5
+
+label: survey_structural_system
+
+dataset:
+  train_path: preprocessed_splits/train_preprocessed.csv
+  test_path: preprocessed_splits/test_preprocessed.csv
+  val_path: preprocessed_splits/val_preprocessed.csv
+  train_gpkg: splits/train_df.gpkg
+  test_gpkg: splits/test_df.gpkg
+  val_gpkg: splits/val_df.gpkg
+
+models_dir: trained_models
+
+mlflow:
+  db_path: mlflow.db
+  experiment_cv: multiclass_model_selection
+  experiment_final: final_evaluation
+
+models:
+  enabled:
+    - LogisticRegression
+    - RandomForest
+    - XGBoost
+    - CatBoost
+    - HistGradientBoosting
+
+  skip_completed: true
+  start_from_model: null
+
+cost_matrix:
+  fragility_rank:
+    I: 9
+    ADO: 8
+    MUR: 7
+    M: 6
+    MR: 5
+    MCF: 4
+    CR: 3
+    S_frame: 2
+    W: 1
+    S_light: 0
+  pessimism_factor: 3.0
+
+calibration_objective: f1_macro
+
+assessment:
+  bootstrap:
+    n_samples: 1000
+    confidence: 0.95
+    models:
+      - LogisticRegression
+      - RandomForest
+      - XGBoost
+      - CatBoost
+      - HistGradientBoosting
+
+preprocessing:
+  seed: 42
+
+  compute_missing_features: false
+
+  label: survey_structural_system
+  label_values:
+    - ADO
+    - CR
+    - M
+    - W
+  label_replacements:
+    S_light: W
+    S_frame: CR
+    MUR: M
+    MCF: M
+    MR: M
+    I: None
+
+  min_class_fraction: 0.01
+
+  min_class_size_per_split: 20
+
+  data:
+    val_size: 0.15
+    test_size: 0.20
+
+  group:
+    - city
+
+  ignore_features:
+    - id
+    - city
+    - dataset
+    - geometry
+
+  ordinal_feature_mappings:
+    code_quality:
+      - pre_code
+      - low_code
+      - medium_code
+      - high_code
+
+  numeric_feature_ranges:
+    year: [1900, 2050]
+
+  categorical_feature_mappings:
+    relativePosition:
+      - corner
+      - confined
+      - isolated
+      - lateral
+      - torque
+    roof_material:
+      - metallic
+      - bright_concrete
+      - dark_shadow
+      - asphalt
+
+  id_col: id
+
+  feature_columns:
+    - height
+    - code_quality
+    - year
+    - roof_material
+    - EC8_eccentricityRatio
+    - EC8_radiusRatio
+    - EC8_compactness
+    - ASCE7_setbackRatio
+    - ASCE7_holeRatio
+    - ASCE7_parallelityAngle
+    - GNDTII_beta1_mainShapeSlenderness
+    - GNDTII_beta2_setbackRatio
+    - GNDTII_beta4_eccentricityRatio
+    - GNDTII_beta6_setbackSlenderness
+    - CSCR2010_eccentricityRatio
+    - NTC23_setbackRatio
+    - NTC23_holeRatio
+    - polsby_popper
+    - convex_hull_irregularity
+    - inertia_circle_ratio
+    - slenderness_bbox
+    - slenderness_inertia
+    - contact_force
+    - contact_confinementRatio
+    - contact_angularAcc
+    - contact_angle
+    - relativePosition
+
+experiments:
+  - guatemala
+  - san_jose
+  - santo_domingo
+  - all_cities
+  - loo_guatemala
+  - loo_san_jose
+  - loo_santo_domingo
+  - zona1_to_zona10
+  - mata_redonda_to_esquivel
+  - ensanche_quisquella_to_naco
+  - guatemala_no_roof_code_year
+  - san_jose_no_roof_code_year
+  - santo_domingo_no_roof_code_year

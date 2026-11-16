@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Written by the scripts in scripts/
+experiments/*/splits/
+experiments/*/preprocessed_splits/
+experiments/*/trained_models/
+experiments/*/report/
+experiments/*/mlflow.db
+experiments/*/mlruns/
+experiments/*/catboost_info/
+experiments/catboost_info/
+experiments/learning_curve/
+experiments/learning_curve_*.csv
+results/
+figures/

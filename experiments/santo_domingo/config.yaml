@@ -1,0 +1,22 @@
+extends: ../main.yaml
+
+models:
+  enabled:
+    - LogisticRegression
+    - RandomForest
+    - XGBoost
+    - CatBoost
+    - HistGradientBoosting
+
+cost_matrix:
+  label_encoding:
+    CR: 0
+    M: 1
+
+preprocessing:
+  id_col: block_id
+  compute_missing_features: false
+  data:
+    source:
+      - ../../data/santo_domingo/ensanche_quisquella.gpkg
+      - ../../data/santo_domingo/naco.gpkg
