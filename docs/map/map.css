@@ -1,0 +1,94 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1f2328;
+  --muted: #5f6b76;
+  --line: #d8dde2;
+  --accent: #1f4e79;
+  --cell: 31, 78, 121;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161b22;
+    --fg: #e6edf3;
+    --muted: #9aa7b3;
+    --line: #30363d;
+    --accent: #6f9cc3;
+    --cell: 111, 156, 195;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
+  font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+#map { position: absolute; inset: 0; }
+
+.panel {
+  position: absolute; top: 12px; max-height: calc(100% - 24px); overflow-y: auto;
+  background: var(--bg); border-radius: 8px; box-shadow: var(--shadow);
+  padding: 14px 16px; display: flex; flex-direction: column; gap: 9px;
+}
+#left { left: 12px; width: 300px; }
+#right { right: 10px; top: 150px; width: 300px; max-height: calc(100% - 190px); }
+#right.hidden, #right.closed { display: none; }
+.head { display: flex; align-items: start; gap: 8px; }
+.head h2 { flex: 1; }
+#closePlots { border: none; padding: 0 4px; font-size: 18px; line-height: 1; color: var(--muted); background: none; }
+/* Map buttons in one horizontal row, so the plots panel below gets more height. */
+.maplibregl-ctrl-top-right { display: flex; flex-direction: row; gap: 8px; margin: 10px 10px 0 0; }
+.maplibregl-ctrl-top-right .maplibregl-ctrl { margin: 0; }
+.maplibregl-ctrl-top-right .maplibregl-ctrl-group { display: flex; flex-direction: row; }
+.maplibregl-ctrl-top-right .maplibregl-ctrl-group button + button { border-top: none; border-left: 1px solid #ddd; }
+.maplibregl-ctrl-group button.toggle { font: 600 12px system-ui, sans-serif; color: #333; }
+.maplibregl-ctrl-group button.toggle.on { background: #1f4e79; color: #fff; }
+.maplibregl-ctrl-group button.toggle svg { width: 17px; height: 17px; display: block; margin: auto; }
+h1 { font-size: 17px; margin: 0 0 4px; }
+h2 { font-size: 14px; margin: 0; }
+h3 { font-size: 12px; margin: 6px 0 0; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+
+label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); }
+.panel select { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 5px; padding: 5px 6px; }
+.panel button { font: inherit; cursor: pointer; }
+.panel select:hover { border-color: var(--accent); }
+.row { display: flex; gap: 10px; align-items: end; }
+.row label:first-child { flex: 1; }
+label.check { flex-direction: row; align-items: center; gap: 5px; padding-bottom: 6px; color: var(--fg); }
+
+#legend { border-top: 1px solid var(--line); padding-top: 8px; }
+#legend .item { display: flex; align-items: center; gap: 7px; font-size: 12px; margin: 3px 0; }
+#legend .swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid rgba(0, 0, 0, 0.25); flex: none; }
+#legend .ramp { height: 10px; border-radius: 3px; margin: 4px 0 2px; }
+#legend .ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+
+table { border-collapse: collapse; width: 100%; font-size: 12px; font-variant-numeric: tabular-nums; }
+#scores td { padding: 2px 4px; border-bottom: 1px solid var(--line); }
+#scores td:last-child { text-align: right; font-weight: 600; }
+#confusion th, #confusion td { padding: 4px; text-align: center; border: 1px solid var(--line); }
+#confusion th { font-weight: 600; color: var(--muted); }
+#confusion td small { display: block; color: var(--muted); }
+#confusion td.dark, #confusion td.dark small { color: #fff; }
+#confusion .axis { font-weight: 400; font-size: 11px; padding: 2px; }
+#confusion .vertical { width: 18px; }
+#confusion .vertical span { writing-mode: vertical-rl; transform: rotate(180deg); }
+#confusion td.corner { border: none; }
+
+.maplibregl-popup-content { background: var(--bg); color: var(--fg); font-size: 12px; max-width: 280px; }
+.maplibregl-popup-tip { border-top-color: var(--bg) !important; border-bottom-color: var(--bg) !important; }
+.popup table td { padding: 1px 4px; }
+.popup table td:first-child { color: var(--muted); }
+.popup .wrong { color: #c0392b; font-weight: 600; }
+
+/* Presentation mode: no dropdowns, larger title, legend and plots. The map controls stay. */
+body.presentation .ctl { display: none !important; }
+body.presentation h1 { font-size: 22px; }
+body.presentation #legend { border-top: none; padding-top: 0; }
+body.presentation #legend .item, body.presentation h2 { font-size: 15px; }
+body.presentation #legend .swatch { width: 18px; height: 18px; }
+body.presentation #right { width: 360px; }
+body.presentation table { font-size: 15px; }
+
+@media (max-width: 800px) {
+  .panel { position: absolute; left: 8px; right: 8px; width: auto; }
+  #left { top: auto; bottom: 8px; max-height: 45vh; width: auto; }
+  #right { top: 8px; max-height: 35vh; width: auto; right: 56px; }
+}

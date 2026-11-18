@@ -1,0 +1,544 @@
+{
+  "base_cities": {
+    "Guatemala": {
+      "best_model": "HistGradientBoosting",
+      "macro_f1": 0.6222757640390953
+    },
+    "San Jose": {
+      "best_model": "XGBoost",
+      "macro_f1": 0.7005344093918956
+    },
+    "Santo Domingo": {
+      "best_model": "XGBoost",
+      "macro_f1": 0.9612307692307692
+    }
+  },
+  "transfer": {
+    "loo_guatemala": {
+      "present_labels": [
+        0,
+        1
+      ],
+      "ranking": [
+        {
+          "macro_f1": 0.725829452457035,
+          "accuracy": 0.9108065603235228,
+          "cohen_kappa": 0.45391009442128527,
+          "tss_macro": 0.385992658421056,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.7206798155756616,
+          "accuracy": 0.919793304875309,
+          "cohen_kappa": 0.44817159461037226,
+          "tss_macro": 0.33914962146297567,
+          "model": "LogisticRegression"
+        },
+        {
+          "macro_f1": 0.7055739584902155,
+          "accuracy": 0.9099078858683441,
+          "cohen_kappa": 0.41560405228111885,
+          "tss_macro": 0.33357983967101656,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.7034682459955044,
+          "accuracy": 0.9144012581442372,
+          "cohen_kappa": 0.4139176631232109,
+          "tss_macro": 0.3147481220316748,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.6750706786477483,
+          "accuracy": 0.9110312289373175,
+          "cohen_kappa": 0.360747346293951,
+          "tss_macro": 0.2614018379176153,
+          "model": "XGBoost"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.47156595037397603,
+        "accuracy": 0.8923837339923613,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "kind": "loo",
+      "city": "Guatemala",
+      "n_test": 4451,
+      "present_class_names": [
+        "CR",
+        "M"
+      ],
+      "shared_classes": [
+        "CR",
+        "M"
+      ],
+      "delta_f1": {
+        "transfer_f1_shared": 0.725829452457035,
+        "base_model": "HistGradientBoosting",
+        "base_f1_shared": 0.7442244568694539,
+        "delta": -0.018395004412418925
+      }
+    },
+    "loo_san_jose": {
+      "present_labels": [
+        0,
+        1,
+        2
+      ],
+      "ranking": [
+        {
+          "macro_f1": 0.4878551054411759,
+          "accuracy": 0.890290973871734,
+          "cohen_kappa": 0.21796754989755462,
+          "tss_macro": 0.21623776798248104,
+          "model": "LogisticRegression"
+        },
+        {
+          "macro_f1": 0.47236780054739796,
+          "accuracy": 0.8043349168646081,
+          "cohen_kappa": 0.12359823859795438,
+          "tss_macro": 0.329610403166029,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.4536827145958657,
+          "accuracy": 0.8720308788598575,
+          "cohen_kappa": 0.1757954557713588,
+          "tss_macro": 0.35404721697113817,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.44649026659959046,
+          "accuracy": 0.8261579572446556,
+          "cohen_kappa": 0.11597760674810098,
+          "tss_macro": 0.3002081917528106,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.445649373600292,
+          "accuracy": 0.7979513064133017,
+          "cohen_kappa": 0.10053785067726806,
+          "tss_macro": 0.28746621663533395,
+          "model": "CatBoost"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.3258449706537138,
+        "accuracy": 0.9560570071258907,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "kind": "loo",
+      "city": "San Jose",
+      "n_test": 6736,
+      "present_class_names": [
+        "ADO",
+        "CR",
+        "M"
+      ],
+      "shared_classes": [
+        "CR",
+        "M"
+      ],
+      "delta_f1": {
+        "transfer_f1_shared": 0.7317826581617638,
+        "base_model": "XGBoost",
+        "base_f1_shared": 0.7960846329557678,
+        "delta": -0.06430197479400401
+      }
+    },
+    "loo_santo_domingo": {
+      "present_labels": [
+        1,
+        2,
+        3
+      ],
+      "ranking": [
+        {
+          "macro_f1": 0.5745194788441692,
+          "accuracy": 0.8717683557394003,
+          "cohen_kappa": 0.7156826480770142,
+          "tss_macro": 0.4956985337234257,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.5629983710332943,
+          "accuracy": 0.8645294725956567,
+          "cohen_kappa": 0.6848085990470385,
+          "tss_macro": 0.4513193666817559,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.5454802762826921,
+          "accuracy": 0.8262668045501551,
+          "cohen_kappa": 0.6389481544698101,
+          "tss_macro": 0.4721499795707483,
+          "model": "LogisticRegression"
+        },
+        {
+          "macro_f1": 0.5319521073235504,
+          "accuracy": 0.8097207859358841,
+          "cohen_kappa": 0.5996832167895102,
+          "tss_macro": 0.43773450793008223,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.497430908491141,
+          "accuracy": 0.8014477766287487,
+          "cohen_kappa": 0.4966695674097449,
+          "tss_macro": 0.30088012891189747,
+          "model": "CatBoost"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.26994871794871794,
+        "accuracy": 0.6804550155118925,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "kind": "loo",
+      "city": "Santo Domingo",
+      "n_test": 967,
+      "present_class_names": [
+        "CR",
+        "M",
+        "S"
+      ],
+      "shared_classes": [
+        "CR",
+        "M"
+      ],
+      "delta_f1": {
+        "transfer_f1_shared": 0.8617792182662538,
+        "base_model": "XGBoost",
+        "base_f1_shared": 0.9612307692307692,
+        "delta": -0.09945155096451541
+      }
+    },
+    "zona1_to_zona10": {
+      "present_labels": [
+        0,
+        1
+      ],
+      "ranking": [
+        {
+          "macro_f1": 0.6298712948422089,
+          "accuracy": 0.7803857773646293,
+          "cohen_kappa": 0.28756393394197866,
+          "tss_macro": 0.4714652900177634,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.5522399153268005,
+          "accuracy": 0.6583778759005345,
+          "cohen_kappa": 0.200691215123332,
+          "tss_macro": 0.45620549081608486,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.5378544368045266,
+          "accuracy": 0.6490820357889844,
+          "cohen_kappa": 0.173259775529773,
+          "tss_macro": 0.39114251441413916,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.503520637554067,
+          "accuracy": 0.5856379270276552,
+          "cohen_kappa": 0.15562032982785534,
+          "tss_macro": 0.4061713656721735,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.3101176161377226,
+          "accuracy": 0.31954450383453403,
+          "cohen_kappa": 0.054456619562548436,
+          "tss_macro": 0.2084345406204111,
+          "model": "LogisticRegression"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.4722835418199657,
+        "accuracy": 0.8949570067394841,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "kind": "district",
+      "city": "Guatemala",
+      "n_test": 4303,
+      "present_class_names": [
+        "CR",
+        "M"
+      ],
+      "shared_classes": [
+        "CR",
+        "M"
+      ],
+      "delta_f1": {
+        "transfer_f1_shared": 0.6298712948422089,
+        "base_model": "HistGradientBoosting",
+        "base_f1_shared": 0.7442244568694539,
+        "delta": -0.11435316202724499
+      }
+    },
+    "mata_redonda_to_san_jose_sample": {
+      "present_labels": [
+        0,
+        1
+      ],
+      "ranking": [
+        {
+          "macro_f1": 0.7095090020643341,
+          "accuracy": 0.9431670984455959,
+          "cohen_kappa": 0.42088244408587216,
+          "tss_macro": 0.5507325207031919,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.698298767648337,
+          "accuracy": 0.9441386010362695,
+          "cohen_kappa": 0.3978050203263981,
+          "tss_macro": 0.4920301887320102,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.6957126126136188,
+          "accuracy": 0.9357189119170984,
+          "cohen_kappa": 0.3947065160825889,
+          "tss_macro": 0.5589054312451278,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.6936191548052522,
+          "accuracy": 0.9545012953367875,
+          "cohen_kappa": 0.38724101405267985,
+          "tss_macro": 0.3833871086144156,
+          "model": "LogisticRegression"
+        },
+        {
+          "macro_f1": 0.6716739379218907,
+          "accuracy": 0.9188795336787565,
+          "cohen_kappa": 0.3510754672661991,
+          "tss_macro": 0.5851720051596305,
+          "model": "XGBoost"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.4900503674345636,
+        "accuracy": 0.9609779792746114,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "kind": "district",
+      "city": "San Jose",
+      "n_test": 6176,
+      "present_class_names": [
+        "CR",
+        "M"
+      ],
+      "shared_classes": [
+        "CR",
+        "M"
+      ],
+      "delta_f1": {
+        "transfer_f1_shared": 0.7095090020643341,
+        "base_model": "XGBoost",
+        "base_f1_shared": 0.7960846329557678,
+        "delta": -0.08657563089143372
+      }
+    },
+    "ensanche_quisquella_to_santo_domingo_center": {
+      "present_labels": [
+        0,
+        1
+      ],
+      "ranking": [
+        {
+          "macro_f1": 0.9228317659352142,
+          "accuracy": 0.933649289099526,
+          "cohen_kappa": 0.8462419321257547,
+          "tss_macro": 0.8122501998401279,
+          "model": "LogisticRegression"
+        },
+        {
+          "macro_f1": 0.9176574654629653,
+          "accuracy": 0.9289099526066351,
+          "cohen_kappa": 0.8358317340111001,
+          "tss_macro": 0.8050559552358112,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.9110642781875659,
+          "accuracy": 0.9241706161137441,
+          "cohen_kappa": 0.823042247615054,
+          "tss_macro": 0.78447242206235,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.9050982882239331,
+          "accuracy": 0.919431279620853,
+          "cohen_kappa": 0.811319762242912,
+          "tss_macro": 0.7705835331734612,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.8929934605631924,
+          "accuracy": 0.909952606635071,
+          "cohen_kappa": 0.7876251523017428,
+          "tss_macro": 0.7428057553956835,
+          "model": "RandomForest"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.39714285714285713,
+        "accuracy": 0.6587677725118484,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "kind": "district",
+      "city": "Santo Domingo",
+      "n_test": 211,
+      "present_class_names": [
+        "CR",
+        "M"
+      ],
+      "shared_classes": [
+        "CR",
+        "M"
+      ],
+      "delta_f1": {
+        "transfer_f1_shared": 0.9228317659352142,
+        "base_model": "XGBoost",
+        "base_f1_shared": 0.9612307692307692,
+        "delta": -0.03839900329555501
+      }
+    }
+  },
+  "pooled_per_city": {
+    "Guatemala": {
+      "n_test": 971,
+      "present_labels": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "models": {
+        "LogisticRegression": {
+          "macro_f1": 0.42499781578767803
+        },
+        "RandomForest": {
+          "macro_f1": 0.4543446672478931
+        },
+        "XGBoost": {
+          "macro_f1": 0.4392932435211847
+        },
+        "CatBoost": {
+          "macro_f1": 0.4236256198182664
+        },
+        "HistGradientBoosting": {
+          "macro_f1": 0.40787384196851517
+        }
+      }
+    },
+    "San Jose": {
+      "n_test": 1354,
+      "present_labels": [
+        1,
+        2,
+        3
+      ],
+      "models": {
+        "LogisticRegression": {
+          "macro_f1": 0.652789676610032
+        },
+        "RandomForest": {
+          "macro_f1": 0.6646170641554944
+        },
+        "XGBoost": {
+          "macro_f1": 0.6668461285549893
+        },
+        "CatBoost": {
+          "macro_f1": 0.6770172131187207
+        },
+        "HistGradientBoosting": {
+          "macro_f1": 0.6893928295807705
+        }
+      }
+    },
+    "Santo Domingo": {
+      "n_test": 225,
+      "present_labels": [
+        1,
+        2
+      ],
+      "models": {
+        "LogisticRegression": {
+          "macro_f1": 0.8911121451838064
+        },
+        "RandomForest": {
+          "macro_f1": 0.8376161837069437
+        },
+        "XGBoost": {
+          "macro_f1": 0.9432895965403705
+        },
+        "CatBoost": {
+          "macro_f1": 0.9196144488115291
+        },
+        "HistGradientBoosting": {
+          "macro_f1": 0.9312169312169312
+        }
+      }
+    }
+  },
+  "pooled_shared_with_city": {
+    "Guatemala": {
+      "shared_classes": [
+        "ADO",
+        "CR",
+        "M"
+      ],
+      "models": {
+        "LogisticRegression": 0.5666637543835708,
+        "RandomForest": 0.6057928896638575,
+        "XGBoost": 0.585724324694913,
+        "CatBoost": 0.5648341597576886,
+        "HistGradientBoosting": 0.5438317892913536
+      },
+      "city_best_model": "HistGradientBoosting",
+      "city_best_f1": 0.6222757640390953
+    },
+    "San Jose": {
+      "shared_classes": [
+        "CR",
+        "M",
+        "S"
+      ],
+      "models": {
+        "LogisticRegression": 0.652789676610032,
+        "RandomForest": 0.6646170641554944,
+        "XGBoost": 0.6668461285549893,
+        "CatBoost": 0.6770172131187207,
+        "HistGradientBoosting": 0.6893928295807705
+      },
+      "city_best_model": "XGBoost",
+      "city_best_f1": 0.7005344093918956
+    },
+    "Santo Domingo": {
+      "shared_classes": [
+        "CR",
+        "M"
+      ],
+      "models": {
+        "LogisticRegression": 0.8911121451838064,
+        "RandomForest": 0.8376161837069437,
+        "XGBoost": 0.9432895965403705,
+        "CatBoost": 0.9196144488115291,
+        "HistGradientBoosting": 0.9312169312169312
+      },
+      "city_best_model": "XGBoost",
+      "city_best_f1": 0.9612307692307692
+    }
+  }
+}

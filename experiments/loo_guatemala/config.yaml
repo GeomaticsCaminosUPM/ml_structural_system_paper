@@ -12,16 +12,16 @@ cost_matrix:
   label_encoding:
     CR: 0
     M: 1
-    W: 2
+    S: 2
 
 preprocessing:
   min_class_fraction: 0.03
   id_col: block_id
   data:
     train_source:
-      - ../../data/san_jose/esquivel.gpkg
+      - ../../data/san_jose/san_jose_sample.gpkg
       - ../../data/san_jose/mata_redonda.gpkg
-      - ../../data/santo_domingo/naco.gpkg
+      - ../../data/santo_domingo/santo_domingo_center.gpkg
       - ../../data/santo_domingo/ensanche_quisquella.gpkg
     test_source:
       - ../../data/guatemala/zona10.gpkg

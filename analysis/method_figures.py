@@ -5,10 +5,11 @@ Figure 2 is illustrative. Plan-shape values and remote-sensing attributes
 are the dataset's own. Relative positions and contact forces are recomputed
 with footprint_attributes using a 0.15 m contact buffer (the footprint pixel
 size), whereas the dataset's features were computed with buffer=0, which
-treats walls digitized a few centimeters apart as not touching. Missing
-heights are filled with the dataset median for that computation only.
+treats walls digitized a few centimeters apart as not touching. Unlabeled
+buildings have no height in the shared data, so missing heights are filled
+with the dataset median for that computation only.
 
-Each figure is written to figures/ as PDF, SVG and PNG.
+Each figure is written to figures/ as a JPG.
 """
 from __future__ import annotations
 
@@ -29,32 +30,26 @@ from matplotlib.patches import Circle, FancyArrowPatch, FancyBboxPatch, Patch
 from shapely.geometry import box
 
 from paper_style import (BLUES, CLASS_COLORS, CLASS_NAMES, CLASS_ORDER, INK, LIGHT, MUTED,
-                         PARTITION_COLORS, POSITION_COLORS, TEXT_WIDTH_IN, apply_style)
+                         PARTITION_COLORS, POSITION_COLORS, TEXT_WIDTH_IN, apply_style, save_figure)
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "figures"
 OUT.mkdir(parents=True, exist_ok=True)
 DATA = ROOT / "data"
 ZONA1 = DATA / "guatemala" / "zona1.gpkg"
-# Every footprint of the illustrated block (geometry, id, height only), so the
-# contact forces are computed on the complete block; labels and attributes
-# come from the Zona 1 dataset above, and footprints without a label in it
-# are drawn as unlabeled.
-BLOCK_FOOTPRINTS = DATA / "figures" / "zona1_block.gpkg"
-BLOCK_PREFIX = "4_"
-FOCUS_ID = 176  # adobe, lateral, setback (convex-hull irregularity 0.23)
+# Reinforced concrete, corner, L-shaped (convex-hull irregularity 0.25,
+# inertia-to-circle ratio 0.48, slenderness 2.24): the convex hull, bounding
+# rectangle and equal-area circle all differ visibly. Its block mixes classes.
+FOCUS_ID = 54
 CONTACT_BUFFER_M = 0.15
-LABEL_REPLACEMENTS = {"S_light": "W", "S_frame": "CR", "MUR": "M", "MCF": "M", "MR": "M", "I": None}
+LABEL_REPLACEMENTS = {"S_light": "S", "S_frame": "CR", "MUR": "M", "MCF": "M", "MR": "M", "I": None}
 UNLABELED = "#FFFFFF"
 
 apply_style()
 
 
 def save(fig, name: str) -> None:
-    for ext in ("pdf", "svg", "png"):
-        fig.savefig(OUT / f"{name}.{ext}", bbox_inches="tight", pad_inches=0.02)
-    plt.close(fig)
-    print("saved", OUT / f"{name}.{{pdf,svg,png}}")
+    save_figure(fig, OUT, name)
 
 
 # ---------------------------------------------------------------------------
@@ -62,8 +57,7 @@ def save(fig, name: str) -> None:
 # ---------------------------------------------------------------------------
 
 def load_block() -> tuple[gpd.GeoDataFrame, object]:
-    attrs = gpd.read_file(ZONA1, ignore_geometry=True).drop(columns=["block_id", "height"])
-    gdf = gpd.read_file(BLOCK_FOOTPRINTS).merge(attrs, on="id", how="left")
+    gdf = gpd.read_file(ZONA1)
     gdf["final_class"] = gdf["survey_structural_system"].map(
         lambda v: LABEL_REPLACEMENTS.get(v, v) if isinstance(v, str) else None)
     gdf["_h"] = gdf["height"].fillna(gdf["height"].median())
@@ -72,7 +66,7 @@ def load_block() -> tuple[gpd.GeoDataFrame, object]:
     gdf["confinement"] = pos["contact_confinementRatio"].to_numpy()
     _, resultants = contact_force_vectors(gdf[["geometry", "_h"]].copy(), buffer=CONTACT_BUFFER_M,
                                           height_column="_h")
-    in_block = gdf["block_id"].str.startswith(BLOCK_PREFIX)
+    in_block = gdf["block_id"] == gdf.loc[gdf["id"] == FOCUS_ID, "block_id"].iloc[0]
     resultants = resultants[resultants["geom_id"].isin(list(gdf.index[in_block]))]
     return gdf[in_block], resultants
 
@@ -188,8 +182,8 @@ def fig_what_the_model_sees() -> None:
     ax_d.add_patch(FancyBboxPatch((0.06, 0.14), 0.92, 0.72, boxstyle="round,pad=0,rounding_size=0.03",
                                   fc="#F7F7F7", ec="#D0D0D0", lw=0.6))
     cells = [
-        ("Height", f"{focus['height']:.1f} m", "GlobalBuildingAtlas"),
-        ("Construction era", f"{int(focus['year'])}", "WSF Evolution,\nGHS-BUILT-S"),
+        ("Height", f"{focus['height']:.1f} m", "GlobalBuildingAtlas,\ndrone or survey"),
+        ("Construction era", f"{int(focus['year'])}", "World Settlement Footprint\nEvolution, GHS-BUILT-S"),
         ("Code-quality level", focus["code_quality"].replace("_", "-"), "From era and\nnational code"),
         ("Roof material", focus["roof_material"].replace("_", " "), "Sentinel-2 +\northophoto"),
     ]
@@ -293,7 +287,7 @@ def fig_workflow() -> None:
     # Building table
     header(20, "Building table")
     table = rounded(ax, 20, 0.5, 18, 26.5, fc="white")
-    rows = [("label", True), ("ADO, CR, M, W", False), ("", False), ("27 attributes", True),
+    rows = [("label", True), ("ADO, CR, M, S", False), ("", False), ("27 attributes", True),
             ("plan shape", False), ("neighbors", False), ("height, era,", False), ("code level, roof", False)]
     y = 24.6
     for text, strong in rows:
@@ -365,9 +359,8 @@ def fig_workflow() -> None:
 
 SURVEYS = [  # top row: larger-area surveys; bottom row: single-district surveys
     ("guatemala/zona10.gpkg", "Guatemala City", "Zona 10"),
-    ("san_jose/esquivel.gpkg", "San José", "citywide sample"),
-    ("santo_domingo/naco.gpkg", "Santo Domingo",
-     "dispersed sample"),
+    ("san_jose/san_jose_sample.gpkg", "San José", "citywide sample"),
+    ("santo_domingo/santo_domingo_center.gpkg", "Santo Domingo", "citywide sample"),
     ("guatemala/zona1.gpkg", "Guatemala City", "Zona 1"),
     ("san_jose/mata_redonda.gpkg", "San José", "Mata Redonda"),
     ("santo_domingo/ensanche_quisquella.gpkg",
@@ -376,11 +369,11 @@ SURVEYS = [  # top row: larger-area surveys; bottom row: single-district surveys
 # The Mata Redonda and Ensanche Quisqueya panels take their gray background
 # from the other survey of the same city.
 CONTEXT_SOURCES = {
-    "Mata Redonda": DATA / "san_jose" / "esquivel.gpkg",
-    "Ensanche Quisqueya": DATA / "santo_domingo" / "naco.gpkg",
+    "Mata Redonda": DATA / "san_jose" / "san_jose_sample.gpkg",
+    "Ensanche Quisqueya": DATA / "santo_domingo" / "santo_domingo_center.gpkg",
 }
 MAX_CONTEXT_OVERLAP = 0.2  # share of a context footprint already drawn by the survey
-DRAW_ORDER = ["M", "CR", "W", "ADO"]  # majority first, minorities on top
+DRAW_ORDER = ["M", "CR", "S", "ADO"]  # majority first, minorities on top
 WINDOW_W = 1000.0  # meters, every panel
 PANEL_ASPECT = 1.2  # width / height
 CONTEXT_GRAY = "#DADADA"

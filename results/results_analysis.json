@@ -1,0 +1,217 @@
+{
+  "base_cities": {
+    "Guatemala": {
+      "class_names": {
+        "0": "ADO",
+        "1": "CR",
+        "2": "M"
+      },
+      "n_test": 892,
+      "ranking": [
+        {
+          "macro_f1": 0.6222757640390953,
+          "accuracy": 0.8834080717488789,
+          "cohen_kappa": 0.4738656987295825,
+          "tss_macro": 0.4000203644684728,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.6145329300720421,
+          "accuracy": 0.8845291479820628,
+          "cohen_kappa": 0.4589418637520023,
+          "tss_macro": 0.38190119612161144,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.6037293434340646,
+          "accuracy": 0.8800448430493274,
+          "cohen_kappa": 0.40337058985322427,
+          "tss_macro": 0.32744820893965443,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.5666520065318104,
+          "accuracy": 0.8531390134529148,
+          "cohen_kappa": 0.3808378283861259,
+          "tss_macro": 0.3435038494410169,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.5386602751498747,
+          "accuracy": 0.8352017937219731,
+          "cohen_kappa": 0.3446748962966665,
+          "tss_macro": 0.3472386105403338,
+          "model": "LogisticRegression"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.30972388955582236,
+        "accuracy": 0.8677130044843049,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "unanimous_agreement": {
+        "n_test": 892,
+        "n_unanimous": 728,
+        "pct_unanimous": 81.61434977578476,
+        "n_unanimous_wrong": 53,
+        "pct_of_test_unanimous_wrong": 5.941704035874439,
+        "pct_of_unanimous_wrong": 7.280219780219781,
+        "confusion_pairs": {
+          "CR->M": 27,
+          "ADO->M": 15,
+          "M->CR": 11
+        }
+      }
+    },
+    "San Jose": {
+      "class_names": {
+        "0": "CR",
+        "1": "M",
+        "2": "S"
+      },
+      "n_test": 1354,
+      "ranking": [
+        {
+          "macro_f1": 0.7005344093918956,
+          "accuracy": 0.9387001477104875,
+          "cohen_kappa": 0.5587741064137195,
+          "tss_macro": 0.591981197864919,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.6998837130827974,
+          "accuracy": 0.9438700147710487,
+          "cohen_kappa": 0.5777535226871723,
+          "tss_macro": 0.5786649584770757,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.6647602921982814,
+          "accuracy": 0.9423929098966026,
+          "cohen_kappa": 0.5079299998136311,
+          "tss_macro": 0.45101945943825433,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.6504832743884468,
+          "accuracy": 0.9231905465288035,
+          "cohen_kappa": 0.4795291160762136,
+          "tss_macro": 0.5376342173940568,
+          "model": "LogisticRegression"
+        },
+        {
+          "macro_f1": 0.6287256373919831,
+          "accuracy": 0.9158050221565731,
+          "cohen_kappa": 0.4696745333420371,
+          "tss_macro": 0.5607150145824636,
+          "model": "RandomForest"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.32147864882090504,
+        "accuracy": 0.931314623338257,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "unanimous_agreement": {
+        "n_test": 1354,
+        "n_unanimous": 1180,
+        "pct_unanimous": 87.14918759231905,
+        "n_unanimous_wrong": 20,
+        "pct_of_test_unanimous_wrong": 1.4771048744460855,
+        "pct_of_unanimous_wrong": 1.694915254237288,
+        "confusion_pairs": {
+          "S->M": 9,
+          "CR->M": 6,
+          "M->S": 4,
+          "S->CR": 1
+        }
+      }
+    },
+    "Santo Domingo": {
+      "class_names": {
+        "0": "CR",
+        "1": "M"
+      },
+      "n_test": 225,
+      "ranking": [
+        {
+          "macro_f1": 0.9612307692307692,
+          "accuracy": 0.9688888888888889,
+          "cohen_kappa": 0.9224634470536109,
+          "tss_macro": 0.9270730259251931,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.9510975874809824,
+          "accuracy": 0.96,
+          "cohen_kappa": 0.902254187382343,
+          "tss_macro": 0.9247971502077974,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.9437724910035985,
+          "accuracy": 0.9555555555555556,
+          "cohen_kappa": 0.8875562218890555,
+          "tss_macro": 0.8786859291509994,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.9338624338624338,
+          "accuracy": 0.9466666666666667,
+          "cohen_kappa": 0.8677378269814833,
+          "tss_macro": 0.8764100534336037,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.9222674001435063,
+          "accuracy": 0.9422222222222222,
+          "cohen_kappa": 0.845229906344251,
+          "tss_macro": 0.7903225806451613,
+          "model": "LogisticRegression"
+        }
+      ],
+      "majority_baseline": {
+        "macro_f1": 0.42010309278350516,
+        "accuracy": 0.7244444444444444,
+        "cohen_kappa": 0.0,
+        "tss_macro": 0.0
+      },
+      "unanimous_agreement": {
+        "n_test": 225,
+        "n_unanimous": 205,
+        "pct_unanimous": 91.11111111111111,
+        "n_unanimous_wrong": 1,
+        "pct_of_test_unanimous_wrong": 0.4444444444444444,
+        "pct_of_unanimous_wrong": 0.4878048780487805,
+        "confusion_pairs": {
+          "CR->M": 1
+        }
+      }
+    }
+  },
+  "height_cohens_d": {
+    "Guatemala": {
+      "pair": [
+        "CR",
+        "M"
+      ],
+      "height": 1.0991660143939235
+    },
+    "Santo Domingo": {
+      "pair": [
+        "CR",
+        "M"
+      ],
+      "height": 3.385109754790096
+    },
+    "San Jose": {
+      "pair": [
+        "S",
+        "M"
+      ],
+      "height": 0.929981514275333
+    }
+  }
+}

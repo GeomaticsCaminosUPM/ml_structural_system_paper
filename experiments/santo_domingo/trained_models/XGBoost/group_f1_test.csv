@@ -1,0 +1,4 @@
+group_column,group_value,n,macro_f1,accuracy
+city,Santo Domingo,225,0.9612307692307692,0.9688888888888889
+dataset,ensanche_quisquella,181,0.9638245992724948,0.9723756906077348
+dataset,santo_domingo_center,44,0.9508928571428572,0.9545454545454546

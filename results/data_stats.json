@@ -1,0 +1,42 @@
+{
+  "class_counts": {
+    "Guatemala": {
+      "ADO": 174,
+      "CR": 492,
+      "M": 3991,
+      "S": 23
+    },
+    "San Jose": {
+      "ADO": 2,
+      "CR": 294,
+      "M": 6440,
+      "S": 260
+    },
+    "Santo Domingo": {
+      "ADO": 0,
+      "CR": 307,
+      "M": 660,
+      "S": 2
+    },
+    "All": {
+      "ADO": 176,
+      "CR": 1093,
+      "M": 11091,
+      "S": 285
+    }
+  },
+  "overlap": {
+    "San Jose": {
+      "n": 31,
+      "same_class": 28,
+      "n_labeled_large": 6425,
+      "pct_of_large": 0.48249027237354086
+    },
+    "Santo Domingo": {
+      "n": 11,
+      "same_class": 10,
+      "n_labeled_large": 211,
+      "pct_of_large": 5.213270142180095
+    }
+  }
+}

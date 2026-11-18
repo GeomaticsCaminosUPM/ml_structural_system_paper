@@ -43,12 +43,12 @@ CITIES = {
         DATA_DIR / "guatemala" / "zona1.gpkg",
     ],
     "san_jose": [
-        DATA_DIR / "san_jose" / "esquivel.gpkg",
+        DATA_DIR / "san_jose" / "san_jose_sample.gpkg",
         DATA_DIR / "san_jose" / "mata_redonda.gpkg",
     ],
     "santo_domingo": [
         DATA_DIR / "santo_domingo" / "ensanche_quisquella.gpkg",
-        DATA_DIR / "santo_domingo" / "naco.gpkg",
+        DATA_DIR / "santo_domingo" / "santo_domingo_center.gpkg",
     ],
 }
 

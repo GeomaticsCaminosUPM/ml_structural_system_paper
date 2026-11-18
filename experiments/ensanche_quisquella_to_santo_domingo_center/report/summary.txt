@@ -1,0 +1,29 @@
+Experiment config: /home/miguel/Documents/Proyectos/SismicaUPM/StructuralSystemPaper/code/ml_structural_system_paper/experiments/ensanche_quisquella_to_santo_domingo_center
+
+=== Test Summary ===
+LogisticRegression   macro_f1=0.9228  acc=0.9336  kappa=0.8462  tss=0.8123
+RandomForest         macro_f1=0.8930  acc=0.9100  kappa=0.7876  tss=0.7428
+XGBoost              macro_f1=0.9177  acc=0.9289  kappa=0.8358  tss=0.8051
+CatBoost             macro_f1=0.9111  acc=0.9242  kappa=0.8230  tss=0.7845
+HistGradientBoosting macro_f1=0.9051  acc=0.9194  kappa=0.8113  tss=0.7706
+
+=== Assessment Summary ===
+Inter-model agreement  Fleiss' Kappa=0.8837  95% CI=[0.8257, 0.9290]  contested=0.0%
+Soft ensemble          macro_f1=0.9170  (5 models)
+
+=== Feature Importance (consensus across models) ===
+   1. height                               mean rank=1.0
+   2. EC8_eccentricityRatio                mean rank=7.8
+   3. ASCE7_parallelityAngle               mean rank=8.4
+   4. polsby_popper                        mean rank=9.0
+   5. GNDTII_beta2_setbackRatio            mean rank=9.6
+   6. GNDTII_beta4_eccentricityRatio       mean rank=10.6
+   7. EC8_compactness                      mean rank=11.0
+   8. GNDTII_beta6_setbackSlenderness      mean rank=11.2
+   9. GNDTII_beta1_mainShapeSlenderness    mean rank=11.2
+  10. slenderness_bbox                     mean rank=11.8
+  11. ASCE7_setbackRatio                   mean rank=12.6
+  12. contact_angle                        mean rank=13.8
+  13. roof_material_metallic               mean rank=13.8
+  14. inertia_circle_ratio                 mean rank=14.0
+  15. slenderness_inertia                  mean rank=14.0

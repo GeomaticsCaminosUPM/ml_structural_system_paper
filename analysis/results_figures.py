@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
 
-from paper_style import ACCENT, BLUES, INK, MUTED, SEQUENTIAL_CMAP, TEXT_WIDTH_IN, apply_style
+from paper_style import ACCENT, BLUES, INK, MUTED, SEQUENTIAL_CMAP, TEXT_WIDTH_IN, apply_style, save_figure
 
 GROUP_DIR = Path(__file__).resolve().parent.parent / "experiments"
 OUT = Path(__file__).resolve().parent.parent / "figures"
@@ -27,30 +27,49 @@ apply_style()
 
 FEATURE_NAMES = {
     "height": "Height",
-    "inertia_circle_ratio": "Inertia-to-circle ratio",
-    "convex_hull_irregularity": "Convex-hull irregularity",
+    "year": "Construction era",
+    "code_quality": "Code level",
     "roof_material_metallic": "Roof: metallic",
-    "contact_confinementRatio": "Contact confinement",
+    "roof_material_bright_concrete": "Roof: bright concrete",
+    "roof_material_dark_shadow": "Roof: dark or shadow",
+    "roof_material_asphalt": "Roof: asphalt",
+    "EC8_eccentricityRatio": "Eccentricity ratio (Eurocode 8)",
+    "EC8_radiusRatio": "Radius ratio (Eurocode 8)",
+    "EC8_compactness": "Compactness (Eurocode 8)",
+    "ASCE7_setbackRatio": "Setback ratio (ASCE 7)",
+    "ASCE7_holeRatio": "Hole ratio (ASCE 7)",
+    "ASCE7_parallelityAngle": "Parallelity angle (ASCE 7)",
+    "GNDTII_beta1_mainShapeSlenderness": "Slenderness (GNDT-II)",
+    "GNDTII_beta2_setbackRatio": "Setback ratio (GNDT-II)",
+    "GNDTII_beta4_eccentricityRatio": "Eccentricity (GNDT-II)",
+    "GNDTII_beta6_setbackSlenderness": "Setback slenderness (GNDT-II)",
+    "CSCR2010_eccentricityRatio": "Eccentricity (CSCR-2010)",
+    "NTC23_setbackRatio": "Setback ratio (NTC-23)",
+    "NTC23_holeRatio": "Hole ratio (NTC-23)",
+    "polsby_popper": "Polsby-Popper compactness",
+    "convex_hull_irregularity": "Convex-hull irregularity",
+    "inertia_circle_ratio": "Inertia-to-circle ratio",
+    "slenderness_bbox": "Slenderness (bounding box)",
+    "slenderness_inertia": "Slenderness (inertia)",
     "contact_force": "Contact force",
+    "contact_confinementRatio": "Contact confinement",
     "contact_angularAcc": "Contact angular accel.",
+    "contact_angle": "Contact angle",
     "relativePosition_corner": "Position: corner",
+    "relativePosition_confined": "Position: confined",
     "relativePosition_isolated": "Position: isolated",
     "relativePosition_lateral": "Position: lateral",
-    "GNDTII_beta1_mainShapeSlenderness": "Slenderness (GNDT-II)",
-    "GNDTII_beta4_eccentricityRatio": "Eccentricity (GNDT-II)",
-    "NTC23_setbackRatio": "Setback ratio (NTC-23)",
-    "ASCE7_setbackRatio": "Setback ratio (ASCE 7)",
+    "relativePosition_torque": "Position: torque",
 }
 
 
 def save(fig, name: str) -> None:
-    for ext in ("pdf", "svg", "png"):
-        fig.savefig(OUT / f"{name}.{ext}", bbox_inches="tight", pad_inches=0.02)
-    plt.close(fig)
-    print("saved", OUT / f"{name}.{{pdf,svg,png}}")
+    save_figure(fig, OUT, name)
 
 
-BEST_MODEL = {"Guatemala": "HistGradientBoosting", "San Jose": "XGBoost", "Santo Domingo": "XGBoost"}
+# Each city's best model (highest test macro F1), from results_analysis.py.
+BEST_MODEL = {city: entry["ranking"][0]["model"] for city, entry in json.loads(
+    (Path(__file__).resolve().parent.parent / "results" / "results_analysis.json").read_text())["base_cities"].items()}
 CITY_EXP = {"Guatemala": "guatemala", "San Jose": "san_jose", "Santo Domingo": "santo_domingo"}
 CITY_TITLE = {"Guatemala": "Guatemala City", "San Jose": "San José", "Santo Domingo": "Santo Domingo"}
 
@@ -173,7 +192,7 @@ def fig_feature_importance():
     fig, axes = plt.subplots(3, 1, figsize=(TEXT_WIDTH_IN * 0.62, 2.7), sharex=True)
     for ax, city in zip(axes, ["Guatemala", "San Jose", "Santo Domingo"]):
         items = list(fi[city].items())[::-1]
-        names = [FEATURE_NAMES[k] for k, _ in items]
+        names = [FEATURE_NAMES.get(k, k) for k, _ in items]
         vals = [v for _, v in items]
         ax.barh(names, vals, color=[ACCENT if n == "Height" else BLUES[3] for n in names], height=0.7)
         ax.spines["left"].set_visible(False)

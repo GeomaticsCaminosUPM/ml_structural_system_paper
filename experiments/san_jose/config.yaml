@@ -12,11 +12,11 @@ cost_matrix:
   label_encoding:
     CR: 0
     M: 1
-    W: 2
+    S: 2
 
 preprocessing:
   id_col: block_id
   data:
     source:
-      - ../../data/san_jose/esquivel.gpkg
+      - ../../data/san_jose/san_jose_sample.gpkg
       - ../../data/san_jose/mata_redonda.gpkg

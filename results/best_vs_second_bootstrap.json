@@ -1,0 +1,32 @@
+{
+  "guatemala": {
+    "best": "HistGradientBoosting",
+    "second": "CatBoost",
+    "diff": 0.00774283396705322,
+    "ci95": [
+      -0.0762963306030501,
+      0.06408345888661776
+    ],
+    "includes_zero": true
+  },
+  "san_jose": {
+    "best": "XGBoost",
+    "second": "CatBoost",
+    "diff": 0.0006506963090981976,
+    "ci95": [
+      -0.047482699110402836,
+      0.05195350166639704
+    ],
+    "includes_zero": true
+  },
+  "santo_domingo": {
+    "best": "XGBoost",
+    "second": "CatBoost",
+    "diff": 0.010133181749786835,
+    "ci95": [
+      -0.01224720492853514,
+      0.029943650261591414
+    ],
+    "includes_zero": true
+  }
+}

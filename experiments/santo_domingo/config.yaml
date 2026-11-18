@@ -19,4 +19,4 @@ preprocessing:
   data:
     source:
       - ../../data/santo_domingo/ensanche_quisquella.gpkg
-      - ../../data/santo_domingo/naco.gpkg
+      - ../../data/santo_domingo/santo_domingo_center.gpkg

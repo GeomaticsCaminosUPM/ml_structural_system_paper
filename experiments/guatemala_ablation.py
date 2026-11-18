@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 from ml_structural_system import dataset_prep as prep_module
@@ -48,7 +49,7 @@ def main() -> None:
     preprocess(config_path, EXP)
     experiment_report.run(load_config(config_path), EXP / "report")
     subprocess.run(
-        ["mlss", "assess", "--config", "config.yaml", "--data", "preprocessed_splits/test_preprocessed.csv",
+        [str(Path(sys.executable).parent / "mlss"), "assess", "--config", "config.yaml", "--data", "preprocessed_splits/test_preprocessed.csv",
          "--models", *MODELS, "--output", "report/per_sample_5models.csv",
          "--gen-output", "report/generalizability_5models.csv", "--no-mlflow"],
         cwd=EXP, check=True,

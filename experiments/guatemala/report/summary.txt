@@ -1,0 +1,29 @@
+Experiment config: /home/miguel/Documents/Proyectos/SismicaUPM/StructuralSystemPaper/code/ml_structural_system_paper/experiments/guatemala
+
+=== Test Summary ===
+LogisticRegression   macro_f1=0.5387  acc=0.8352  kappa=0.3447  tss=0.3472
+RandomForest         macro_f1=0.6037  acc=0.8800  kappa=0.4034  tss=0.3274
+XGBoost              macro_f1=0.5667  acc=0.8531  kappa=0.3808  tss=0.3435
+CatBoost             macro_f1=0.6145  acc=0.8845  kappa=0.4589  tss=0.3819
+HistGradientBoosting macro_f1=0.6223  acc=0.8834  kappa=0.4739  tss=0.4000
+
+=== Assessment Summary ===
+Inter-model agreement  Fleiss' Kappa=0.6033  95% CI=[0.5423, 0.6572]  contested=0.3%
+Soft ensemble          macro_f1=0.5857  (5 models)
+
+=== Feature Importance (consensus across models) ===
+   1. roof_material_metallic               mean rank=7.6
+   2. inertia_circle_ratio                 mean rank=8.6
+   3. height                               mean rank=8.8
+   4. GNDTII_beta4_eccentricityRatio       mean rank=9.0
+   5. relativePosition_corner              mean rank=10.6
+   6. slenderness_bbox                     mean rank=11.6
+   7. slenderness_inertia                  mean rank=12.0
+   8. contact_confinementRatio             mean rank=13.0
+   9. roof_material_dark_shadow            mean rank=13.2
+  10. GNDTII_beta1_mainShapeSlenderness    mean rank=13.6
+  11. NTC23_setbackRatio                   mean rank=13.6
+  12. GNDTII_beta2_setbackRatio            mean rank=13.8
+  13. EC8_radiusRatio                      mean rank=13.8
+  14. ASCE7_holeRatio                      mean rank=13.8
+  15. ASCE7_setbackRatio                   mean rank=14.2

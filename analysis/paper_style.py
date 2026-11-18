@@ -8,7 +8,7 @@ Palette logic:
   the train/validation/test partitions.
 - Structural classes use "material" colors, distinct from the blue ramp:
   brick red (adobe), concrete gray (reinforced concrete), sand (masonry) and
-  dark green (wood), far enough apart in lightness to survive color blindness.
+  dark slate (steel), far enough apart in lightness to survive color blindness.
 - Relative-position categories use distinct muted hues (a single blue ramp
   was too hard to tell apart on a map).
 """
@@ -36,13 +36,25 @@ POSITION_COLORS = {
     "torque": "#DE95A3",    # rose
 }
 
-CLASS_COLORS = {"ADO": "#B24A2A", "CR": "#9AA5AE", "M": "#F0D78C", "W": "#2B6B60"}
-CLASS_NAMES = {"ADO": "Adobe", "CR": "Reinforced concrete", "M": "Masonry", "W": "Wood"}
-CLASS_ORDER = ["ADO", "CR", "M", "W"]
+CLASS_COLORS = {"ADO": "#B24A2A", "CR": "#9AA5AE", "M": "#F0D78C", "S": "#3D4F63"}
+CLASS_NAMES = {"ADO": "Adobe", "CR": "Reinforced concrete", "M": "Masonry", "S": "Steel"}
+CLASS_ORDER = ["ADO", "CR", "M", "S"]
 
 SEQUENTIAL_CMAP = LinearSegmentedColormap.from_list("paper_blues", ["#FFFFFF"] + BLUES[1:])
 
 FONT_SIZE = 7.5
+JPG_DPI = 600       # print resolution
+JPG_QUALITY = 95
+
+
+def save_figure(fig, out_dir, name: str) -> None:
+    """Save a figure as ``<out_dir>/<name>.jpg`` (white background, so no transparency is needed)."""
+    import matplotlib.pyplot as plt
+
+    path = out_dir / f"{name}.jpg"
+    fig.savefig(path, bbox_inches="tight", pad_inches=0.02, dpi=JPG_DPI, pil_kwargs={"quality": JPG_QUALITY})
+    plt.close(fig)
+    print("saved", path)
 
 
 def apply_style() -> None:

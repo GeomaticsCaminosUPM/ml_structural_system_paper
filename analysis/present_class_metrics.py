@@ -38,8 +38,8 @@ TRANSFER = [
     ("loo_san_jose", "loo", "San Jose"),
     ("loo_santo_domingo", "loo", "Santo Domingo"),
     ("zona1_to_zona10", "district", "Guatemala"),
-    ("mata_redonda_to_esquivel", "district", "San Jose"),
-    ("ensanche_quisquella_to_naco", "district", "Santo Domingo"),
+    ("mata_redonda_to_san_jose_sample", "district", "San Jose"),
+    ("ensanche_quisquella_to_santo_domingo_center", "district", "Santo Domingo"),
 ]
 POOLED_CITY = {"Ciudad de Guatemala": "Guatemala", "San Jose": "San Jose", "Santo Domingo": "Santo Domingo"}
 
@@ -127,6 +127,24 @@ def main() -> None:
         print(f"{label} (n={len(sub)})")
         for m, v in out.items():
             print(f"   {m:22s} f1={v['macro_f1']:.3f}")
+
+    # Pooled vs city-specific models on the classes the two share (Section 5.4).
+    print("\n=== Pooled model, per-city macro F1 on the classes shared with the city-specific model ===")
+    report["pooled_shared_with_city"] = {}
+    for raw, label in POOLED_CITY.items():
+        sub = df[city == raw]
+        y_true = sub["y_true"].to_numpy()
+        pooled_names = load_class_names("all_cities")
+        _, b_names, b_model = base_best[label]
+        shared = sorted({pooled_names[c] for c in present_labels(y_true)} & set(b_names.values()))
+        codes = [c for c, n in pooled_names.items() if n in shared]
+        f1s = {m: macro_f1(y_true, sub[f"pred_{m}"].to_numpy(), codes) for m in MODELS}
+        report["pooled_shared_with_city"][label] = {
+            "shared_classes": shared, "models": f1s,
+            "city_best_model": b_model, "city_best_f1": report["base_cities"][label]["macro_f1"],
+        }
+        print(f"{label}: shared={shared} pooled {min(f1s.values()):.2f}-{max(f1s.values()):.2f} "
+              f"vs city-specific {b_model} {report['base_cities'][label]['macro_f1']:.2f}")
 
     out_path = RESULTS_DIR / "present_class_metrics.json"
     with open(out_path, "w") as f:

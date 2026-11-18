@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Structural System Map</title>
+  <meta name="description" content="Labeled buildings, model predictions and errors of the paper 'How far can footprint data go?' in Guatemala City, San José and Santo Domingo.">
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+  <link rel="stylesheet" href="map.css">
+</head>
+<body>
+  <div id="map"></div>
+
+  <aside id="left" class="panel">
+    <h1>Structural system of buildings</h1>
+    <label class="ctl">City <select id="city"></select></label>
+    <label class="ctl">Dataset <select id="survey"></select></label>
+    <label class="ctl">Color by <select id="colorBy"></select></label>
+    <label class="ctl">Experiment <select id="experiment"></select></label>
+    <label class="ctl">Model <select id="model"></select></label>
+    <label class="ctl">Basemap <select id="basemap"></select></label>
+    <div id="legend"></div>
+  </aside>
+
+  <aside id="right" class="panel">
+    <div class="head"><h2 id="resultsTitle"></h2><button id="closePlots" title="Close">×</button></div>
+    <h3>Test scores</h3>
+    <table id="scores"></table>
+    <h3>Confusion matrix</h3>
+    <table id="confusion"></table>
+  </aside>
+
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/pmtiles@3.2.1/dist/pmtiles.js"></script>
+  <script src="map.js"></script>
+</body>
+</html>

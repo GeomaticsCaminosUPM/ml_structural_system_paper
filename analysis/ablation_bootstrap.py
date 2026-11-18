@@ -21,7 +21,10 @@ from sklearn.metrics import cohen_kappa_score, f1_score
 from results_analysis import RESULTS_DIR, GROUP_DIR, load_class_names, load_sample_df
 
 N_BOOT = 2000
-BEST = {"guatemala": "HistGradientBoosting", "san_jose": "XGBoost", "santo_domingo": "XGBoost"}
+# Each city's best base model (highest test macro F1), from results_analysis.py.
+_RANKING = json.loads((RESULTS_DIR / "results_analysis.json").read_text())["base_cities"]
+BEST = {exp: _RANKING[city]["ranking"][0]["model"]
+        for exp, city in [("guatemala", "Guatemala"), ("san_jose", "San Jose"), ("santo_domingo", "Santo Domingo")]}
 
 
 def main() -> None:

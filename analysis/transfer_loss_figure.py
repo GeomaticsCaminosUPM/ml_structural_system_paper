@@ -8,7 +8,7 @@ and tab:transfer), scored on the classes shared by the two test sets
 tab:transfer. Error bars: 95% percentile block bootstrap (2,000 resamples of
 the test set's spatial blocks), as in block_bootstrap_ci.py.
 
-Output: figures/fig6_transfer_loss.{pdf,svg,png}.
+Output: figures/fig6_transfer_loss.jpg.
 """
 from __future__ import annotations
 
@@ -21,7 +21,7 @@ import numpy as np
 from sklearn.metrics import f1_score
 
 from results_analysis import RESULTS_DIR, GROUP_DIR, load_class_names, load_sample_df
-from paper_style import ACCENT, BLUES, INK, MUTED, TEXT_WIDTH_IN, apply_style
+from paper_style import ACCENT, BLUES, INK, MUTED, TEXT_WIDTH_IN, apply_style, save_figure
 
 apply_style()
 HERE = Path(__file__).resolve().parent
@@ -31,8 +31,8 @@ N_BOOT = 2000
 SHARED = ["CR", "M"]
 
 CITIES = [("Guatemala", "Guatemala City", "guatemala", "zona1_to_zona10", "loo_guatemala"),
-          ("San Jose", "San José", "san_jose", "mata_redonda_to_esquivel", "loo_san_jose"),
-          ("Santo Domingo", "Santo Domingo", "santo_domingo", "ensanche_quisquella_to_naco", "loo_santo_domingo")]
+          ("San Jose", "San José", "san_jose", "mata_redonda_to_san_jose_sample", "loo_san_jose"),
+          ("Santo Domingo", "Santo Domingo", "santo_domingo", "ensanche_quisquella_to_santo_domingo_center", "loo_santo_domingo")]
 SCENARIOS = [("City-specific model", ACCENT, "o", "full"),
              ("Single-district transfer", BLUES[3], "s", "full"),
              ("Leave-one-city-out", ACCENT, "D", "none")]
@@ -91,9 +91,7 @@ def main() -> None:
     ax.grid(axis="x")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.30), ncol=3, frameon=False,
               handletextpad=0.3, columnspacing=1.0)
-    for ext in ("pdf", "svg", "png"):
-        fig.savefig(OUT / f"fig6_transfer_loss.{ext}", bbox_inches="tight", pad_inches=0.02)
-    print("saved", OUT / "fig6_transfer_loss.{pdf,svg,png}")
+    save_figure(fig, OUT, "fig6_transfer_loss")
 
 
 if __name__ == "__main__":

@@ -39,7 +39,7 @@ cost_matrix:
     MCF: 4
     CR: 3
     S_frame: 2
-    W: 1
+    S: 1
     S_light: 0
   pessimism_factor: 3.0
 
@@ -66,9 +66,9 @@ preprocessing:
     - ADO
     - CR
     - M
-    - W
+    - S
   label_replacements:
-    S_light: W
+    S_light: S
     S_frame: CR
     MUR: M
     MCF: M
@@ -155,8 +155,8 @@ experiments:
   - loo_san_jose
   - loo_santo_domingo
   - zona1_to_zona10
-  - mata_redonda_to_esquivel
-  - ensanche_quisquella_to_naco
+  - mata_redonda_to_san_jose_sample
+  - ensanche_quisquella_to_santo_domingo_center
   - guatemala_no_roof_code_year
   - san_jose_no_roof_code_year
   - santo_domingo_no_roof_code_year

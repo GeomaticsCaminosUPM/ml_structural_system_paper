@@ -2,17 +2,36 @@ __pycache__/
 *.pyc
 .venv/
 *.egg-info/
+build/
+dist/
+.DS_Store
+.ipynb_checkpoints/
+logs/
+*.log
 
-# Written by the scripts in scripts/
-experiments/*/splits/
-experiments/*/preprocessed_splits/
-experiments/*/trained_models/
-experiments/*/report/
+# Outputs of reproduce_paper.py. Tracked: trained models (weights and tuned
+# thresholds), the encoders needed to apply them, each experiment's test split
+# and report, the learning-curve CSVs, results/ and figures/.
+# Ignored below: training by-products that are not needed to reuse the models
+# or to recompute the paper's numbers.
 experiments/*/mlflow.db
+experiments/*/mlflow.db-journal
 experiments/*/mlruns/
 experiments/*/catboost_info/
 experiments/catboost_info/
+experiments/mlruns/
+catboost_info/
 experiments/learning_curve/
-experiments/learning_curve_*.csv
-results/
-figures/
+experiments/*/splits/*
+!experiments/*/splits/test_df.gpkg
+experiments/*/preprocessed_splits/*
+!experiments/*/preprocessed_splits/test_preprocessed.csv
+!experiments/*/preprocessed_splits/preprocessor.pkl
+!experiments/*/preprocessed_splits/label_encoder.pkl
+!experiments/*/preprocessed_splits/preprocessing.json
+
+# >>> Outputs over 30 MB, listed by reproduce_paper.py after each run (do not edit)
+# <<<
+
+# Footprint indices of unsurveyed buildings, computed once by analysis/map_data.py
+cache/

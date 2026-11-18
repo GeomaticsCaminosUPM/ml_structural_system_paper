@@ -7,8 +7,7 @@ feature column, one `pred_<Model>` column for each of the five models, and
 `y_true`. Computes, per city: macro F1, accuracy, Cohen's kappa and TSS of
 every model and of the majority-class baseline; the errors shared by all
 five models; and Cohen's d of building height (in meters, from the test
-split, with the reconciled height and with GlobalBuildingAtlas height
-alone) between the two classes the paper compares.
+split) between the two classes the paper compares.
 
 Output: results_analysis.json plus a printout.
 """
@@ -117,11 +116,8 @@ def height_cohens_d(exp: str, pair: tuple[str, str]) -> dict:
         replacements = yaml.safe_load(f)["preprocessing"]["label_replacements"]
     test = gpd.read_file(GROUP_DIR / exp / "splits" / "test_df.gpkg", ignore_geometry=True)
     label = test["survey_structural_system"].map(lambda v: replacements.get(v, v))
-    out = {}
-    for col in ("height", "height_gba"):
-        h = test[col].astype(float).to_numpy()
-        out[col] = abs(cohens_d(h[(label == pair[0]).to_numpy()], h[(label == pair[1]).to_numpy()]))
-    return out
+    h = test["height"].astype(float).to_numpy()
+    return {"height": abs(cohens_d(h[(label == pair[0]).to_numpy()], h[(label == pair[1]).to_numpy()]))}
 
 
 def load_class_names(exp: str) -> dict[int, str]:
@@ -176,12 +172,11 @@ def main() -> None:
     for exp, city, pair in [
         ("guatemala", "Guatemala", ("CR", "M")),
         ("santo_domingo", "Santo Domingo", ("CR", "M")),
-        ("san_jose", "San Jose", ("W", "M")),
+        ("san_jose", "San Jose", ("S", "M")),
     ]:
         d = height_cohens_d(exp, pair)
         report["height_cohens_d"][city] = {"pair": pair, **d}
-        print(f"{city}: Cohen's d height {pair[0]} vs {pair[1]} = {d['height']:.2f} "
-              f"(GlobalBuildingAtlas only: {d['height_gba']:.2f})")
+        print(f"{city}: Cohen's d height {pair[0]} vs {pair[1]} = {d['height']:.2f}")
 
     out_path = RESULTS_DIR / "results_analysis.json"
     with open(out_path, "w") as f:

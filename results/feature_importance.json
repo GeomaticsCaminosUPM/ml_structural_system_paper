@@ -1,0 +1,26 @@
+{
+  "Guatemala": {
+    "roof_material_metallic": 7.6,
+    "inertia_circle_ratio": 8.6,
+    "height": 8.8,
+    "GNDTII_beta4_eccentricityRatio": 9.0,
+    "relativePosition_corner": 10.6,
+    "slenderness_bbox": 11.6
+  },
+  "San Jose": {
+    "height": 1.2,
+    "roof_material_metallic": 9.0,
+    "relativePosition_isolated": 9.0,
+    "GNDTII_beta1_mainShapeSlenderness": 10.8,
+    "polsby_popper": 12.4,
+    "EC8_eccentricityRatio": 12.6
+  },
+  "Santo Domingo": {
+    "height": 6.4,
+    "GNDTII_beta4_eccentricityRatio": 7.4,
+    "contact_force": 7.8,
+    "contact_confinementRatio": 9.2,
+    "relativePosition_isolated": 9.8,
+    "inertia_circle_ratio": 10.0
+  }
+}

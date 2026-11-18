@@ -23,7 +23,7 @@ from results_analysis import RESULTS_DIR, MODELS, load_sample_df
 
 EXPERIMENTS = ["guatemala", "san_jose", "santo_domingo",
                "loo_guatemala", "loo_san_jose", "loo_santo_domingo",
-               "zona1_to_zona10", "mata_redonda_to_esquivel", "ensanche_quisquella_to_naco",
+               "zona1_to_zona10", "mata_redonda_to_san_jose_sample", "ensanche_quisquella_to_santo_domingo_center",
                "all_cities"]
 
 

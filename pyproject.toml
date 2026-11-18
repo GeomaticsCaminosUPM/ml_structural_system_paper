@@ -1,15 +1,15 @@
-[build-system]
-requires = ["setuptools>=68", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "ml_structural_system"
-version = "0.1.0"
-description = "Data and code to reproduce the paper on spatial transferability of machine learning classifiers for building structural-system identification."
+name = "ml-structural-system-paper"
+version = "1.0.0"
+description = "Data and code to reproduce the paper 'How far can footprint data go? Inferring structural systems for seismic exposure models across three Latin American cities'."
+readme = "README.md"
+license = "EUPL-1.2"
 requires-python = ">=3.12"
-# Pinned to the versions used for the paper: even patch releases of
-# scikit-learn can shift the reported scores slightly.
+# The method itself is the ml_structural_system package. Everything else is
+# pinned to the versions used for the paper: even patch releases of
+# scikit-learn, XGBoost or CatBoost can shift the reported scores slightly.
 dependencies = [
+    "ml-structural-system",
     "pandas==2.3.3",
     "numpy==2.2.6",
     "scikit-learn==1.9.0",
@@ -20,32 +20,21 @@ dependencies = [
     "joblib==1.5.3",
     "pyyaml==6.0.3",
     "geopandas==1.1.4",
-    "torch==2.12.1",
     "tqdm==4.66.5",
     "shap==0.52.0",
-    "footprint-attributes",
     "matplotlib==3.11.0",
 ]
 
-[project.scripts]
-mlss = "ml_structural_system.cli:main"
+[dependency-groups]
+# For running paper_results.ipynb locally (Google Colab already has them).
+notebook = ["folium>=0.17", "ipywidgets>=8.1", "ipykernel>=6.29"]
 
-[tool.setuptools.packages.find]
-include = ["ml_structural_system*"]
-
-# CPU-only by default. To use a CUDA build on Linux/Windows instead,
-# uncomment the block below (adjust the cu1xx tag to your CUDA version)
-# before running `uv sync`/`pip install -e .`. An NVIDIA driver is still
-# required to actually use the GPU either way; XGBoost and CatBoost run on
-# CPU too, just slower. torch is only used to detect a CUDA device.
-#
-# [[tool.uv.index]]
-# name = "pytorch"
-# url = "https://download.pytorch.org/whl/cu130"
-# explicit = true
-#
-# [tool.uv.sources]
-# torch = { index = "pytorch" }
+[tool.uv]
+package = false
+# The footprint_attributes commit used for the paper (Figure 2 uses its API).
+override-dependencies = [
+    "footprint-attributes @ git+https://github.com/GeomaticsCaminosUPM/footprint_attributes@6b85854823e73b123977a70fdb50c32002c22005",
+]
 
 [tool.uv.sources]
-footprint-attributes = { git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes" }
+ml-structural-system = { path = "../../../code/ml_structural_system", editable = true }

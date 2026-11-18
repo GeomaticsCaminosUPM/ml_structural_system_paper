@@ -1,0 +1,29 @@
+Experiment config: /home/miguel/Documents/Proyectos/SismicaUPM/StructuralSystemPaper/code/ml_structural_system_paper/experiments/san_jose_no_roof_code_year
+
+=== Test Summary ===
+LogisticRegression   macro_f1=0.6187  acc=0.9151  kappa=0.4394  tss=0.5050
+RandomForest         macro_f1=0.6660  acc=0.9357  kappa=0.5305  tss=0.5460
+XGBoost              macro_f1=0.7054  acc=0.9402  kappa=0.5672  tss=0.5980
+CatBoost             macro_f1=0.6928  acc=0.9380  kappa=0.5616  tss=0.6008
+HistGradientBoosting macro_f1=0.6580  acc=0.9350  kappa=0.5086  tss=0.5076
+
+=== Assessment Summary ===
+Inter-model agreement  Fleiss' Kappa=0.5983  95% CI=[0.5405, 0.6472]  contested=0.1%
+Soft ensemble          macro_f1=0.7020  (5 models)
+
+=== Feature Importance (consensus across models) ===
+   1. height                               mean rank=1.0
+   2. convex_hull_irregularity             mean rank=8.8
+   3. ASCE7_setbackRatio                   mean rank=8.8
+   4. polsby_popper                        mean rank=8.8
+   5. contact_confinementRatio             mean rank=9.0
+   6. GNDTII_beta1_mainShapeSlenderness    mean rank=9.0
+   7. relativePosition_isolated            mean rank=9.2
+   8. slenderness_bbox                     mean rank=10.8
+   9. slenderness_inertia                  mean rank=11.0
+  10. GNDTII_beta2_setbackRatio            mean rank=11.2
+  11. relativePosition_lateral             mean rank=11.4
+  12. EC8_compactness                      mean rank=12.0
+  13. NTC23_holeRatio                      mean rank=12.0
+  14. EC8_radiusRatio                      mean rank=12.4
+  15. ASCE7_holeRatio                      mean rank=12.8

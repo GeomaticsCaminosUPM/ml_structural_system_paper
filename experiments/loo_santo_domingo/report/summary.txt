@@ -1,0 +1,29 @@
+Experiment config: /home/miguel/Documents/Proyectos/SismicaUPM/StructuralSystemPaper/code/ml_structural_system_paper/experiments/loo_santo_domingo
+
+=== Test Summary ===
+LogisticRegression   macro_f1=0.4091  acc=0.8263  kappa=0.6389  tss=0.3533
+RandomForest         macro_f1=0.5320  acc=0.8097  kappa=0.5997  tss=0.3283
+XGBoost              macro_f1=0.4309  acc=0.8718  kappa=0.7157  tss=0.3702
+CatBoost             macro_f1=0.3731  acc=0.8014  kappa=0.4967  tss=0.2249
+HistGradientBoosting macro_f1=0.5630  acc=0.8645  kappa=0.6848  tss=0.3385
+
+=== Assessment Summary ===
+Inter-model agreement  Fleiss' Kappa=0.6514  95% CI=[0.6199, 0.6847]  contested=0.2%
+Soft ensemble          macro_f1=0.5426  (5 models)
+
+=== Feature Importance (consensus across models) ===
+   1. height                               mean rank=8.2
+   2. roof_material_bright_concrete        mean rank=8.6
+   3. slenderness_bbox                     mean rank=10.2
+   4. ASCE7_parallelityAngle               mean rank=11.2
+   5. convex_hull_irregularity             mean rank=12.0
+   6. code_quality                         mean rank=12.2
+   7. ASCE7_setbackRatio                   mean rank=12.4
+   8. contact_confinementRatio             mean rank=12.8
+   9. CSCR2010_eccentricityRatio           mean rank=13.0
+  10. polsby_popper                        mean rank=13.4
+  11. GNDTII_beta2_setbackRatio            mean rank=13.8
+  12. relativePosition_isolated            mean rank=14.0
+  13. slenderness_inertia                  mean rank=14.2
+  14. GNDTII_beta6_setbackSlenderness      mean rank=14.4
+  15. relativePosition_corner              mean rank=14.6

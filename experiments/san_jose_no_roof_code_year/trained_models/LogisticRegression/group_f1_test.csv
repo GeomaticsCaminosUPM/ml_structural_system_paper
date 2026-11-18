@@ -1,0 +1,4 @@
+group_column,group_value,n,macro_f1,accuracy
+city,San Jose,1354,0.6187199978364637,0.9150664697193501
+dataset,mata_redonda,96,0.5436781609195401,0.875
+dataset,san_jose_sample,1258,0.625895221646517,0.9181240063593005
