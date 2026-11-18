@@ -65,7 +65,7 @@ def class_counts() -> pd.DataFrame:
         counts = load_labeled(city)["class"].value_counts()
         rows[city] = {c: int(counts.get(c, 0)) for c in CLASS_ORDER}
     table = pd.DataFrame(rows).T
-    table.loc["All three pooled"] = table.sum()
+    table.loc["All three cities"] = table.sum()
     table.insert(0, "N", table.sum(axis=1))
     return table.rename(columns=CLASS_NAMES)
 
@@ -270,4 +270,4 @@ def paper_tables() -> dict[str, pd.DataFrame]:
                            for city, d in pcm["pooled_per_city"].items()})
     table4.insert(0, "All", {m: boot["all_cities"]["models"][m]["macro_f1"] for m in table4.index})
     return {"Table 2: base-city models": table2, "Table 3: transfer": table3,
-            "Table 4: pooled model (macro F1 per city)": table4.round(2)}
+            "Table 4: three-city model (macro F1 per city)": table4.round(2)}

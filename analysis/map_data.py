@@ -53,7 +53,7 @@ EXPERIMENT_TITLES = {
     "guatemala": "City model: Guatemala City",
     "san_jose": "City model: San José",
     "santo_domingo": "City model: Santo Domingo",
-    "all_cities": "Pooled model (three cities)",
+    "all_cities": "Three-city model (combined data)",
     "loo_guatemala": "Leave-one-city-out: Guatemala City",
     "loo_san_jose": "Leave-one-city-out: San José",
     "loo_santo_domingo": "Leave-one-city-out: Santo Domingo",

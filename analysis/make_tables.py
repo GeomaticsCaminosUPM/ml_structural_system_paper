@@ -70,7 +70,7 @@ def table1() -> None:
         return
     classes = ["ADO", "CR", "M", "S"]
     lines = [r"\begin{tabular}{lrrrrr}", r"\toprule", "City & $N$ & " + " & ".join(classes) + r" \\", r"\midrule"]
-    for key, label in [*CITY_NAMES.items(), ("All", "All three pooled")]:
+    for key, label in [*CITY_NAMES.items(), ("All", "All three cities")]:
         if key == "All":
             lines.append(r"\midrule")
         counts = stats["class_counts"][key]

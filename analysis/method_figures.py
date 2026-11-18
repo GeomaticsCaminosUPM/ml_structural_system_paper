@@ -331,7 +331,7 @@ def fig_workflow() -> None:
     # Experiments
     header(83, "Experiments")
     exps = rounded(ax, 83, 0.5, 17, 26.5, fc="white")
-    items = ["Within city", "Cross city", "Cross district", "Pooled cities", "", "Learning curves",
+    items = ["Within city", "Cross city", "Cross district", "Combined cities", "", "Learning curves",
              "Feature ranking", "Ablation"]
     y = 24.6
     for text in items:
