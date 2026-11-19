@@ -1,7 +1,7 @@
 [project]
 name = "ml-structural-system-paper"
 version = "1.0.0"
-description = "Data and code to reproduce the paper 'How far can footprint data go? Inferring structural systems for seismic exposure models across three Latin American cities'."
+description = "Data and code to reproduce the paper 'Estimating building structural systems from footprints: transferability of machine learning models across three Latin American cities'."
 readme = "README.md"
 license = "EUPL-1.2"
 requires-python = ">=3.12"

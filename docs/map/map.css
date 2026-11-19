@@ -1,21 +1,20 @@
 :root {
   --bg: #ffffff;
-  --fg: #1f2328;
+  --fg: #000000;
   --muted: #5f6b76;
   --line: #d8dde2;
   --accent: #1f4e79;
   --cell: 31, 78, 121;
   --shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #161b22;
-    --fg: #e6edf3;
-    --muted: #9aa7b3;
-    --line: #30363d;
-    --accent: #6f9cc3;
-    --cell: 111, 156, 195;
-  }
+/* Dark mode, switched with the moon/sun button (light mode: white panels, black text). */
+body.dark {
+  --bg: #161b22;
+  --fg: #e6edf3;
+  --muted: #9aa7b3;
+  --line: #30363d;
+  --accent: #6f9cc3;
+  --cell: 111, 156, 195;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg);
@@ -78,9 +77,10 @@ table { border-collapse: collapse; width: 100%; font-size: 12px; font-variant-nu
 .popup table td:first-child { color: var(--muted); }
 .popup .wrong { color: #c0392b; font-weight: 600; }
 
-/* Presentation mode: no dropdowns, larger title, legend and plots. The map controls stay. */
-body.presentation .ctl { display: none !important; }
-body.presentation h1 { font-size: 22px; }
+/* Presentation mode: only the legend (with its title) and the plots. The legend sits at the
+   bottom left, raised to leave room for a footer below it. The map controls stay. */
+body.presentation .ctl, body.presentation h1 { display: none !important; }
+body.presentation #left { top: auto; bottom: 90px; width: auto; min-width: 260px; max-width: 380px; }
 body.presentation #legend { border-top: none; padding-top: 0; }
 body.presentation #legend .item, body.presentation h2 { font-size: 15px; }
 body.presentation #legend .swatch { width: 18px; height: 18px; }

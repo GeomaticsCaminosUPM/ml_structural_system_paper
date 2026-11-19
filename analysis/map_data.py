@@ -15,6 +15,7 @@ Needs the experiments step of reproduce_paper.py.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -88,7 +89,8 @@ def with_footprint_features(path: Path) -> gpd.GeoDataFrame:
     missing = g[FOOTPRINT_COLUMNS].isna().any(axis=1).to_numpy()
     if not missing.any():
         return g
-    cache = CACHE / f"footprint_features_{path.stem}.parquet"
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()[:12]  # a new file version gets a new cache
+    cache = CACHE / f"footprint_features_{path.stem}_{digest}.parquet"
     if cache.exists():
         computed = pd.read_parquet(cache)
     else:

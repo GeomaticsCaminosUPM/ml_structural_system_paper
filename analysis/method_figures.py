@@ -21,6 +21,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 from footprint_attributes import position
 from footprint_attributes.position import contact_force_vectors
 from matplotlib import patheffects
@@ -35,7 +36,9 @@ from paper_style import (BLUES, CLASS_COLORS, CLASS_NAMES, CLASS_ORDER, INK, LIG
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "figures"
 OUT.mkdir(parents=True, exist_ok=True)
-DATA = ROOT / "data"
+# Real footprints when available (local only), public versions otherwise:
+# the unlabeled buildings of data/ are altered (analysis/anonymize_data.py).
+DATA = ROOT / "data_private" if (ROOT / "data_private").is_dir() else ROOT / "data"
 ZONA1 = DATA / "guatemala" / "zona1.gpkg"
 # Reinforced concrete, corner, L-shaped (convex-hull irregularity 0.25,
 # inertia-to-circle ratio 0.48, slenderness 2.24): the convex hull, bounding
@@ -366,11 +369,14 @@ SURVEYS = [  # top row: larger-area surveys; bottom row: single-district surveys
     ("santo_domingo/ensanche_quisquella.gpkg",
      "Santo Domingo", "Ensanche Quisqueya"),
 ]
-# The Mata Redonda and Ensanche Quisqueya panels take their gray background
-# from the other survey of the same city.
+# Gray background of the panels whose survey file does not cover the
+# surroundings: the other survey of the same city, then OpenStreetMap
+# footprints (analysis/context_footprints.py) where neither survey reaches.
+OSM = ROOT / "data" / "context"
 CONTEXT_SOURCES = {
-    "Mata Redonda": DATA / "san_jose" / "san_jose_sample.gpkg",
-    "Ensanche Quisqueya": DATA / "santo_domingo" / "santo_domingo_center.gpkg",
+    "Zona 1": [OSM / "osm_buildings_zona1.gpkg"],
+    "Mata Redonda": [DATA / "san_jose" / "san_jose_sample.gpkg", OSM / "osm_buildings_mata_redonda.gpkg"],
+    "Ensanche Quisqueya": [DATA / "santo_domingo" / "santo_domingo_center.gpkg"],
 }
 MAX_CONTEXT_OVERLAP = 0.2  # share of a context footprint already drawn by the survey
 DRAW_ORDER = ["M", "CR", "S", "ADO"]  # majority first, minorities on top
@@ -395,13 +401,24 @@ def best_window(points, half_w: float, half_h: float, step: float = 50.0) -> tup
 
 
 def context_footprints(survey: str, g: gpd.GeoDataFrame, win: tuple[float, float, float, float]) -> gpd.GeoSeries:
-    """Footprints of CONTEXT_SOURCES in the panel, without those the survey already draws."""
+    """Footprints of CONTEXT_SOURCES in the panel, without those already drawn."""
     if survey not in CONTEXT_SOURCES:
         return gpd.GeoSeries(crs=g.crs)
     window = gpd.GeoSeries([box(win[0], win[2], win[1], win[3])], crs=g.crs)
-    other = gpd.read_file(CONTEXT_SOURCES[survey], bbox=window).to_crs(g.crs).geometry
-    overlap = other.intersection(g.cx[win[0]:win[1], win[2]:win[3]].geometry.union_all()).area / other.area
-    return other[overlap <= MAX_CONTEXT_OVERLAP]
+    drawn = g.cx[win[0]:win[1], win[2]:win[3]].geometry
+    kept = []
+    for source in CONTEXT_SOURCES[survey]:
+        if not source.exists():
+            continue
+        other = gpd.read_file(source, bbox=window).to_crs(g.crs).geometry
+        if other.empty:
+            continue
+        covered = drawn.union_all() if len(drawn) else None
+        overlap = other.intersection(covered).area / other.area if covered is not None else 0
+        other = other[overlap <= MAX_CONTEXT_OVERLAP]
+        kept.append(other)
+        drawn = gpd.GeoSeries(list(drawn) + list(other), crs=g.crs)
+    return gpd.GeoSeries(pd.concat(kept), crs=g.crs) if kept else gpd.GeoSeries(crs=g.crs)
 
 
 def fig_study_area() -> None:

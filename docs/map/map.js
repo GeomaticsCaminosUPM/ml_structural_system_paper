@@ -16,13 +16,14 @@ const BASEMAPS = {
 };
 // Outline of surveyed buildings: black on the light basemap, a white glow on dark and satellite ones.
 const OUTLINE = { light: "#000000", dark: "#ffffff" };
-const NO_DATA = { light: "#cfcfcf", dark: "#4a4f55" };
+// Near the background, so buildings without a value read as blank rather than as a class.
+const NO_DATA = { light: "#f3f3f1", dark: "#2a2f35" };
 const LAYER = "buildings";  // layer name inside the .pmtiles files
 
 const CLASS_NAMES = { ADO: "Adobe", CR: "Reinforced concrete", M: "Masonry", S: "Steel" };
 const CLASS_COLORS = {
-  light: { ADO: "#B24A2A", CR: "#9AA5AE", M: "#F0D78C", S: "#3D4F63" },
-  dark: { ADO: "#D2694A", CR: "#B7C1C9", M: "#F0D78C", S: "#7FA6D6" },
+  light: { ADO: "#B24A2A", CR: "#8A949E", M: "#F0D78C", S: "#2F6DB5" },
+  dark: { ADO: "#D2694A", CR: "#A9B3BC", M: "#F0D78C", S: "#5FA2EC" },
 };
 const RAMP = ["#440154", "#3b528b", "#21918c", "#5ec962", "#fde725"];
 const MODEL_NAMES = { LogisticRegression: "Logistic regression", RandomForest: "Random forest",
@@ -79,6 +80,8 @@ map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-
 const ICONS = {
   present: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="12" rx="1"/><path d="M12 16v4M8 20h8"/></svg>',
   plots: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+  moon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
+  sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
 };
 class ToggleControl {
   onAdd() {
@@ -90,6 +93,7 @@ class ToggleControl {
       b.addEventListener("click", onClick);
       this.el.appendChild(b);
     };
+    add("btnTheme", "Dark mode", ICONS.moon, () => setDark(!document.body.classList.contains("dark")));
     add("btn3d", "3D view", "3D", () => setThreeD(!state.threeD));
     add("btnPresent", "Presentation mode (P)", ICONS.present, () => setPresentation(!document.body.classList.contains("presentation")));
     add("btnPlots", "Plots", ICONS.plots, () => setPlots($("right").classList.contains("closed")));
@@ -104,6 +108,22 @@ function setThreeD(on) {
   $("btn3d").classList.toggle("on", on);
   restyle();
   map.easeTo({ pitch: on ? 50 : 0, duration: 600 });
+}
+
+// Dark or light panels. The basemap follows (light <-> dark), except the satellite view.
+function setDark(on) {
+  document.body.classList.toggle("dark", on);
+  $("btnTheme").innerHTML = on ? ICONS.sun : ICONS.moon;
+  $("btnTheme").title = on ? "Light mode" : "Dark mode";
+  if (state.basemap !== "satellite") setBasemap(on ? "dark" : "light");
+}
+
+function setBasemap(id) {
+  if (state.basemap === id) return;
+  state.basemap = id;
+  $("basemap").value = id;
+  map.setStyle(BASEMAPS[id].style, { diff: false });
+  map.once("style.load", () => { addLayers(); restyle(); collapseAttribution(); });
 }
 
 function setPlots(open) {
@@ -173,14 +193,18 @@ function surveyFilter(extra) {
 
 function addLayers() {
   if (map.getSource("b")) return;
+  // The basemap's own buildings (3D in the dark style) would cover ours.
+  for (const l of map.getStyle().layers) {
+    if (l["source-layer"] === "building") map.setLayoutProperty(l.id, "visibility", "none");
+  }
   map.addSource("b", { type: "vector", url: tilesUrl(state.city), promoteId: { [LAYER]: "k" },
-    attribution: "Buildings: field surveys of the paper, partly Microsoft Building Footprints" });
+    attribution: "Buildings: field surveys of the paper, partly Microsoft Building Footprints. Unsurveyed footprints are altered until the paper is published" });
   // Below the basemap's labels, so place names stay readable.
   const firstLabel = map.getStyle().layers.find((l) => l.type === "symbol")?.id;
   const common = { source: "b", "source-layer": LAYER };
   map.addLayer({ id: "b-fill", type: "fill-extrusion", ...common,
     paint: { "fill-extrusion-color": colorExpression(), "fill-extrusion-height": heightExpression(),
-      "fill-extrusion-opacity": 0.92 } }, firstLabel);
+      "fill-extrusion-opacity": 1 } }, firstLabel);
   // Every footprint: a faint thin outline.
   map.addLayer({ id: "b-line", type: "line", ...common,
     paint: { "line-color": OUTLINE[tone()], "line-opacity": 0.25,
@@ -188,10 +212,10 @@ function addLayers() {
   // Surveyed buildings: a black border on the light basemap, a white glowing one (soft halo + solid core) on dark ones.
   map.addLayer({ id: "b-glow", type: "line", ...common, filter: surveyed,
     paint: { "line-color": "#ffffff", "line-opacity": tone() === "dark" ? 0.55 : 0, "line-blur": 3,
-      "line-width": ["interpolate", ["linear"], ["zoom"], 13, 3, 16, 6, 18, 9] } }, firstLabel);
+      "line-width": ["interpolate", ["linear"], ["zoom"], 12, 0.5, 14, 2, 16, 5, 18, 8] } }, firstLabel);
   map.addLayer({ id: "b-surveyed", type: "line", ...common, filter: surveyed,
     paint: { "line-color": OUTLINE[tone()], "line-opacity": 1,
-      "line-width": ["interpolate", ["linear"], ["zoom"], 13, 0.8, 16, 1.6, 18, 2.5] } }, firstLabel);
+      "line-width": ["interpolate", ["linear"], ["zoom"], 12, 0.3, 14, 0.8, 16, 1.6, 18, 2.5] } }, firstLabel);
   applySurvey();
   map.once("idle", applyPredictions);
 }
@@ -369,11 +393,7 @@ async function init() {
     state.experiment = e.target.value; fillModels(true); applyPredictions(); restyle(); renderResults();
   });
   $("model").addEventListener("change", (e) => { state.model = e.target.value; applyPredictions(); restyle(); renderResults(); });
-  $("basemap").addEventListener("change", (e) => {
-    state.basemap = e.target.value;
-    map.setStyle(BASEMAPS[state.basemap].style, { diff: false });
-    map.once("style.load", () => { addLayers(); restyle(); collapseAttribution(); });
-  });
+  $("basemap").addEventListener("change", (e) => setBasemap(e.target.value));
   $("closePlots").addEventListener("click", () => setPlots(false));
   window.addEventListener("resize", placePlots);
   document.addEventListener("keydown", (e) => {

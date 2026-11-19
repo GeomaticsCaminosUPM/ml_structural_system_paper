@@ -1,6 +1,9 @@
-# How far can footprint data go? Inferring structural systems for seismic exposure models across three Latin American cities
+# Estimating building structural systems from footprints: transferability of machine learning models across three Latin American cities
 
 Data and code to reproduce every table and figure of the paper. The models predict the structural system of individual buildings (adobe, reinforced concrete, masonry or steel) from the building footprint, its neighbors and a few low-cost attributes (height, construction era, code level and roof material). They are trained on field surveys from Guatemala City, San José (Costa Rica) and Santo Domingo (Dominican Republic) and evaluated within each city, across cities, across districts of the same city and as a single model trained on the three cities combined.
+
+> [!WARNING]
+> Until the peer-reviewed version of the paper is published, the footprints without a survey label in `data/` are not the real ones. Their geometry, height and other attributes have been altered, so they look similar to the buildings of the area but do not match them. The surveyed buildings, which make up the training, validation and test sets, are real, so every result of the paper can be reproduced.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeomaticsCaminosUPM/ml_structural_system_paper/blob/main/paper_results.ipynb)
 
@@ -14,7 +17,7 @@ The method itself is the [`ml_structural_system`](https://github.com/GeomaticsCa
 reproduce_paper.py      runs everything: python reproduce_paper.py
 paper_results.ipynb     interactive walk-through with maps, ready for Google Colab
 docs/map/               interactive 3D map of the buildings and predictions (GitHub Pages)
-data/                   the six labeled surveys (GeoPackage)
+data/                   the six labeled surveys (GeoPackage), plus OpenStreetMap footprints for Figure 1 in data/context/
 experiments/            one folder per experiment with its config.yaml (main.yaml holds the shared settings),
                         plus the learning curve and the attribute ablation
 analysis/               scripts that compute the reported numbers, figures and tables
@@ -22,7 +25,7 @@ analysis/               scripts that compute the reported numbers, figures and t
 
 ## Data
 
-Each file holds every building footprint of one survey area. Surveyed buildings carry their structural system in `survey_structural_system` and every model feature. The other footprints carry their geometry, `height`, `year`, `code_quality` and `roof_material`, enough for the interactive map to predict them (their footprint indices are computed with footprint_attributes).
+Each file holds every building footprint of one survey area. Surveyed buildings carry their structural system in `survey_structural_system` and every model feature. The other footprints carry their geometry, `height`, `year`, `code_quality` and `roof_material`, enough for the interactive map to predict them (their footprint indices are computed with footprint_attributes). These unlabeled footprints and their attributes are altered (see the warning above) by `analysis/anonymize_data.py`, which keeps every labeled building unchanged. Their footprint indices were computed on the real data and are stored in the files, so the splits, models and scores are the same with either version. Figures 1 and 2 use the real footprints when a local `data_private/` folder holds them.
 
 | City | File | Survey | Labeled buildings |
 |---|---|---|---|
@@ -121,7 +124,7 @@ Open it in [Google Colab](https://colab.research.google.com/github/GeomaticsCami
 
 ## License
 
-Code and data are released under the [European Union Public Licence v1.2](LICENSE) (EUPL-1.2). Background footprints come in part from Microsoft Building Footprints (ODbL).
+Code and data are released under the [European Union Public Licence v1.2](LICENSE) (EUPL-1.2). Background footprints come in part from Microsoft Building Footprints and, in `data/context/`, from OpenStreetMap (© OpenStreetMap contributors), both under the Open Database License (ODbL).
 
 ## Citation
 
