@@ -7,9 +7,9 @@ dist/
 .DS_Store
 .ipynb_checkpoints/
 
-# Real datasets (local only). data/ holds the public versions written by
-# analysis/anonymize_data.py, with the unlabeled buildings altered.
+# Real datasets and the script that writes the public versions (local only).
 data_private/
+analysis/anonymize_data.py
 logs/
 *.log
 

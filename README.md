@@ -17,7 +17,7 @@ The method itself is the [`ml_structural_system`](https://github.com/GeomaticsCa
 reproduce_paper.py      runs everything: python reproduce_paper.py
 paper_results.ipynb     interactive walk-through with maps, ready for Google Colab
 docs/map/               interactive 3D map of the buildings and predictions (GitHub Pages)
-data/                   the six labeled surveys (GeoPackage), plus OpenStreetMap footprints for Figure 1 in data/context/
+data/                   the six labeled surveys (GeoPackage), plus Overture Maps footprints for Figure 1 in data/context/
 experiments/            one folder per experiment with its config.yaml (main.yaml holds the shared settings),
                         plus the learning curve and the attribute ablation
 analysis/               scripts that compute the reported numbers, figures and tables
@@ -25,7 +25,7 @@ analysis/               scripts that compute the reported numbers, figures and t
 
 ## Data
 
-Each file holds every building footprint of one survey area. Surveyed buildings carry their structural system in `survey_structural_system` and every model feature. The other footprints carry their geometry, `height`, `year`, `code_quality` and `roof_material`, enough for the interactive map to predict them (their footprint indices are computed with footprint_attributes). These unlabeled footprints and their attributes are altered (see the warning above) by `analysis/anonymize_data.py`, which keeps every labeled building unchanged. Their footprint indices were computed on the real data and are stored in the files, so the splits, models and scores are the same with either version. Figures 1 and 2 use the real footprints when a local `data_private/` folder holds them.
+Each file holds every building footprint of one survey area. Surveyed buildings carry their structural system in `survey_structural_system` and every model feature. The other footprints carry their geometry, `height`, `year`, `code_quality` and `roof_material`, enough for the interactive map to predict them (their footprint indices are computed with footprint_attributes). These unlabeled footprints and their attributes are altered (see the warning above), while every labeled building is unchanged. Their footprint indices were computed on the real data and are stored in the files, so the splits, models and scores are the same with either version. Figures 1 and 2 use the real footprints when a local `data_private/` folder holds them.
 
 | City | File | Survey | Labeled buildings |
 |---|---|---|---|
@@ -124,7 +124,7 @@ Open it in [Google Colab](https://colab.research.google.com/github/GeomaticsCami
 
 ## License
 
-Code and data are released under the [European Union Public Licence v1.2](LICENSE) (EUPL-1.2). Background footprints come in part from Microsoft Building Footprints and, in `data/context/`, from OpenStreetMap (© OpenStreetMap contributors), both under the Open Database License (ODbL).
+Code and data are released under the [European Union Public Licence v1.2](LICENSE) (EUPL-1.2). Background footprints come in part from Microsoft Building Footprints and, in `data/context/`, from Overture Maps (OpenStreetMap contributors, Microsoft and Google Open Buildings), under the Open Database License (ODbL).
 
 ## Citation
 

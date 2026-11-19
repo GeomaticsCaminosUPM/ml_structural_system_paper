@@ -37,7 +37,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "figures"
 OUT.mkdir(parents=True, exist_ok=True)
 # Real footprints when available (local only), public versions otherwise:
-# the unlabeled buildings of data/ are altered (analysis/anonymize_data.py).
+# the unlabeled buildings of data/ are altered.
 DATA = ROOT / "data_private" if (ROOT / "data_private").is_dir() else ROOT / "data"
 ZONA1 = DATA / "guatemala" / "zona1.gpkg"
 # Reinforced concrete, corner, L-shaped (convex-hull irregularity 0.25,
@@ -370,12 +370,12 @@ SURVEYS = [  # top row: larger-area surveys; bottom row: single-district surveys
      "Santo Domingo", "Ensanche Quisqueya"),
 ]
 # Gray background of the panels whose survey file does not cover the
-# surroundings: the other survey of the same city, then OpenStreetMap
+# surroundings: the other survey of the same city, then Overture Maps
 # footprints (analysis/context_footprints.py) where neither survey reaches.
-OSM = ROOT / "data" / "context"
+OVERTURE = ROOT / "data" / "context"
 CONTEXT_SOURCES = {
-    "Zona 1": [OSM / "osm_buildings_zona1.gpkg"],
-    "Mata Redonda": [DATA / "san_jose" / "san_jose_sample.gpkg", OSM / "osm_buildings_mata_redonda.gpkg"],
+    "Zona 1": [OVERTURE / "overture_buildings_zona1.gpkg"],
+    "Mata Redonda": [DATA / "san_jose" / "san_jose_sample.gpkg", OVERTURE / "overture_buildings_mata_redonda.gpkg"],
     "Ensanche Quisqueya": [DATA / "santo_domingo" / "santo_domingo_center.gpkg"],
 }
 MAX_CONTEXT_OVERLAP = 0.2  # share of a context footprint already drawn by the survey
