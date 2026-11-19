@@ -2,11 +2,15 @@
 
 For each city, every footprint of its two surveys (surveyed or not) gets:
 - its attributes (height, era, code level, roof, footprint area, shape and
-  neighbor indices). The footprint indices of unsurveyed buildings are computed
-  with footprint_attributes (contacts weighted by height, as for the surveyed
-  ones) and cached in cache/. Surveyed buildings keep the paper's own values.
+  neighbor indices),
 - the prediction of each of the five city models (experiments/<city>), the
   models trained on that city's surveys.
+
+Surveyed buildings are predicted here from the features stored in data/.
+The footprints of unsurveyed buildings in data/ are altered and their height,
+era, code level and roof are shuffled, so their shape and neighbor indices and
+the five predictions were computed beforehand from the real footprints and are
+read from data/map/unsurveyed_<city>.parquet.
 
 Writes docs/map/data/buildings_<city>.pmtiles (vector tiles, layer "buildings")
 and docs/map/data/experiments.json (per experiment, city and model: test
@@ -15,11 +19,9 @@ Needs the experiments step of reproduce_paper.py.
 """
 from __future__ import annotations
 
-import hashlib
 import json
 from pathlib import Path
 
-import footprint_attributes
 import geopandas as gpd
 import numpy as np
 import pandas as pd
@@ -33,11 +35,10 @@ from results_figures import _round_row_to_100
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 EXPERIMENTS = ROOT / "experiments"
-CACHE = ROOT / "cache"
+UNSURVEYED = DATA / "map"  # indices and predictions of unsurveyed buildings, from the real footprints
 OUT = ROOT / "docs" / "map" / "data"
 MAIN = yaml.safe_load((EXPERIMENTS / "main.yaml").read_text())["preprocessing"]
 REPLACEMENTS = MAIN["label_replacements"]
-FOOTPRINT_COLUMNS = [c for c in MAIN["feature_columns"] if c not in ("height", "year", "code_quality", "roof_material")]
 MODEL_KEYS = {"LogisticRegression": "LR", "RandomForest": "RF", "XGBoost": "XGB", "CatBoost": "CB",
               "HistGradientBoosting": "HGB"}
 
@@ -73,6 +74,7 @@ ATTRIBUTES = {  # property name on the map: (column, decimals or None for text)
     "eccentricity": ("EC8_eccentricityRatio", 2),
     "confinement": ("contact_confinementRatio", 2),
 }
+SHAPE_ATTRIBUTES = ["position", "hull", "compact", "eccentricity", "confinement"]  # from the real footprints
 
 
 def final_class(code: object) -> str | None:
@@ -83,49 +85,31 @@ def final_class(code: object) -> str | None:
     return None if out in (None, "None") else out
 
 
-def with_footprint_features(path: Path) -> gpd.GeoDataFrame:
-    """A survey file with the footprint indices of unsurveyed buildings filled in (cached)."""
-    g = gpd.read_file(path)
-    missing = g[FOOTPRINT_COLUMNS].isna().any(axis=1).to_numpy()
-    if not missing.any():
-        return g
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()[:12]  # a new file version gets a new cache
-    cache = CACHE / f"footprint_features_{path.stem}_{digest}.parquet"
-    if cache.exists():
-        computed = pd.read_parquet(cache)
-    else:
-        print(f"computing footprint indices of {missing.sum():,} buildings in {path.name} (cached afterwards)", flush=True)
-        work = g[["geometry"]].copy()
-        work["_h"] = g["height"].fillna(g["height"].median()).to_numpy()  # contacts are weighted by height
-        shape_cols = [c for c in FOOTPRINT_COLUMNS if not c.startswith("contact_") and c != "relativePosition"]
-        computed = footprint_attributes.run(work.reset_index(drop=True), config={
-            "columns": [*shape_cols, "position"], "position": {"height_column": "_h"}})
-        computed = pd.DataFrame(computed[FOOTPRINT_COLUMNS]).assign(id=g["id"].to_numpy())
-        CACHE.mkdir(exist_ok=True)
-        computed.to_parquet(cache)
-    computed = computed.set_index("id").loc[g["id"]]
-    for col in FOOTPRINT_COLUMNS:  # surveyed buildings keep the paper's own values
-        g.loc[missing, col] = computed[col].to_numpy()[missing]
-    return g
-
-
 def city_buildings(city: str) -> gpd.GeoDataFrame:
     """Every footprint of both surveys of a city with its attributes and the city models' predictions."""
+    unsurveyed = pd.read_parquet(UNSURVEYED / f"unsurveyed_{city}.parquet").set_index("k")
+    model_cols = [f"p_{k}" for k in MODEL_KEYS.values()]
     parts = []
     for survey, path in CITIES[city][2]:
-        g = with_footprint_features(DATA / path)
+        g = gpd.read_file(DATA / path)
         g["k"] = g["dataset"] + ":" + g["id"].astype(str)
         g["survey"] = survey
         g["cls"] = g["survey_structural_system"].map(final_class)
         g["area"] = g.geometry.area.round(0)  # footprint size, m² (the files are in metric coordinates)
-        pred = predict(EXPERIMENTS / city / "config.yaml", g.drop(columns=["survey_structural_system"]))
+        surveyed = g["survey_structural_system"].notna()
+        pred = predict(EXPERIMENTS / city / "config.yaml", g[surveyed].drop(columns=["survey_structural_system"]))
         for model, key in MODEL_KEYS.items():
             g[f"p_{key}"] = g["k"].map(pred.set_index("k")[f"pred_{model}"])
         for name, (col, dec) in ATTRIBUTES.items():
-            g[name] = g[col].round(dec) if dec is not None else g[col]
-        cols = ["k", "survey", "cls", "area", *ATTRIBUTES, *[f"p_{k}" for k in MODEL_KEYS.values()], "geometry"]
+            g[name] = g[col].round(dec) if dec is not None else g[col]  # after predicting: rounds height in place
+        known = unsurveyed.reindex(g.loc[~surveyed, "k"])
+        assert known["position"].notna().all(), f"{path}: unsurveyed buildings missing from {UNSURVEYED}"
+        for col in [*SHAPE_ATTRIBUTES, *model_cols]:
+            g.loc[~surveyed, col] = known[col].to_numpy()
+        cols = ["k", "survey", "cls", "area", *ATTRIBUTES, *model_cols, "geometry"]
         parts.append(g[cols].to_crs(4326))
-        print(f"{CITIES[city][0]}, {survey}: {len(g):,} buildings, {len(pred):,} predicted", flush=True)
+        print(f"{CITIES[city][0]}, {survey}: {len(g):,} buildings, {int(g[model_cols[0]].notna().sum()):,} predicted",
+              flush=True)
     return pd.concat(parts, ignore_index=True)
 
 
