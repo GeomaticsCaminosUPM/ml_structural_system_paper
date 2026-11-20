@@ -31,10 +31,10 @@ notebook = ["folium>=0.17", "ipywidgets>=8.1", "ipykernel>=6.29"]
 
 [tool.uv]
 package = false
-# The footprint_attributes commit used for the paper (Figure 2 uses its API).
-override-dependencies = [
-    "footprint-attributes @ git+https://github.com/GeomaticsCaminosUPM/footprint_attributes@6b85854823e73b123977a70fdb50c32002c22005",
-]
+# The footprint_attributes version used for the paper's footprint indices
+# (analysis/footprint_features.py) and Figure 2.
+override-dependencies = ["footprint-attributes>=1.1.0"]
 
 [tool.uv.sources]
 ml-structural-system = { path = "../../../code/ml_structural_system", editable = true }
+footprint-attributes = { path = "../../../code/footprint_attributes", editable = true }

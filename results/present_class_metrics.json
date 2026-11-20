@@ -1,16 +1,16 @@
 {
   "base_cities": {
     "Guatemala": {
-      "best_model": "HistGradientBoosting",
-      "macro_f1": 0.6222757640390953
+      "best_model": "CatBoost",
+      "macro_f1": 0.5826415320327949
     },
     "San Jose": {
-      "best_model": "XGBoost",
-      "macro_f1": 0.7005344093918956
+      "best_model": "CatBoost",
+      "macro_f1": 0.7128755017667521
     },
     "Santo Domingo": {
-      "best_model": "XGBoost",
-      "macro_f1": 0.9612307692307692
+      "best_model": "RandomForest",
+      "macro_f1": 0.9443399960419552
     }
   },
   "transfer": {
@@ -21,39 +21,39 @@
       ],
       "ranking": [
         {
-          "macro_f1": 0.725829452457035,
-          "accuracy": 0.9108065603235228,
-          "cohen_kappa": 0.45391009442128527,
-          "tss_macro": 0.385992658421056,
+          "macro_f1": 0.7287286285990244,
+          "accuracy": 0.9085598741855763,
+          "cohen_kappa": 0.45884789459172604,
+          "tss_macro": 0.4036701587521838,
           "model": "RandomForest"
         },
         {
-          "macro_f1": 0.7206798155756616,
-          "accuracy": 0.919793304875309,
-          "cohen_kappa": 0.44817159461037226,
-          "tss_macro": 0.33914962146297567,
+          "macro_f1": 0.7200234597662352,
+          "accuracy": 0.9202426421028982,
+          "cohen_kappa": 0.4472399340510108,
+          "tss_macro": 0.335981305463926,
           "model": "LogisticRegression"
         },
         {
-          "macro_f1": 0.7055739584902155,
-          "accuracy": 0.9099078858683441,
-          "cohen_kappa": 0.41560405228111885,
-          "tss_macro": 0.33357983967101656,
+          "macro_f1": 0.70306368482008,
+          "accuracy": 0.9114805661649068,
+          "cohen_kappa": 0.41167554786790783,
+          "tss_macro": 0.32249073367434256,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.6989571432488507,
+          "accuracy": 0.9085598741855763,
+          "cohen_kappa": 0.40276168287000336,
+          "tss_macro": 0.32105374363761374,
           "model": "HistGradientBoosting"
         },
         {
-          "macro_f1": 0.7034682459955044,
-          "accuracy": 0.9144012581442372,
-          "cohen_kappa": 0.4139176631232109,
-          "tss_macro": 0.3147481220316748,
+          "macro_f1": 0.6984160357865825,
+          "accuracy": 0.9128285778476747,
+          "cohen_kappa": 0.4038693874620468,
+          "tss_macro": 0.3074780246695554,
           "model": "CatBoost"
-        },
-        {
-          "macro_f1": 0.6750706786477483,
-          "accuracy": 0.9110312289373175,
-          "cohen_kappa": 0.360747346293951,
-          "tss_macro": 0.2614018379176153,
-          "model": "XGBoost"
         }
       ],
       "majority_baseline": {
@@ -74,10 +74,10 @@
         "M"
       ],
       "delta_f1": {
-        "transfer_f1_shared": 0.725829452457035,
-        "base_model": "HistGradientBoosting",
-        "base_f1_shared": 0.7442244568694539,
-        "delta": -0.018395004412418925
+        "transfer_f1_shared": 0.7287286285990244,
+        "base_model": "CatBoost",
+        "base_f1_shared": 0.7118001358870301,
+        "delta": 0.01692849271199437
       }
     },
     "loo_san_jose": {
@@ -88,39 +88,39 @@
       ],
       "ranking": [
         {
-          "macro_f1": 0.4878551054411759,
-          "accuracy": 0.890290973871734,
-          "cohen_kappa": 0.21796754989755462,
-          "tss_macro": 0.21623776798248104,
+          "macro_f1": 0.47578867068304515,
+          "accuracy": 0.9268111638954869,
+          "cohen_kappa": 0.2630023564586452,
+          "tss_macro": 0.1936968848982112,
           "model": "LogisticRegression"
         },
         {
-          "macro_f1": 0.47236780054739796,
-          "accuracy": 0.8043349168646081,
-          "cohen_kappa": 0.12359823859795438,
-          "tss_macro": 0.329610403166029,
-          "model": "RandomForest"
-        },
-        {
-          "macro_f1": 0.4536827145958657,
-          "accuracy": 0.8720308788598575,
-          "cohen_kappa": 0.1757954557713588,
-          "tss_macro": 0.35404721697113817,
+          "macro_f1": 0.46236196336135144,
+          "accuracy": 0.8871733966745843,
+          "cohen_kappa": 0.18571229973096504,
+          "tss_macro": 0.17845900524426153,
           "model": "XGBoost"
         },
         {
-          "macro_f1": 0.44649026659959046,
-          "accuracy": 0.8261579572446556,
-          "cohen_kappa": 0.11597760674810098,
-          "tss_macro": 0.3002081917528106,
+          "macro_f1": 0.45709641969582665,
+          "accuracy": 0.8380344418052257,
+          "cohen_kappa": 0.13480080574807773,
+          "tss_macro": 0.3223482488541853,
           "model": "HistGradientBoosting"
         },
         {
-          "macro_f1": 0.445649373600292,
-          "accuracy": 0.7979513064133017,
-          "cohen_kappa": 0.10053785067726806,
-          "tss_macro": 0.28746621663533395,
+          "macro_f1": 0.4498829891051668,
+          "accuracy": 0.7997327790973872,
+          "cohen_kappa": 0.10623588565313524,
+          "tss_macro": 0.29731187687505023,
           "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.4429042922622209,
+          "accuracy": 0.7627672209026128,
+          "cohen_kappa": 0.08251958060972009,
+          "tss_macro": 0.2656451404781463,
+          "model": "RandomForest"
         }
       ],
       "majority_baseline": {
@@ -142,10 +142,10 @@
         "M"
       ],
       "delta_f1": {
-        "transfer_f1_shared": 0.7317826581617638,
-        "base_model": "XGBoost",
-        "base_f1_shared": 0.7960846329557678,
-        "delta": -0.06430197479400401
+        "transfer_f1_shared": 0.7136830060245677,
+        "base_model": "CatBoost",
+        "base_f1_shared": 0.8217885001748806,
+        "delta": -0.1081054941503129
       }
     },
     "loo_santo_domingo": {
@@ -156,38 +156,38 @@
       ],
       "ranking": [
         {
-          "macro_f1": 0.5745194788441692,
-          "accuracy": 0.8717683557394003,
-          "cohen_kappa": 0.7156826480770142,
-          "tss_macro": 0.4956985337234257,
+          "macro_f1": 0.5749630470009617,
+          "accuracy": 0.8748707342295761,
+          "cohen_kappa": 0.718639160681093,
+          "tss_macro": 0.4908060078856553,
           "model": "XGBoost"
         },
         {
-          "macro_f1": 0.5629983710332943,
-          "accuracy": 0.8645294725956567,
-          "cohen_kappa": 0.6848085990470385,
-          "tss_macro": 0.4513193666817559,
-          "model": "HistGradientBoosting"
-        },
-        {
-          "macro_f1": 0.5454802762826921,
-          "accuracy": 0.8262668045501551,
-          "cohen_kappa": 0.6389481544698101,
-          "tss_macro": 0.4721499795707483,
+          "macro_f1": 0.5586238743939044,
+          "accuracy": 0.8469493278179938,
+          "cohen_kappa": 0.6758928369227981,
+          "tss_macro": 0.4898056412725944,
           "model": "LogisticRegression"
         },
         {
-          "macro_f1": 0.5319521073235504,
-          "accuracy": 0.8097207859358841,
-          "cohen_kappa": 0.5996832167895102,
-          "tss_macro": 0.43773450793008223,
+          "macro_f1": 0.5567726327667896,
+          "accuracy": 0.8428128231644261,
+          "cohen_kappa": 0.6678260122804758,
+          "tss_macro": 0.48496847058842724,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.533434963520626,
+          "accuracy": 0.8086866597724922,
+          "cohen_kappa": 0.5948669636366519,
+          "tss_macro": 0.4313973770899784,
           "model": "RandomForest"
         },
         {
-          "macro_f1": 0.497430908491141,
-          "accuracy": 0.8014477766287487,
-          "cohen_kappa": 0.4966695674097449,
-          "tss_macro": 0.30088012891189747,
+          "macro_f1": 0.5259682073307794,
+          "accuracy": 0.796277145811789,
+          "cohen_kappa": 0.5515623602303169,
+          "tss_macro": 0.3844815752431796,
           "model": "CatBoost"
         }
       ],
@@ -210,10 +210,10 @@
         "M"
       ],
       "delta_f1": {
-        "transfer_f1_shared": 0.8617792182662538,
-        "base_model": "XGBoost",
-        "base_f1_shared": 0.9612307692307692,
-        "delta": -0.09945155096451541
+        "transfer_f1_shared": 0.8624445705014425,
+        "base_model": "RandomForest",
+        "base_f1_shared": 0.9443399960419552,
+        "delta": -0.08189542554051266
       }
     },
     "zona1_to_zona10": {
@@ -223,39 +223,39 @@
       ],
       "ranking": [
         {
-          "macro_f1": 0.6298712948422089,
-          "accuracy": 0.7803857773646293,
-          "cohen_kappa": 0.28756393394197866,
-          "tss_macro": 0.4714652900177634,
-          "model": "HistGradientBoosting"
-        },
-        {
-          "macro_f1": 0.5522399153268005,
-          "accuracy": 0.6583778759005345,
-          "cohen_kappa": 0.200691215123332,
-          "tss_macro": 0.45620549081608486,
+          "macro_f1": 0.6881782693735135,
+          "accuracy": 0.9005345108064141,
+          "cohen_kappa": 0.3787866113302858,
+          "tss_macro": 0.3225722315546129,
           "model": "XGBoost"
         },
         {
-          "macro_f1": 0.5378544368045266,
-          "accuracy": 0.6490820357889844,
-          "cohen_kappa": 0.173259775529773,
-          "tss_macro": 0.39114251441413916,
-          "model": "CatBoost"
+          "macro_f1": 0.6612600838425411,
+          "accuracy": 0.8085056937020684,
+          "cohen_kappa": 0.34236402127628796,
+          "tss_macro": 0.5302237322566488,
+          "model": "LogisticRegression"
         },
         {
-          "macro_f1": 0.503520637554067,
-          "accuracy": 0.5856379270276552,
-          "cohen_kappa": 0.15562032982785534,
-          "tss_macro": 0.4061713656721735,
+          "macro_f1": 0.6073097662224928,
+          "accuracy": 0.7571461770857542,
+          "cohen_kappa": 0.2505562117633059,
+          "tss_macro": 0.43182899281418674,
           "model": "RandomForest"
         },
         {
-          "macro_f1": 0.3101176161377226,
-          "accuracy": 0.31954450383453403,
-          "cohen_kappa": 0.054456619562548436,
-          "tss_macro": 0.2084345406204111,
-          "model": "LogisticRegression"
+          "macro_f1": 0.4835835772419531,
+          "accuracy": 0.570764582849175,
+          "cohen_kappa": 0.11938208145241591,
+          "tss_macro": 0.3094909263885026,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.34664713359704913,
+          "accuracy": 0.36811526841738323,
+          "cohen_kappa": 0.055189555921550615,
+          "tss_macro": 0.19631379506070146,
+          "model": "HistGradientBoosting"
         }
       ],
       "majority_baseline": {
@@ -276,10 +276,10 @@
         "M"
       ],
       "delta_f1": {
-        "transfer_f1_shared": 0.6298712948422089,
-        "base_model": "HistGradientBoosting",
-        "base_f1_shared": 0.7442244568694539,
-        "delta": -0.11435316202724499
+        "transfer_f1_shared": 0.6881782693735135,
+        "base_model": "CatBoost",
+        "base_f1_shared": 0.7118001358870301,
+        "delta": -0.02362186651351661
       }
     },
     "mata_redonda_to_san_jose_sample": {
@@ -289,38 +289,38 @@
       ],
       "ranking": [
         {
-          "macro_f1": 0.7095090020643341,
-          "accuracy": 0.9431670984455959,
-          "cohen_kappa": 0.42088244408587216,
-          "tss_macro": 0.5507325207031919,
+          "macro_f1": 0.7491446971752368,
+          "accuracy": 0.9625971502590673,
+          "cohen_kappa": 0.49829018831138694,
+          "tss_macro": 0.4953147339609252,
           "model": "HistGradientBoosting"
         },
         {
-          "macro_f1": 0.698298767648337,
-          "accuracy": 0.9441386010362695,
-          "cohen_kappa": 0.3978050203263981,
-          "tss_macro": 0.4920301887320102,
-          "model": "RandomForest"
-        },
-        {
-          "macro_f1": 0.6957126126136188,
-          "accuracy": 0.9357189119170984,
-          "cohen_kappa": 0.3947065160825889,
-          "tss_macro": 0.5589054312451278,
-          "model": "CatBoost"
-        },
-        {
-          "macro_f1": 0.6936191548052522,
-          "accuracy": 0.9545012953367875,
-          "cohen_kappa": 0.38724101405267985,
-          "tss_macro": 0.3833871086144156,
+          "macro_f1": 0.6545206077187874,
+          "accuracy": 0.9204987046632125,
+          "cohen_kappa": 0.31494356740735385,
+          "tss_macro": 0.48733478520766127,
           "model": "LogisticRegression"
         },
         {
-          "macro_f1": 0.6716739379218907,
-          "accuracy": 0.9188795336787565,
-          "cohen_kappa": 0.3510754672661991,
-          "tss_macro": 0.5851720051596305,
+          "macro_f1": 0.6396447123263012,
+          "accuracy": 0.8916774611398963,
+          "cohen_kappa": 0.2964604934344731,
+          "tss_macro": 0.6086168624832644,
+          "model": "CatBoost"
+        },
+        {
+          "macro_f1": 0.6347342779607816,
+          "accuracy": 0.8894106217616581,
+          "cohen_kappa": 0.28726597354532046,
+          "tss_macro": 0.5943153177402496,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.6346771326421548,
+          "accuracy": 0.8903821243523317,
+          "cohen_kappa": 0.28666422811720316,
+          "tss_macro": 0.5873644985265689,
           "model": "XGBoost"
         }
       ],
@@ -342,10 +342,10 @@
         "M"
       ],
       "delta_f1": {
-        "transfer_f1_shared": 0.7095090020643341,
-        "base_model": "XGBoost",
-        "base_f1_shared": 0.7960846329557678,
-        "delta": -0.08657563089143372
+        "transfer_f1_shared": 0.7491446971752368,
+        "base_model": "CatBoost",
+        "base_f1_shared": 0.8217885001748806,
+        "delta": -0.07264380299964379
       }
     },
     "ensanche_quisquella_to_santo_domingo_center": {
@@ -355,39 +355,39 @@
       ],
       "ranking": [
         {
-          "macro_f1": 0.9228317659352142,
-          "accuracy": 0.933649289099526,
-          "cohen_kappa": 0.8462419321257547,
-          "tss_macro": 0.8122501998401279,
-          "model": "LogisticRegression"
-        },
-        {
-          "macro_f1": 0.9176574654629653,
+          "macro_f1": 0.9221919020576739,
           "accuracy": 0.9289099526066351,
-          "cohen_kappa": 0.8358317340111001,
-          "tss_macro": 0.8050559552358112,
+          "cohen_kappa": 0.8444793867623213,
+          "tss_macro": 0.8586131095123901,
           "model": "XGBoost"
         },
         {
-          "macro_f1": 0.9110642781875659,
-          "accuracy": 0.9241706161137441,
-          "cohen_kappa": 0.823042247615054,
-          "tss_macro": 0.78447242206235,
-          "model": "CatBoost"
+          "macro_f1": 0.9189396849788705,
+          "accuracy": 0.9289099526066351,
+          "cohen_kappa": 0.8380825702153782,
+          "tss_macro": 0.8184452438049559,
+          "model": "LogisticRegression"
+        },
+        {
+          "macro_f1": 0.9169748957267647,
+          "accuracy": 0.9289099526066351,
+          "cohen_kappa": 0.8346826847740925,
+          "tss_macro": 0.7983613109512391,
+          "model": "RandomForest"
+        },
+        {
+          "macro_f1": 0.9059048818236668,
+          "accuracy": 0.919431279620853,
+          "cohen_kappa": 0.8126403760773048,
+          "tss_macro": 0.7772781774580335,
+          "model": "HistGradientBoosting"
         },
         {
           "macro_f1": 0.9050982882239331,
           "accuracy": 0.919431279620853,
           "cohen_kappa": 0.811319762242912,
           "tss_macro": 0.7705835331734612,
-          "model": "HistGradientBoosting"
-        },
-        {
-          "macro_f1": 0.8929934605631924,
-          "accuracy": 0.909952606635071,
-          "cohen_kappa": 0.7876251523017428,
-          "tss_macro": 0.7428057553956835,
-          "model": "RandomForest"
+          "model": "CatBoost"
         }
       ],
       "majority_baseline": {
@@ -408,10 +408,10 @@
         "M"
       ],
       "delta_f1": {
-        "transfer_f1_shared": 0.9228317659352142,
-        "base_model": "XGBoost",
-        "base_f1_shared": 0.9612307692307692,
-        "delta": -0.03839900329555501
+        "transfer_f1_shared": 0.9221919020576739,
+        "base_model": "RandomForest",
+        "base_f1_shared": 0.9443399960419552,
+        "delta": -0.022148093984281303
       }
     }
   },
@@ -426,19 +426,19 @@
       ],
       "models": {
         "LogisticRegression": {
-          "macro_f1": 0.42499781578767803
+          "macro_f1": 0.4088847774226309
         },
         "RandomForest": {
-          "macro_f1": 0.4543446672478931
+          "macro_f1": 0.436349948307086
         },
         "XGBoost": {
-          "macro_f1": 0.4392932435211847
+          "macro_f1": 0.4732705299314296
         },
         "CatBoost": {
-          "macro_f1": 0.4236256198182664
+          "macro_f1": 0.41734565982029426
         },
         "HistGradientBoosting": {
-          "macro_f1": 0.40787384196851517
+          "macro_f1": 0.4391374968984626
         }
       }
     },
@@ -451,19 +451,19 @@
       ],
       "models": {
         "LogisticRegression": {
-          "macro_f1": 0.652789676610032
+          "macro_f1": 0.6390918776295775
         },
         "RandomForest": {
-          "macro_f1": 0.6646170641554944
+          "macro_f1": 0.6819499962987638
         },
         "XGBoost": {
-          "macro_f1": 0.6668461285549893
+          "macro_f1": 0.6939313991079491
         },
         "CatBoost": {
-          "macro_f1": 0.6770172131187207
+          "macro_f1": 0.6946950669425235
         },
         "HistGradientBoosting": {
-          "macro_f1": 0.6893928295807705
+          "macro_f1": 0.6193816130273636
         }
       }
     },
@@ -475,19 +475,19 @@
       ],
       "models": {
         "LogisticRegression": {
-          "macro_f1": 0.8911121451838064
+          "macro_f1": 0.8928571428571428
         },
         "RandomForest": {
-          "macro_f1": 0.8376161837069437
+          "macro_f1": 0.8554785266561828
         },
         "XGBoost": {
-          "macro_f1": 0.9432895965403705
+          "macro_f1": 0.95196982993762
         },
         "CatBoost": {
-          "macro_f1": 0.9196144488115291
+          "macro_f1": 0.90423598490144
         },
         "HistGradientBoosting": {
-          "macro_f1": 0.9312169312169312
+          "macro_f1": 0.9101921470342522
         }
       }
     }
@@ -500,14 +500,14 @@
         "M"
       ],
       "models": {
-        "LogisticRegression": 0.5666637543835708,
-        "RandomForest": 0.6057928896638575,
-        "XGBoost": 0.585724324694913,
-        "CatBoost": 0.5648341597576886,
-        "HistGradientBoosting": 0.5438317892913536
+        "LogisticRegression": 0.5451797032301745,
+        "RandomForest": 0.5817999310761147,
+        "XGBoost": 0.6310273732419062,
+        "CatBoost": 0.5564608797603924,
+        "HistGradientBoosting": 0.5855166625312834
       },
-      "city_best_model": "HistGradientBoosting",
-      "city_best_f1": 0.6222757640390953
+      "city_best_model": "CatBoost",
+      "city_best_f1": 0.5826415320327949
     },
     "San Jose": {
       "shared_classes": [
@@ -516,14 +516,14 @@
         "S"
       ],
       "models": {
-        "LogisticRegression": 0.652789676610032,
-        "RandomForest": 0.6646170641554944,
-        "XGBoost": 0.6668461285549893,
-        "CatBoost": 0.6770172131187207,
-        "HistGradientBoosting": 0.6893928295807705
+        "LogisticRegression": 0.6390918776295775,
+        "RandomForest": 0.6819499962987638,
+        "XGBoost": 0.6939313991079491,
+        "CatBoost": 0.6946950669425235,
+        "HistGradientBoosting": 0.6193816130273636
       },
-      "city_best_model": "XGBoost",
-      "city_best_f1": 0.7005344093918956
+      "city_best_model": "CatBoost",
+      "city_best_f1": 0.7128755017667521
     },
     "Santo Domingo": {
       "shared_classes": [
@@ -531,14 +531,14 @@
         "M"
       ],
       "models": {
-        "LogisticRegression": 0.8911121451838064,
-        "RandomForest": 0.8376161837069437,
-        "XGBoost": 0.9432895965403705,
-        "CatBoost": 0.9196144488115291,
-        "HistGradientBoosting": 0.9312169312169312
+        "LogisticRegression": 0.8928571428571428,
+        "RandomForest": 0.8554785266561828,
+        "XGBoost": 0.95196982993762,
+        "CatBoost": 0.90423598490144,
+        "HistGradientBoosting": 0.9101921470342522
       },
-      "city_best_model": "XGBoost",
-      "city_best_f1": 0.9612307692307692
+      "city_best_model": "RandomForest",
+      "city_best_f1": 0.9443399960419552
     }
   }
 }

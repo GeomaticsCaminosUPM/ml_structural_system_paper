@@ -1,92 +1,92 @@
 {
   "guatemala": {
     "n": 892,
-    "error_rate": 0.11210762331838565,
-    "share_nonunanimous": 0.18385650224215247,
-    "error_rate_unanimous": 0.07280219780219781,
-    "error_rate_nonunanimous": 0.2865853658536585,
-    "auc_entropy": 0.6662941919191919,
-    "share_errors_in_nonunanimous": 0.47
+    "error_rate": 0.1367713004484305,
+    "share_nonunanimous": 0.1827354260089686,
+    "error_rate_unanimous": 0.07818930041152264,
+    "error_rate_nonunanimous": 0.3987730061349693,
+    "auc_entropy": 0.7100809027038536,
+    "share_errors_in_nonunanimous": 0.5327868852459017
   },
   "san_jose": {
     "n": 1354,
-    "error_rate": 0.05096011816838995,
-    "share_nonunanimous": 0.12850812407680945,
-    "error_rate_unanimous": 0.01694915254237288,
-    "error_rate_nonunanimous": 0.28160919540229884,
-    "auc_entropy": 0.8119663903456832,
-    "share_errors_in_nonunanimous": 0.7101449275362319
+    "error_rate": 0.055391432791728215,
+    "share_nonunanimous": 0.1189069423929099,
+    "error_rate_unanimous": 0.019279128248113998,
+    "error_rate_nonunanimous": 0.32298136645962733,
+    "auc_entropy": 0.8142663539223352,
+    "share_errors_in_nonunanimous": 0.6933333333333334
   },
   "santo_domingo": {
     "n": 225,
-    "error_rate": 0.04,
-    "share_nonunanimous": 0.08888888888888889,
-    "error_rate_unanimous": 0.004878048780487805,
-    "error_rate_nonunanimous": 0.4,
-    "auc_entropy": 0.9156378600823045,
-    "share_errors_in_nonunanimous": 0.8888888888888888
+    "error_rate": 0.05333333333333334,
+    "share_nonunanimous": 0.10222222222222223,
+    "error_rate_unanimous": 0.009900990099009901,
+    "error_rate_nonunanimous": 0.43478260869565216,
+    "auc_entropy": 0.8949530516431926,
+    "share_errors_in_nonunanimous": 0.8333333333333334
   },
   "loo_guatemala": {
     "n": 4451,
-    "error_rate": 0.08649741631094136,
-    "share_nonunanimous": 0.06021118849696697,
-    "error_rate_unanimous": 0.062156347119292375,
-    "error_rate_nonunanimous": 0.4664179104477612,
-    "auc_entropy": 0.6455254533955961,
-    "share_errors_in_nonunanimous": 0.3246753246753247
+    "error_rate": 0.08694675353853067,
+    "share_nonunanimous": 0.06403055493147607,
+    "error_rate_unanimous": 0.06216994719155065,
+    "error_rate_nonunanimous": 0.44912280701754387,
+    "auc_entropy": 0.6471132423853995,
+    "share_errors_in_nonunanimous": 0.330749354005168
   },
   "loo_san_jose": {
     "n": 6736,
-    "error_rate": 0.16270783847980996,
-    "share_nonunanimous": 0.21808194774346792,
-    "error_rate_unanimous": 0.0643630149990507,
-    "error_rate_nonunanimous": 0.5153165418652145,
-    "auc_entropy": 0.7840550907231971,
-    "share_errors_in_nonunanimous": 0.6906934306569343
+    "error_rate": 0.15959026128266032,
+    "share_nonunanimous": 0.24153800475059384,
+    "error_rate_unanimous": 0.04756312389900176,
+    "error_rate_nonunanimous": 0.5113706207744315,
+    "auc_entropy": 0.8233680465691411,
+    "share_errors_in_nonunanimous": 0.773953488372093
   },
   "loo_santo_domingo": {
     "n": 967,
-    "error_rate": 0.12099276111685625,
-    "share_nonunanimous": 0.3340227507755946,
-    "error_rate_unanimous": 0.06521739130434782,
-    "error_rate_nonunanimous": 0.23219814241486067,
-    "auc_entropy": 0.6944645550527904,
-    "share_errors_in_nonunanimous": 0.6410256410256411
+    "error_rate": 0.14167528438469493,
+    "share_nonunanimous": 0.29162357807652534,
+    "error_rate_unanimous": 0.072992700729927,
+    "error_rate_nonunanimous": 0.30851063829787234,
+    "auc_entropy": 0.7231334095506112,
+    "share_errors_in_nonunanimous": 0.635036496350365
   },
   "zona1_to_zona10": {
     "n": 4303,
-    "error_rate": 0.3551010922612131,
-    "share_nonunanimous": 0.6634905879618871,
-    "error_rate_unanimous": 0.3335635359116022,
-    "error_rate_nonunanimous": 0.3660245183887916,
-    "auc_entropy": 0.538146195934154,
-    "share_errors_in_nonunanimous": 0.6839005235602095
+    "error_rate": 0.2354171508250058,
+    "share_nonunanimous": 0.7645828491749942,
+    "error_rate_unanimous": 0.1016781836130306,
+    "error_rate_nonunanimous": 0.2765957446808511,
+    "auc_entropy": 0.6688265316838545,
+    "share_errors_in_nonunanimous": 0.8983218163869694
   },
   "mata_redonda_to_san_jose_sample": {
     "n": 6176,
-    "error_rate": 0.052461139896373056,
-    "share_nonunanimous": 0.10071243523316062,
-    "error_rate_unanimous": 0.020885848037450486,
-    "error_rate_nonunanimous": 0.33440514469453375,
-    "auc_entropy": 0.7890659941098538,
-    "share_errors_in_nonunanimous": 0.6419753086419753
+    "error_rate": 0.07237694300518134,
+    "share_nonunanimous": 0.18167098445595856,
+    "error_rate_unanimous": 0.022556390977443608,
+    "error_rate_nonunanimous": 0.2967914438502674,
+    "auc_entropy": 0.8175285050391217,
+    "share_errors_in_nonunanimous": 0.7449664429530202
   },
   "ensanche_quisquella_to_santo_domingo_center": {
     "n": 211,
     "error_rate": 0.07582938388625593,
-    "share_nonunanimous": 0.0947867298578199,
-    "error_rate_unanimous": 0.031413612565445025,
-    "error_rate_nonunanimous": 0.5,
-    "auc_entropy": 0.7852564102564101,
+    "share_nonunanimous": 0.10900473933649289,
+    "error_rate_unanimous": 0.031914893617021274,
+    "error_rate_nonunanimous": 0.43478260869565216,
+    "auc_entropy": 0.7889423076923077,
     "share_errors_in_nonunanimous": 0.625
   },
   "all_cities": {
     "n": 2550,
-    "error_rate": 0.07176470588235294,
-    "share_nonunanimous": 0.12588235294117647,
-    "error_rate_unanimous": 0.03992821893225662,
-    "error_rate_nonunanimous": 0.29283489096573206,
-    "auc_entropy": 0.7149893457628919,
-    "share_errors_in_nonunanimous": 0.5136612021857924
+    "error_rate": 0.07254901960784314,
+    "share_nonunanimous": 0.11803921568627451,
+    "error_rate_unanimous": 0.044464206313917294,
+    "error_rate_nonunanimous": 0.2823920265780731,
+    "auc_entropy": 0.6906325352836981,
+    "share_errors_in_nonunanimous": 0.4594594594594595
   }
 }

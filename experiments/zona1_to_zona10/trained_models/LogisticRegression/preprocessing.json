@@ -105,7 +105,8 @@
     "roof_material_metallic",
     "relativePosition_corner",
     "relativePosition_isolated",
-    "relativePosition_lateral"
+    "relativePosition_lateral",
+    "relativePosition_torque"
   ],
   "label_mapping": {
     "CR": 0,

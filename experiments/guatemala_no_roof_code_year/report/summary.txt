@@ -1,29 +1,29 @@
 Experiment config: /home/miguel/Documents/Proyectos/SismicaUPM/StructuralSystemPaper/code/ml_structural_system_paper/experiments/guatemala_no_roof_code_year
 
 === Test Summary ===
-LogisticRegression   macro_f1=0.5413  acc=0.8666  kappa=0.3620  tss=0.2864
-RandomForest         macro_f1=0.6098  acc=0.8655  kappa=0.4373  tss=0.4170
-XGBoost              macro_f1=0.5713  acc=0.8509  kappa=0.3934  tss=0.3649
-CatBoost             macro_f1=0.6156  acc=0.8756  kappa=0.4585  tss=0.4073
-HistGradientBoosting macro_f1=0.5984  acc=0.8812  kappa=0.4264  tss=0.3441
+LogisticRegression   macro_f1=0.5284  acc=0.8733  kappa=0.3504  tss=0.2552
+RandomForest         macro_f1=0.5944  acc=0.8834  kappa=0.4340  tss=0.3408
+XGBoost              macro_f1=0.5599  acc=0.8655  kappa=0.3842  tss=0.3259
+CatBoost             macro_f1=0.5934  acc=0.8744  kappa=0.4378  tss=0.3687
+HistGradientBoosting macro_f1=0.5954  acc=0.8700  kappa=0.4467  tss=0.3983
 
 === Assessment Summary ===
-Inter-model agreement  Fleiss' Kappa=0.6683  95% CI=[0.6174, 0.7164]  contested=0.1%
-Soft ensemble          macro_f1=0.5798  (5 models)
+Inter-model agreement  Fleiss' Kappa=0.6791  95% CI=[0.6231, 0.7277]  contested=0.2%
+Soft ensemble          macro_f1=0.5707  (5 models)
 
 === Feature Importance (consensus across models) ===
-   1. height                               mean rank=7.4
-   2. GNDTII_beta4_eccentricityRatio       mean rank=10.0
-   3. GNDTII_beta2_setbackRatio            mean rank=10.2
-   4. NTC23_setbackRatio                   mean rank=10.2
-   5. ASCE7_parallelityAngle               mean rank=10.6
-   6. ASCE7_holeRatio                      mean rank=11.0
-   7. contact_confinementRatio             mean rank=11.2
-   8. relativePosition_isolated            mean rank=11.4
-   9. slenderness_bbox                     mean rank=11.4
-  10. convex_hull_irregularity             mean rank=11.6
-  11. inertia_circle_ratio                 mean rank=11.8
-  12. slenderness_inertia                  mean rank=12.2
-  13. contact_angle                        mean rank=12.6
-  14. EC8_eccentricityRatio                mean rank=13.6
-  15. relativePosition_corner              mean rank=13.8
+   1. height                               mean rank=7.8
+   2. ASCE7_parallelityAngle               mean rank=8.4
+   3. slenderness_inertia                  mean rank=9.2
+   4. contact_force                        mean rank=9.2
+   5. GNDTII_beta4_eccentricityRatio       mean rank=9.4
+   6. EC8_compactness                      mean rank=10.4
+   7. NTC23_setbackRatio                   mean rank=10.8
+   8. contact_angle                        mean rank=11.6
+   9. EC8_eccentricityRatio                mean rank=12.0
+  10. EC8_radiusRatio                      mean rank=13.0
+  11. GNDTII_beta6_setbackSlenderness      mean rank=13.2
+  12. relativePosition_lateral             mean rank=13.4
+  13. slenderness_bbox                     mean rank=13.8
+  14. convex_hull_irregularity             mean rank=14.0
+  15. relativePosition_isolated            mean rank=14.2

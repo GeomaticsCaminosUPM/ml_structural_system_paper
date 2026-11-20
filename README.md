@@ -25,7 +25,7 @@ analysis/               scripts that compute the reported numbers, figures and t
 
 ## Data
 
-Each file holds every building footprint of one survey area. Surveyed buildings carry their structural system in `survey_structural_system` and every model feature. The other footprints carry their geometry, `height`, `year`, `code_quality` and `roof_material`, enough for the interactive map to predict them (their footprint indices are computed with footprint_attributes). These unlabeled footprints and their attributes are altered (see the warning above), while every labeled building is unchanged. Their footprint indices were computed on the real data and are stored in the files, so the splits, models and scores are the same with either version. Figures 1 and 2 use the real footprints when a local `data_private/` folder holds them.
+Each file holds every building footprint of one survey area. Surveyed buildings carry their structural system in `survey_structural_system` and every model feature. The other footprints carry their geometry, `height`, `year`, `code_quality` and `roof_material`. These unlabeled footprints and their attributes are altered (see the warning above), while every labeled building is unchanged. The footprint indices of the labeled buildings were computed on the real data, where all their neighbors are in place, and are stored in the files, so the splits, models and scores are the same with either version. Those of the unlabeled buildings were computed on their altered footprints, so the map's predictions for them do not describe the real buildings. Figures 1 and 2 use the real footprints when a local `data_private/` folder holds them.
 
 | City | File | Survey | Labeled buildings |
 |---|---|---|---|
@@ -36,7 +36,7 @@ Each file holds every building footprint of one survey area. Surveyed buildings 
 | Santo Domingo | `santo_domingo/santo_domingo_center.gpkg` | citywide sample | 211 |
 | Santo Domingo | `santo_domingo/ensanche_quisquella.gpkg` | Ensanche Quisqueya | 758 |
 
-Columns: `id`, `dataset` (file name), `city`, `block_id` (group of touching buildings), `survey_structural_system`, the 27 model features and `geometry`. The features are `height` (m), `year` (construction era), `code_quality`, `roof_material`, 18 plan-shape indices and 5 neighbor descriptors, computed with [footprint_attributes](https://github.com/GeomaticsCaminosUPM/footprint_attributes).
+Columns: `id`, `dataset` (file name), `city`, `block_id` (group of touching buildings), `survey_structural_system`, the 27 model features and `geometry`. The features are `height` (m), `year` (construction era), `code_quality`, `roof_material`, 18 plan-shape indices and 5 neighbor descriptors, computed with [footprint_attributes](https://github.com/GeomaticsCaminosUPM/footprint_attributes) 1.1 by `analysis/footprint_features.py` (contact forces weighted by building height, walls closer than 10 cm count as shared). That script needs the real footprints, so it is not part of `reproduce_paper.py`.
 
 The survey codes are grouped into the four classes of the paper by `label_replacements` in `experiments/main.yaml`: ADO (adobe), CR (reinforced concrete, including steel frames), M (masonry) and S (steel, light steel), while I is dropped.
 
@@ -97,7 +97,7 @@ The experiments are:
 
 ## Interactive map
 
-[The structural system map](https://geomaticscaminosupm.github.io/ml_structural_system_paper/map/) shows every building of the six survey areas in 3D, with the structural system predicted by each city's models for every footprint, surveyed or not. Surveyed buildings are outlined, and the map can also color them by their surveyed class, by any model attribute (height, footprint area, construction era, code level, roof, position in the block, shape) or by a model's test predictions, errors and agreement. The test scores and confusion matrix of the selected experiment and model appear in a side panel. It is a static page in [docs/map/](docs/map/) (published with GitHub Pages from the docs/ folder), and `python reproduce_paper.py map` rebuilds its data from the experiment results (the footprint indices of the unsurveyed buildings take a while the first time and are then cached in `cache/`).
+[The structural system map](https://geomaticscaminosupm.github.io/ml_structural_system_paper/map/) shows every building of the six survey areas in 3D, with the structural system predicted by each city's models for every footprint, surveyed or not. Surveyed buildings are outlined, and the map can also color them by their surveyed class, by any model attribute (height, footprint area, construction era, code level, roof, position in the block, shape) or by a model's test predictions, errors and agreement. The test scores and confusion matrix of the selected experiment and model appear in a side panel. It is a static page in [docs/map/](docs/map/) (published with GitHub Pages from the docs/ folder), and `python reproduce_paper.py map` rebuilds its data from the experiment results.
 
 ## Interactive notebook
 

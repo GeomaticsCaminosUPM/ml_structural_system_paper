@@ -9,38 +9,38 @@
       "n_test": 892,
       "ranking": [
         {
-          "macro_f1": 0.6222757640390953,
-          "accuracy": 0.8834080717488789,
-          "cohen_kappa": 0.4738656987295825,
-          "tss_macro": 0.4000203644684728,
-          "model": "HistGradientBoosting"
-        },
-        {
-          "macro_f1": 0.6145329300720421,
-          "accuracy": 0.8845291479820628,
-          "cohen_kappa": 0.4589418637520023,
-          "tss_macro": 0.38190119612161144,
+          "macro_f1": 0.5826415320327949,
+          "accuracy": 0.8553811659192825,
+          "cohen_kappa": 0.4135586655386466,
+          "tss_macro": 0.38312856650333277,
           "model": "CatBoost"
         },
         {
-          "macro_f1": 0.6037293434340646,
-          "accuracy": 0.8800448430493274,
-          "cohen_kappa": 0.40337058985322427,
-          "tss_macro": 0.32744820893965443,
+          "macro_f1": 0.578460446509227,
+          "accuracy": 0.8766816143497758,
+          "cohen_kappa": 0.4170627376425855,
+          "tss_macro": 0.33585774547788666,
+          "model": "HistGradientBoosting"
+        },
+        {
+          "macro_f1": 0.5682484646300435,
+          "accuracy": 0.8587443946188341,
+          "cohen_kappa": 0.38432884876637896,
+          "tss_macro": 0.33619517278789185,
           "model": "RandomForest"
         },
         {
-          "macro_f1": 0.5666520065318104,
-          "accuracy": 0.8531390134529148,
-          "cohen_kappa": 0.3808378283861259,
-          "tss_macro": 0.3435038494410169,
+          "macro_f1": 0.5608593247351862,
+          "accuracy": 0.8374439461883408,
+          "cohen_kappa": 0.37401993998644856,
+          "tss_macro": 0.3663030324156298,
           "model": "XGBoost"
         },
         {
-          "macro_f1": 0.5386602751498747,
-          "accuracy": 0.8352017937219731,
-          "cohen_kappa": 0.3446748962966665,
-          "tss_macro": 0.3472386105403338,
+          "macro_f1": 0.5493901400691615,
+          "accuracy": 0.844170403587444,
+          "cohen_kappa": 0.3867626838653516,
+          "tss_macro": 0.37578353205175513,
           "model": "LogisticRegression"
         }
       ],
@@ -52,15 +52,16 @@
       },
       "unanimous_agreement": {
         "n_test": 892,
-        "n_unanimous": 728,
-        "pct_unanimous": 81.61434977578476,
-        "n_unanimous_wrong": 53,
-        "pct_of_test_unanimous_wrong": 5.941704035874439,
-        "pct_of_unanimous_wrong": 7.280219780219781,
+        "n_unanimous": 729,
+        "pct_unanimous": 81.72645739910314,
+        "n_unanimous_wrong": 57,
+        "pct_of_test_unanimous_wrong": 6.390134529147982,
+        "pct_of_unanimous_wrong": 7.818930041152264,
         "confusion_pairs": {
-          "CR->M": 27,
-          "ADO->M": 15,
-          "M->CR": 11
+          "CR->M": 22,
+          "ADO->M": 18,
+          "M->CR": 16,
+          "ADO->CR": 1
         }
       }
     },
@@ -73,39 +74,39 @@
       "n_test": 1354,
       "ranking": [
         {
-          "macro_f1": 0.7005344093918956,
-          "accuracy": 0.9387001477104875,
-          "cohen_kappa": 0.5587741064137195,
-          "tss_macro": 0.591981197864919,
-          "model": "XGBoost"
-        },
-        {
-          "macro_f1": 0.6998837130827974,
-          "accuracy": 0.9438700147710487,
-          "cohen_kappa": 0.5777535226871723,
-          "tss_macro": 0.5786649584770757,
+          "macro_f1": 0.7128755017667521,
+          "accuracy": 0.9416543574593796,
+          "cohen_kappa": 0.5799967802606418,
+          "tss_macro": 0.6122456377265506,
           "model": "CatBoost"
         },
         {
-          "macro_f1": 0.6647602921982814,
-          "accuracy": 0.9423929098966026,
-          "cohen_kappa": 0.5079299998136311,
-          "tss_macro": 0.45101945943825433,
+          "macro_f1": 0.6924390166934898,
+          "accuracy": 0.9387001477104875,
+          "cohen_kappa": 0.5456412578534984,
+          "tss_macro": 0.5617113740957652,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.6833156686097862,
+          "accuracy": 0.9364844903988183,
+          "cohen_kappa": 0.526977292115205,
+          "tss_macro": 0.5427416888644686,
           "model": "HistGradientBoosting"
         },
         {
-          "macro_f1": 0.6504832743884468,
-          "accuracy": 0.9231905465288035,
-          "cohen_kappa": 0.4795291160762136,
-          "tss_macro": 0.5376342173940568,
-          "model": "LogisticRegression"
+          "macro_f1": 0.6339532142553601,
+          "accuracy": 0.9357459379615952,
+          "cohen_kappa": 0.4963529864466202,
+          "tss_macro": 0.4730700523024732,
+          "model": "RandomForest"
         },
         {
-          "macro_f1": 0.6287256373919831,
-          "accuracy": 0.9158050221565731,
-          "cohen_kappa": 0.4696745333420371,
-          "tss_macro": 0.5607150145824636,
-          "model": "RandomForest"
+          "macro_f1": 0.6277541507280707,
+          "accuracy": 0.9209748892171344,
+          "cohen_kappa": 0.43933747412008284,
+          "tss_macro": 0.4704489221266536,
+          "model": "LogisticRegression"
         }
       ],
       "majority_baseline": {
@@ -116,16 +117,15 @@
       },
       "unanimous_agreement": {
         "n_test": 1354,
-        "n_unanimous": 1180,
-        "pct_unanimous": 87.14918759231905,
-        "n_unanimous_wrong": 20,
-        "pct_of_test_unanimous_wrong": 1.4771048744460855,
-        "pct_of_unanimous_wrong": 1.694915254237288,
+        "n_unanimous": 1193,
+        "pct_unanimous": 88.109305760709,
+        "n_unanimous_wrong": 23,
+        "pct_of_test_unanimous_wrong": 1.6986706056129988,
+        "pct_of_unanimous_wrong": 1.9279128248113997,
         "confusion_pairs": {
-          "S->M": 9,
-          "CR->M": 6,
-          "M->S": 4,
-          "S->CR": 1
+          "S->M": 12,
+          "CR->M": 9,
+          "M->S": 2
         }
       }
     },
@@ -137,39 +137,39 @@
       "n_test": 225,
       "ranking": [
         {
-          "macro_f1": 0.9612307692307692,
-          "accuracy": 0.9688888888888889,
-          "cohen_kappa": 0.9224634470536109,
-          "tss_macro": 0.9270730259251931,
-          "model": "XGBoost"
-        },
-        {
-          "macro_f1": 0.9510975874809824,
-          "accuracy": 0.96,
-          "cohen_kappa": 0.902254187382343,
-          "tss_macro": 0.9247971502077974,
-          "model": "CatBoost"
-        },
-        {
-          "macro_f1": 0.9437724910035985,
+          "macro_f1": 0.9443399960419552,
           "accuracy": 0.9555555555555556,
-          "cohen_kappa": 0.8875562218890555,
-          "tss_macro": 0.8786859291509994,
+          "cohen_kappa": 0.8886799920839106,
+          "tss_macro": 0.8886799920839104,
           "model": "RandomForest"
         },
         {
-          "macro_f1": 0.9338624338624338,
+          "macro_f1": 0.9350961538461539,
           "accuracy": 0.9466666666666667,
-          "cohen_kappa": 0.8677378269814833,
-          "tss_macro": 0.8764100534336037,
+          "cohen_kappa": 0.8703045441444903,
+          "tss_macro": 0.896398179299426,
+          "model": "XGBoost"
+        },
+        {
+          "macro_f1": 0.9300055038407236,
+          "accuracy": 0.9422222222222222,
+          "cohen_kappa": 0.8601749605621684,
+          "tss_macro": 0.8902632099742727,
           "model": "HistGradientBoosting"
         },
         {
-          "macro_f1": 0.9222674001435063,
-          "accuracy": 0.9422222222222222,
-          "cohen_kappa": 0.845229906344251,
-          "tss_macro": 0.7903225806451613,
+          "macro_f1": 0.9286770921386307,
+          "accuracy": 0.9466666666666667,
+          "cohen_kappa": 0.8578947368421053,
+          "tss_macro": 0.8064516129032258,
           "model": "LogisticRegression"
+        },
+        {
+          "macro_f1": 0.9279999999999999,
+          "accuracy": 0.9422222222222222,
+          "cohen_kappa": 0.8560035445281347,
+          "tss_macro": 0.8602810211755392,
+          "model": "CatBoost"
         }
       ],
       "majority_baseline": {
@@ -180,13 +180,13 @@
       },
       "unanimous_agreement": {
         "n_test": 225,
-        "n_unanimous": 205,
-        "pct_unanimous": 91.11111111111111,
-        "n_unanimous_wrong": 1,
-        "pct_of_test_unanimous_wrong": 0.4444444444444444,
-        "pct_of_unanimous_wrong": 0.4878048780487805,
+        "n_unanimous": 202,
+        "pct_unanimous": 89.77777777777777,
+        "n_unanimous_wrong": 2,
+        "pct_of_test_unanimous_wrong": 0.8888888888888888,
+        "pct_of_unanimous_wrong": 0.9900990099009901,
         "confusion_pairs": {
-          "CR->M": 1
+          "CR->M": 2
         }
       }
     }

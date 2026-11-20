@@ -1,29 +1,29 @@
 Experiment config: /home/miguel/Documents/Proyectos/SismicaUPM/StructuralSystemPaper/code/ml_structural_system_paper/experiments/loo_san_jose
 
 === Test Summary ===
-LogisticRegression   macro_f1=0.4879  acc=0.8903  kappa=0.2180  tss=0.2162
-RandomForest         macro_f1=0.4724  acc=0.8043  kappa=0.1236  tss=0.3296
-XGBoost              macro_f1=0.4537  acc=0.8720  kappa=0.1758  tss=0.3540
-CatBoost             macro_f1=0.4456  acc=0.7980  kappa=0.1005  tss=0.2875
-HistGradientBoosting macro_f1=0.4465  acc=0.8262  kappa=0.1160  tss=0.3002
+LogisticRegression   macro_f1=0.4758  acc=0.9268  kappa=0.2630  tss=0.1937
+RandomForest         macro_f1=0.4429  acc=0.7628  kappa=0.0825  tss=0.2656
+XGBoost              macro_f1=0.4624  acc=0.8872  kappa=0.1857  tss=0.1785
+CatBoost             macro_f1=0.4499  acc=0.7997  kappa=0.1062  tss=0.2973
+HistGradientBoosting macro_f1=0.4571  acc=0.8380  kappa=0.1348  tss=0.3223
 
 === Assessment Summary ===
-Inter-model agreement  Fleiss' Kappa=0.6052  95% CI=[0.5889, 0.6193]  contested=0.1%
-Soft ensemble          macro_f1=0.4632  (5 models)
+Inter-model agreement  Fleiss' Kappa=0.5347  95% CI=[0.5188, 0.5496]  contested=0.1%
+Soft ensemble          macro_f1=0.4593  (5 models)
 
 === Feature Importance (consensus across models) ===
-   1. height                               mean rank=1.8
-   2. contact_force                        mean rank=5.8
-   3. convex_hull_irregularity             mean rank=10.0
-   4. polsby_popper                        mean rank=11.0
-   5. code_quality                         mean rank=11.6
-   6. contact_angularAcc                   mean rank=11.8
-   7. relativePosition_lateral             mean rank=12.4
-   8. slenderness_bbox                     mean rank=13.2
-   9. roof_material_metallic               mean rank=14.0
-  10. EC8_eccentricityRatio                mean rank=14.0
-  11. GNDTII_beta6_setbackSlenderness      mean rank=15.0
-  12. NTC23_setbackRatio                   mean rank=15.0
-  13. contact_confinementRatio             mean rank=15.4
-  14. ASCE7_setbackRatio                   mean rank=15.6
-  15. EC8_compactness                      mean rank=15.6
+   1. height                               mean rank=2.4
+   2. convex_hull_irregularity             mean rank=8.2
+   3. polsby_popper                        mean rank=8.8
+   4. roof_material_bright_concrete        mean rank=9.0
+   5. relativePosition_isolated            mean rank=9.2
+   6. CSCR2010_eccentricityRatio           mean rank=9.4
+   7. slenderness_inertia                  mean rank=11.8
+   8. contact_force                        mean rank=12.2
+   9. contact_angularAcc                   mean rank=13.4
+  10. relativePosition_corner              mean rank=15.0
+  11. EC8_eccentricityRatio                mean rank=15.0
+  12. GNDTII_beta1_mainShapeSlenderness    mean rank=15.0
+  13. contact_angle                        mean rank=15.2
+  14. ASCE7_holeRatio                      mean rank=15.2
+  15. ASCE7_parallelityAngle               mean rank=15.4

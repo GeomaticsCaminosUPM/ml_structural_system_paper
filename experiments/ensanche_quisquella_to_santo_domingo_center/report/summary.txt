@@ -1,29 +1,29 @@
 Experiment config: /home/miguel/Documents/Proyectos/SismicaUPM/StructuralSystemPaper/code/ml_structural_system_paper/experiments/ensanche_quisquella_to_santo_domingo_center
 
 === Test Summary ===
-LogisticRegression   macro_f1=0.9228  acc=0.9336  kappa=0.8462  tss=0.8123
-RandomForest         macro_f1=0.8930  acc=0.9100  kappa=0.7876  tss=0.7428
-XGBoost              macro_f1=0.9177  acc=0.9289  kappa=0.8358  tss=0.8051
-CatBoost             macro_f1=0.9111  acc=0.9242  kappa=0.8230  tss=0.7845
-HistGradientBoosting macro_f1=0.9051  acc=0.9194  kappa=0.8113  tss=0.7706
+LogisticRegression   macro_f1=0.9189  acc=0.9289  kappa=0.8381  tss=0.8184
+RandomForest         macro_f1=0.9170  acc=0.9289  kappa=0.8347  tss=0.7984
+XGBoost              macro_f1=0.9222  acc=0.9289  kappa=0.8445  tss=0.8586
+CatBoost             macro_f1=0.9051  acc=0.9194  kappa=0.8113  tss=0.7706
+HistGradientBoosting macro_f1=0.9059  acc=0.9194  kappa=0.8126  tss=0.7773
 
 === Assessment Summary ===
-Inter-model agreement  Fleiss' Kappa=0.8837  95% CI=[0.8257, 0.9290]  contested=0.0%
-Soft ensemble          macro_f1=0.9170  (5 models)
+Inter-model agreement  Fleiss' Kappa=0.8737  95% CI=[0.8138, 0.9263]  contested=0.0%
+Soft ensemble          macro_f1=0.9359  (5 models)
 
 === Feature Importance (consensus across models) ===
    1. height                               mean rank=1.0
-   2. EC8_eccentricityRatio                mean rank=7.8
-   3. ASCE7_parallelityAngle               mean rank=8.4
-   4. polsby_popper                        mean rank=9.0
-   5. GNDTII_beta2_setbackRatio            mean rank=9.6
-   6. GNDTII_beta4_eccentricityRatio       mean rank=10.6
-   7. EC8_compactness                      mean rank=11.0
-   8. GNDTII_beta6_setbackSlenderness      mean rank=11.2
-   9. GNDTII_beta1_mainShapeSlenderness    mean rank=11.2
-  10. slenderness_bbox                     mean rank=11.8
+   2. slenderness_inertia                  mean rank=5.4
+   3. contact_confinementRatio             mean rank=7.6
+   4. EC8_compactness                      mean rank=8.0
+   5. contact_angularAcc                   mean rank=8.2
+   6. EC8_eccentricityRatio                mean rank=10.0
+   7. inertia_circle_ratio                 mean rank=10.0
+   8. GNDTII_beta6_setbackSlenderness      mean rank=10.6
+   9. polsby_popper                        mean rank=11.4
+  10. ASCE7_parallelityAngle               mean rank=11.8
   11. ASCE7_setbackRatio                   mean rank=12.6
-  12. contact_angle                        mean rank=13.8
-  13. roof_material_metallic               mean rank=13.8
-  14. inertia_circle_ratio                 mean rank=14.0
-  15. slenderness_inertia                  mean rank=14.0
+  12. GNDTII_beta4_eccentricityRatio       mean rank=12.8
+  13. relativePosition_lateral             mean rank=13.6
+  14. roof_material_metallic               mean rank=13.6
+  15. code_quality                         mean rank=13.8

@@ -22,7 +22,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from footprint_attributes import position
 from footprint_attributes.position import contact_force_vectors
 from matplotlib import patheffects
 from matplotlib.colors import to_rgba
@@ -40,11 +39,12 @@ OUT.mkdir(parents=True, exist_ok=True)
 # the unlabeled buildings of data/ are altered.
 DATA = ROOT / "data_private" if (ROOT / "data_private").is_dir() else ROOT / "data"
 ZONA1 = DATA / "guatemala" / "zona1.gpkg"
-# Reinforced concrete, corner, L-shaped (convex-hull irregularity 0.25,
+# Reinforced concrete, confined, L-shaped (convex-hull irregularity 0.25,
 # inertia-to-circle ratio 0.48, slenderness 2.24): the convex hull, bounding
 # rectangle and equal-area circle all differ visibly. Its block mixes classes.
 FOCUS_ID = 54
-CONTACT_BUFFER_M = 0.15
+CONTACT_BUFFER_M = 0.10  # as in analysis/footprint_features.py
+SHARED_WALL_TOLERANCE_M = CONTACT_BUFFER_M  # wall segments this close to a neighbor are drawn as shared
 LABEL_REPLACEMENTS = {"S_light": "S", "S_frame": "CR", "MUR": "M", "MCF": "M", "MR": "M", "I": None}
 UNLABELED = "#FFFFFF"
 
@@ -64,9 +64,10 @@ def load_block() -> tuple[gpd.GeoDataFrame, object]:
     gdf["final_class"] = gdf["survey_structural_system"].map(
         lambda v: LABEL_REPLACEMENTS.get(v, v) if isinstance(v, str) else None)
     gdf["_h"] = gdf["height"].fillna(gdf["height"].median())
-    pos = position(gdf[["geometry", "_h"]].copy(), height_column="_h", buffer=CONTACT_BUFFER_M)
-    gdf["position"] = pos["relativePosition"].to_numpy()
-    gdf["confinement"] = pos["contact_confinementRatio"].to_numpy()
+    # positions stored in the data (analysis/footprint_features.py), the ones the models use
+    gdf["position"] = gdf["relativePosition"]
+    gdf["confinement"] = gdf["contact_confinementRatio"]
+    # arrows: the same contact forces (height-weighted, same contact buffer)
     _, resultants = contact_force_vectors(gdf[["geometry", "_h"]].copy(), buffer=CONTACT_BUFFER_M,
                                           height_column="_h")
     in_block = gdf["block_id"] == gdf.loc[gdf["id"] == FOCUS_ID, "block_id"].iloc[0]
@@ -120,7 +121,9 @@ def fig_what_the_model_sees() -> None:
     leg_a.legend(handles=handles, **legend_kw)
 
     # (b) relative position and resultant contact forces
-    block.plot(ax=ax_b, color=[POSITION_COLORS[p] for p in block["position"]], edgecolor=INK, linewidth=lw)
+    # without data_private/ the unsurveyed buildings have no stored position: left blank
+    block.plot(ax=ax_b, color=[POSITION_COLORS.get(p, UNLABELED) for p in block["position"]], edgecolor=INK,
+               linewidth=lw)
     # Arrows start at the building centroid and show the net push the building
     # receives from the neighbors it abuts, i.e. pointing away from them (the
     # reverse of footprint_attributes' vectors, which point toward the
@@ -150,12 +153,12 @@ def fig_what_the_model_sees() -> None:
 
     # (c) plan-shape and contact descriptors of the focus building
     geom = focus.geometry
-    near = others[others.distance(geom) < CONTACT_BUFFER_M]
+    near = others[others.distance(geom) < SHARED_WALL_TOLERANCE_M]
     view = gpd.GeoSeries([geom.minimum_rotated_rectangle.buffer(3)], crs=block.crs)
     others[others.intersects(view.iloc[0])].plot(ax=ax_c, color=LIGHT, edgecolor="#C4C4C4", linewidth=lw)
     gpd.GeoSeries([geom], crs=block.crs).plot(ax=ax_c, facecolor=to_rgba(CLASS_COLORS[focus["final_class"]], 0.3),
                                               edgecolor=INK, linewidth=0.6)  # light, so the lines on top read
-    shared = geom.boundary.intersection(near.buffer(CONTACT_BUFFER_M * 2).union_all())
+    shared = geom.boundary.intersection(near.buffer(SHARED_WALL_TOLERANCE_M * 2).union_all())
     if not shared.is_empty:
         gpd.GeoSeries([shared], crs=block.crs).plot(ax=ax_c, color=BLUES[5], linewidth=2.2)
     ax_c.plot(*geom.convex_hull.exterior.xy, color=INK, lw=0.9, ls=(0, (4, 2)))

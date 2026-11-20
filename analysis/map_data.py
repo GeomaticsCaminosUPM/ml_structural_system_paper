@@ -6,11 +6,11 @@ For each city, every footprint of its two surveys (surveyed or not) gets:
 - the prediction of each of the five city models (experiments/<city>), the
   models trained on that city's surveys.
 
-Surveyed buildings are predicted here from the features stored in data/.
-The footprints of unsurveyed buildings in data/ are altered and their height,
-era, code level and roof are shuffled, so their shape and neighbor indices and
-the five predictions were computed beforehand from the real footprints and are
-read from data/map/unsurveyed_<city>.parquet.
+Every building is predicted from the features stored in data/. The
+footprints of unsurveyed buildings in data/ are altered and their height, era,
+code level and roof are shuffled, and their shape and neighbor indices were
+computed on the altered footprints (analysis/footprint_features.py), so their
+predictions do not describe the real buildings.
 
 Writes docs/map/data/buildings_<city>.pmtiles (vector tiles, layer "buildings")
 and docs/map/data/experiments.json (per experiment, city and model: test
@@ -35,7 +35,6 @@ from results_figures import _round_row_to_100
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 EXPERIMENTS = ROOT / "experiments"
-UNSURVEYED = DATA / "map"  # indices and predictions of unsurveyed buildings, from the real footprints
 OUT = ROOT / "docs" / "map" / "data"
 MAIN = yaml.safe_load((EXPERIMENTS / "main.yaml").read_text())["preprocessing"]
 REPLACEMENTS = MAIN["label_replacements"]
@@ -74,7 +73,6 @@ ATTRIBUTES = {  # property name on the map: (column, decimals or None for text)
     "eccentricity": ("EC8_eccentricityRatio", 2),
     "confinement": ("contact_confinementRatio", 2),
 }
-SHAPE_ATTRIBUTES = ["position", "hull", "compact", "eccentricity", "confinement"]  # from the real footprints
 
 
 def final_class(code: object) -> str | None:
@@ -87,7 +85,6 @@ def final_class(code: object) -> str | None:
 
 def city_buildings(city: str) -> gpd.GeoDataFrame:
     """Every footprint of both surveys of a city with its attributes and the city models' predictions."""
-    unsurveyed = pd.read_parquet(UNSURVEYED / f"unsurveyed_{city}.parquet").set_index("k")
     model_cols = [f"p_{k}" for k in MODEL_KEYS.values()]
     parts = []
     for survey, path in CITIES[city][2]:
@@ -96,16 +93,11 @@ def city_buildings(city: str) -> gpd.GeoDataFrame:
         g["survey"] = survey
         g["cls"] = g["survey_structural_system"].map(final_class)
         g["area"] = g.geometry.area.round(0)  # footprint size, m² (the files are in metric coordinates)
-        surveyed = g["survey_structural_system"].notna()
-        pred = predict(EXPERIMENTS / city / "config.yaml", g[surveyed].drop(columns=["survey_structural_system"]))
+        pred = predict(EXPERIMENTS / city / "config.yaml", g.drop(columns=["survey_structural_system"]))
         for model, key in MODEL_KEYS.items():
             g[f"p_{key}"] = g["k"].map(pred.set_index("k")[f"pred_{model}"])
         for name, (col, dec) in ATTRIBUTES.items():
             g[name] = g[col].round(dec) if dec is not None else g[col]  # after predicting: rounds height in place
-        known = unsurveyed.reindex(g.loc[~surveyed, "k"])
-        assert known["position"].notna().all(), f"{path}: unsurveyed buildings missing from {UNSURVEYED}"
-        for col in [*SHAPE_ATTRIBUTES, *model_cols]:
-            g.loc[~surveyed, col] = known[col].to_numpy()
         cols = ["k", "survey", "cls", "area", *ATTRIBUTES, *model_cols, "geometry"]
         parts.append(g[cols].to_crs(4326))
         print(f"{CITIES[city][0]}, {survey}: {len(g):,} buildings, {int(g[model_cols[0]].notna().sum()):,} predicted",

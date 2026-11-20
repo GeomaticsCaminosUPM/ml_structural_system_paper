@@ -1,31 +1,31 @@
 {
   "guatemala": {
-    "best": "HistGradientBoosting",
-    "second": "CatBoost",
-    "diff": 0.00774283396705322,
+    "best": "CatBoost",
+    "second": "HistGradientBoosting",
+    "diff": 0.0041810855235678845,
     "ci95": [
-      -0.0762963306030501,
-      0.06408345888661776
+      -0.04688867666152616,
+      0.055996447658671324
     ],
     "includes_zero": true
   },
   "san_jose": {
-    "best": "XGBoost",
-    "second": "CatBoost",
-    "diff": 0.0006506963090981976,
+    "best": "CatBoost",
+    "second": "XGBoost",
+    "diff": 0.020436485073262234,
     "ci95": [
-      -0.047482699110402836,
-      0.05195350166639704
+      -0.0264847494001744,
+      0.06642923948748292
     ],
     "includes_zero": true
   },
   "santo_domingo": {
-    "best": "XGBoost",
-    "second": "CatBoost",
-    "diff": 0.010133181749786835,
+    "best": "RandomForest",
+    "second": "XGBoost",
+    "diff": 0.009243842195801322,
     "ci95": [
-      -0.01224720492853514,
-      0.029943650261591414
+      -0.02599459585372673,
+      0.03908425471622026
     ],
     "includes_zero": true
   }

@@ -1,29 +1,29 @@
 Experiment config: /home/miguel/Documents/Proyectos/SismicaUPM/StructuralSystemPaper/code/ml_structural_system_paper/experiments/guatemala
 
 === Test Summary ===
-LogisticRegression   macro_f1=0.5387  acc=0.8352  kappa=0.3447  tss=0.3472
-RandomForest         macro_f1=0.6037  acc=0.8800  kappa=0.4034  tss=0.3274
-XGBoost              macro_f1=0.5667  acc=0.8531  kappa=0.3808  tss=0.3435
-CatBoost             macro_f1=0.6145  acc=0.8845  kappa=0.4589  tss=0.3819
-HistGradientBoosting macro_f1=0.6223  acc=0.8834  kappa=0.4739  tss=0.4000
+LogisticRegression   macro_f1=0.5494  acc=0.8442  kappa=0.3868  tss=0.3758
+RandomForest         macro_f1=0.5682  acc=0.8587  kappa=0.3843  tss=0.3362
+XGBoost              macro_f1=0.5609  acc=0.8374  kappa=0.3740  tss=0.3663
+CatBoost             macro_f1=0.5826  acc=0.8554  kappa=0.4136  tss=0.3831
+HistGradientBoosting macro_f1=0.5785  acc=0.8767  kappa=0.4171  tss=0.3359
 
 === Assessment Summary ===
-Inter-model agreement  Fleiss' Kappa=0.6033  95% CI=[0.5423, 0.6572]  contested=0.3%
-Soft ensemble          macro_f1=0.5857  (5 models)
+Inter-model agreement  Fleiss' Kappa=0.6385  95% CI=[0.5854, 0.6861]  contested=0.1%
+Soft ensemble          macro_f1=0.5780  (5 models)
 
 === Feature Importance (consensus across models) ===
-   1. roof_material_metallic               mean rank=7.6
-   2. inertia_circle_ratio                 mean rank=8.6
-   3. height                               mean rank=8.8
-   4. GNDTII_beta4_eccentricityRatio       mean rank=9.0
-   5. relativePosition_corner              mean rank=10.6
-   6. slenderness_bbox                     mean rank=11.6
-   7. slenderness_inertia                  mean rank=12.0
-   8. contact_confinementRatio             mean rank=13.0
-   9. roof_material_dark_shadow            mean rank=13.2
-  10. GNDTII_beta1_mainShapeSlenderness    mean rank=13.6
-  11. NTC23_setbackRatio                   mean rank=13.6
-  12. GNDTII_beta2_setbackRatio            mean rank=13.8
-  13. EC8_radiusRatio                      mean rank=13.8
-  14. ASCE7_holeRatio                      mean rank=13.8
-  15. ASCE7_setbackRatio                   mean rank=14.2
+   1. EC8_eccentricityRatio                mean rank=6.8
+   2. roof_material_dark_shadow            mean rank=7.8
+   3. ASCE7_parallelityAngle               mean rank=7.8
+   4. GNDTII_beta1_mainShapeSlenderness    mean rank=9.6
+   5. slenderness_bbox                     mean rank=11.4
+   6. height                               mean rank=12.0
+   7. inertia_circle_ratio                 mean rank=12.6
+   8. EC8_compactness                      mean rank=13.2
+   9. GNDTII_beta2_setbackRatio            mean rank=13.2
+  10. CSCR2010_eccentricityRatio           mean rank=13.4
+  11. roof_material_metallic               mean rank=13.6
+  12. ASCE7_setbackRatio                   mean rank=13.6
+  13. relativePosition_isolated            mean rank=13.6
+  14. contact_angularAcc                   mean rank=13.8
+  15. NTC23_setbackRatio                   mean rank=15.0
