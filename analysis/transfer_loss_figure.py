@@ -8,7 +8,7 @@ and tab:transfer), scored on the classes shared by the two test sets
 tab:transfer. Error bars: 95% percentile block bootstrap (2,000 resamples of
 the test set's spatial blocks), as in block_bootstrap_ci.py.
 
-Output: figures/fig6_transfer_loss.jpg.
+Output: figures/transfer_loss.jpg.
 """
 from __future__ import annotations
 
@@ -91,7 +91,7 @@ def main() -> None:
     ax.grid(axis="x")
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.30), ncol=3, frameon=False,
               handletextpad=0.3, columnspacing=1.0)
-    save_figure(fig, OUT, "fig6_transfer_loss")
+    save_figure(fig, OUT, "transfer_loss")
 
 
 if __name__ == "__main__":

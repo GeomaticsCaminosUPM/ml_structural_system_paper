@@ -9,7 +9,7 @@ Data and code to reproduce every table and figure of the paper. The models predi
 
 The method itself is the [`ml_structural_system`](https://github.com/GeomaticsCaminosUPM/ml_structural_system) package, installed here as a dependency at the exact version used for the paper. This repository holds only what is specific to the paper: the data, the experiment configurations, the analysis that turns the results into the paper's numbers, tables and figures, and the notebook. To apply the method to your own buildings, use the package directly.
 
-![Workflow](docs/figures/fig3_workflow.jpg)
+![Workflow](docs/figures/workflow.jpg)
 
 ## Contents
 
@@ -40,9 +40,9 @@ Columns: `id`, `dataset` (file name), `city`, `block_id` (group of touching buil
 
 The survey codes are grouped into the four classes of the paper by `label_replacements` in `experiments/main.yaml`: ADO (adobe), CR (reinforced concrete, including steel frames), M (masonry) and S (steel, light steel), while I is dropped.
 
-![Study area](docs/figures/fig1_study_area.jpg)
+![Study area](docs/figures/study_area.jpg)
 
-![Model input](docs/figures/fig2_model_input.jpg)
+![Model input](docs/figures/model_input.jpg)
 
 ## Installation
 
@@ -114,13 +114,13 @@ Open it in [Google Colab](https://colab.research.google.com/github/GeomaticsCami
 
 ## Results
 
-![Confusion matrices](docs/figures/fig4_confusion_matrices.jpg)
+![Confusion matrices](docs/figures/confusion_matrices.jpg)
 
-![Learning curve](docs/figures/fig5_learning_curve.jpg)
+![Learning curve](docs/figures/learning_curve.jpg)
 
-![Transfer loss](docs/figures/fig6_transfer_loss.jpg)
+![Transfer loss](docs/figures/transfer_loss.jpg)
 
-![Feature importance](docs/figures/fig7_feature_importance.jpg)
+![Feature importance](docs/figures/feature_importance.jpg)
 
 ## License
 

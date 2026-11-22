@@ -1,13 +1,11 @@
-"""Figures 1-3: study area (six surveys), model input for one Zona 1 block
+"""Method figures: study area (six surveys), footprint descriptors on simple
+shapes (building sizes and block positions), model input for one Zona 1 block
 of Guatemala City, and the workflow diagram.
 
-Figure 2 is illustrative. Plan-shape values and remote-sensing attributes
-are the dataset's own. Relative positions and contact forces are recomputed
-with footprint_attributes using a 0.15 m contact buffer (the footprint pixel
-size), whereas the dataset's features were computed with buffer=0, which
-treats walls digitized a few centimeters apart as not touching. Unlabeled
-buildings have no height in the shared data, so missing heights are filled
-with the dataset median for that computation only.
+The model-input figure shows the block positions and contact descriptors stored
+in the data (analysis/footprint_features.py). Its arrows are recomputed with
+the same settings (height-weighted forces, 0.1 m contact buffer, missing
+heights filled with the dataset median).
 
 Each figure is written to figures/ as a JPG.
 """
@@ -22,7 +20,14 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from footprint_attributes import position
+from footprint_attributes.geometry import max_inscribed_circle, min_bounding_box, setback_pieces
+from footprint_attributes.notebook_utils import basic_length_axis, dimension_arrow_gdfs
 from footprint_attributes.position import contact_force_vectors
+from footprint_attributes.testing_shapes import (asymmetric_l_shape_polygon, confined_quartet_gdf,
+                                                 corner_triplet_gdf, gdf_of, isolated_building_gdf,
+                                                 l_shape_polygon, lateral_pair_gdf, t_shape_polygon,
+                                                 torque_triplet_gdf)
 from matplotlib import patheffects
 from matplotlib.colors import to_rgba
 from matplotlib.lines import Line2D
@@ -207,7 +212,7 @@ def fig_what_the_model_sees() -> None:
         x0 = ax.get_subplotspec().get_position(fig).x0 + (0.06 * ax.get_position().width if ax is ax_d else 0)
         fig.text(x0, top + 0.012, f"({letter}) {text}", fontsize=7.8, fontweight="bold", ha="left", va="bottom")
 
-    save(fig, "fig2_model_input")
+    save(fig, "model_input")
 
 
 # ---------------------------------------------------------------------------
@@ -348,7 +353,7 @@ def fig_workflow() -> None:
 
     fig.canvas.draw()
     fit.check(fig)
-    save(fig, "fig3_workflow")
+    save(fig, "workflow")
 
 
 # ---------------------------------------------------------------------------
@@ -501,10 +506,110 @@ def fig_study_area() -> None:
                           markeredgecolor="none", markersize=5.5, label="Unlabeled footprint"))
     fig.legend(handles=handles, loc="lower center", ncol=5, frameon=False, fontsize=6.6,
                bbox_to_anchor=(0.5, -0.01), handletextpad=0.3, columnspacing=1.2)
-    save(fig, "fig1_study_area")
+    save(fig, "study_area")
+
+
+# ---------------------------------------------------------------------------
+# Figure: footprint descriptors on simple shapes
+# ---------------------------------------------------------------------------
+
+SIZE_STYLE = {  # dimension kind: (color, line style, legend label)
+    "L1": (INK, "-", "Basic lengths $L_1$, $L_2$"),
+    "L2": (INK, "-", None),
+    "a1": (BLUES[5], "-", "Main element $a_1$, $a_2$"),
+    "a2": (BLUES[5], "-", None),
+    "b": ("#8F2F18", "-", "Setback $b$"),
+}
+
+
+def _arrow(ax, start, vec, color, lw, head=3.5):
+    ax.add_patch(FancyArrowPatch(start, (start[0] + vec[0], start[1] + vec[1]), arrowstyle="-|>",
+                                 mutation_scale=head, color=color, lw=lw, shrinkA=0, shrinkB=0, zorder=5))
+
+
+def _same_scale(axes_geoms, pad=0.08) -> None:
+    """Give every axis the same data window (largest extent among them), centered on its geometries."""
+    bounds = [np.asarray(g.total_bounds) for _, g in axes_geoms]
+    half = max(max(b[2] - b[0], b[3] - b[1]) for b in bounds) * (0.5 + pad)
+    for (ax, _), b in zip(axes_geoms, bounds):
+        cx, cy = (b[0] + b[2]) / 2, (b[1] + b[3]) / 2
+        ax.set_xlim(cx - half, cx + half)
+        ax.set_ylim(cy - half, cy + half)
+
+
+def fig_footprint_descriptors() -> None:
+    """Building sizes (top row) and block positions (bottom row) on simple footprints."""
+    shapes = [("L-shape", l_shape_polygon()), ("T-shape", t_shape_polygon()),
+              ("Asymmetric L-shape", asymmetric_l_shape_polygon())]
+    scenarios = [("Isolated", isolated_building_gdf()), ("Lateral", lateral_pair_gdf()),
+                 ("Corner", corner_triplet_gdf()), ("Confined", confined_quartet_gdf()),
+                 ("Torque", torque_triplet_gdf())]
+    fig = plt.figure(figsize=(TEXT_WIDTH_IN, TEXT_WIDTH_IN * 0.62))
+    top = fig.add_gridspec(1, 3, left=0.02, right=0.98, top=0.95, bottom=0.55, wspace=0.25)
+    bottom = fig.add_gridspec(1, 5, left=0.01, right=0.99, top=0.36, bottom=0.08, wspace=0.12)
+    letters = iter("abcdefgh")
+    from footprint_attributes import notebook_utils
+    for kind in ("L1", "L2"):  # smaller arrowheads at print size
+        notebook_utils.ARROW_STYLE[kind]["head_frac"] = 0.07
+    top_axes, bottom_axes = [], []
+
+    for k, (name, poly) in enumerate(shapes):
+        ax = fig.add_subplot(top[0, k])
+        g = gdf_of(poly)
+        L1, d1, L2, d2 = min_bounding_box(g)
+        for _, _, piece in setback_pieces(poly, np.asarray(d1)[0], np.asarray(d2)[0]):
+            gpd.GeoSeries([piece]).plot(ax=ax, facecolor=BLUES[1], edgecolor="none", zorder=1)
+        g.plot(ax=ax, facecolor=LIGHT, edgecolor=INK, linewidth=0.7, zorder=2)
+        gpd.GeoSeries([poly.minimum_rotated_rectangle]).plot(ax=ax, facecolor="none", edgecolor=MUTED,
+                                                             linewidth=0.5, linestyle=(0, (1, 1.5)), zorder=3)
+        x, y, r = max_inscribed_circle(poly)
+        ax.add_patch(Circle((x, y), r, fill=False, ec=BLUES[5], lw=0.6, ls=(0, (3, 1.5)), zorder=3))
+        axis = basic_length_axis(g, L1, d1, L2, d2)
+        for kind, arrows in dimension_arrow_gdfs(g, axis).items():
+            if kind in SIZE_STYLE and len(arrows):
+                color, ls, _ = SIZE_STYLE[kind]
+                arrows.plot(ax=ax, color=color, linestyle=ls, linewidth=0.8, zorder=5)
+        ax.set_aspect("equal")
+        ax.set_axis_off()
+        ax.set_title(f"({next(letters)}) {name}", loc="left", fontsize=7.5, pad=3)
+        top_axes.append((ax, gpd.GeoSeries([poly.minimum_rotated_rectangle.buffer(1.0)])))
+    _same_scale(top_axes, pad=0.02)
+    handles = [Line2D([0], [0], color=c, ls=ls, lw=0.8, label=lab) for c, ls, lab in SIZE_STYLE.values() if lab]
+    handles += [Patch(facecolor=BLUES[1], edgecolor="none", label="Setback area"),
+                Line2D([0], [0], color=BLUES[5], lw=0.6, ls=(0, (3, 1.5)), label="Largest inscribed circle"),
+                Line2D([0], [0], color=MUTED, lw=0.5, ls=(0, (1, 1.5)), label="Bounding rectangle")]
+    fig.legend(handles=handles, loc="center", ncol=3, frameon=False, fontsize=6.4,
+               bbox_to_anchor=(0.5, 0.465), handlelength=1.8, columnspacing=1.2)
+
+    for k, (name, gdf) in enumerate(scenarios):
+        ax = fig.add_subplot(bottom[0, k])
+        gdf = gdf.reset_index(drop=True)
+        cls = position(gdf)["blockPosition"].iloc[0]
+        gdf.iloc[1:].plot(ax=ax, facecolor="white", edgecolor="#BDBDBD", linewidth=0.5)
+        gdf.iloc[[0]].plot(ax=ax, facecolor=POSITION_COLORS[cls], edgecolor=INK, linewidth=0.7)
+        edges, resultants = contact_force_vectors(gdf)
+        e0, r0 = edges[edges["geom_id"] == 0], resultants[resultants["geom_id"] == 0]
+        vmax = max([np.linalg.norm(v) for v in e0["vector"]] + [1e-9])
+        scale = 0.35 * np.sqrt(gdf.geometry.iloc[0].area) / vmax
+        for anchor, vec in zip(e0["anchor"], e0["vector"]):  # the push each wall receives
+            _arrow(ax, anchor, -np.asarray(vec) * scale, MUTED, 0.5)
+        if len(r0) and np.linalg.norm(r0["vector"].iloc[0]) > 1e-6:
+            _arrow(ax, r0["anchor"].iloc[0], -np.asarray(r0["vector"].iloc[0]) * scale, INK, 1.0, head=5)
+        ax.set_aspect("equal")
+        ax.set_axis_off()
+        ax.set_title(f"({next(letters)}) {name}", loc="left", fontsize=7.5, pad=3)
+        bottom_axes.append((ax, gdf))
+    _same_scale(bottom_axes, pad=0.02)
+    handles = [Line2D([0], [0], color=MUTED, lw=0.5, marker=">", markersize=2.5, label="Push on each shared wall"),
+               Line2D([0], [0], color=INK, lw=1.0, marker=">", markersize=3, label="Net push from neighbors"),
+               Patch(facecolor="white", edgecolor="#BDBDBD", linewidth=0.5, label="Neighbor")]
+    fig.legend(handles=handles, loc="center", ncol=3, frameon=False, fontsize=6.4,
+               bbox_to_anchor=(0.5, 0.02), handlelength=1.8, columnspacing=1.2)
+    save(fig, "footprint_descriptors")
 
 
 if __name__ == "__main__":
     fig_study_area()
+    fig_footprint_descriptors()
     fig_what_the_model_sees()
     fig_workflow()

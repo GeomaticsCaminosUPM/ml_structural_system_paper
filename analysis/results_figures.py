@@ -129,7 +129,7 @@ def fig_confusion_matrices():
         ax.text(0, 1.03, model.replace("HistGradientBoosting", "Hist. GB"), transform=ax.transAxes,
                 fontsize=6.6, color=MUTED)
     fig.subplots_adjust(wspace=0.35)
-    save(fig, "fig4_confusion_matrices")
+    save(fig, "confusion_matrices")
 
 
 def fig_learning_curve():
@@ -183,7 +183,7 @@ def fig_learning_curve():
         ax.grid(axis="y")
     axes[0].set_ylabel("Test macro F1")
     fig.subplots_adjust(wspace=0.12)
-    save(fig, "fig5_learning_curve")
+    save(fig, "learning_curve")
 
 
 def fig_feature_importance():
@@ -201,7 +201,7 @@ def fig_feature_importance():
         ax.grid(axis="x")
     axes[-1].set_xlabel("Mean rank across models (lower = more important)")
     fig.subplots_adjust(hspace=0.45)
-    save(fig, "fig7_feature_importance")
+    save(fig, "feature_importance")
 
 
 if __name__ == "__main__":
