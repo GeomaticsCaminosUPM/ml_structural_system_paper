@@ -38,7 +38,7 @@ Each file holds every building footprint of one survey area. Surveyed buildings 
 
 Columns: `id`, `dataset` (file name), `city`, `block_id` (group of touching buildings), `survey_structural_system`, the 27 model features and `geometry`. The features are `height` (m), `year` (construction era), `code_quality`, `roof_material`, 18 plan-shape indices and 5 neighbor descriptors, computed with [footprint_attributes](https://github.com/GeomaticsCaminosUPM/footprint_attributes) 1.1 by `analysis/footprint_features.py` (contact forces weighted by building height, walls closer than 10 cm count as shared). That script needs the real footprints, so it is not part of `reproduce_paper.py`.
 
-The survey codes are grouped into the four classes of the paper by `label_replacements` in `experiments/main.yaml`: ADO (adobe), CR (reinforced concrete, including steel frames), M (masonry) and S (steel, light steel), while I is dropped.
+The survey codes are grouped into the four classes of the paper by `label_replacements` in `experiments/main.yaml`: ADO (adobe), CR (reinforced concrete, including steel frames), M (masonry) and S/W (light steel and light wood, merged because they are structurally similar lightweight framed systems, code `S` in the data), while I is dropped.
 
 ![Study area](docs/figures/study_area.jpg)
 

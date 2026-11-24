@@ -9,7 +9,7 @@ resolution-markers = [
 ]
 
 [manifest]
-overrides = [{ name = "footprint-attributes", git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes?rev=v1.1.0" }]
+overrides = [{ name = "footprint-attributes", git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes?rev=v1.1.1" }]
 
 [[package]]
 name = "aiohappyeyeballs"
@@ -852,7 +852,7 @@ wheels = [
 [[package]]
 name = "footprint-attributes"
 version = "1.1.0"
-source = { git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes?rev=v1.1.0#1fb77addb52c79b0ae98ef5ddd033c383f2a5229" }
+source = { git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes?rev=v1.1.1#3abae021807f82a61a4f7c858bddccfbc3ae21c1" }
 dependencies = [
     { name = "geopandas" },
     { name = "numpy" },
@@ -1619,7 +1619,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "catboost", specifier = ">=1.2.7" },
-    { name = "footprint-attributes", git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes?rev=b1aea6c2bb75613e1eff25fa0ed80a2b71088184" },
+    { name = "footprint-attributes", git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes?rev=v1.1.1" },
     { name = "geopandas", specifier = ">=1.0" },
     { name = "imbalanced-learn", specifier = ">=0.13" },
     { name = "joblib", specifier = ">=1.4" },

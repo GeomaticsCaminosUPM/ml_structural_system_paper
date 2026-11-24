@@ -34,7 +34,7 @@ package = false
 # The footprint_attributes version used for the paper's footprint indices
 # (analysis/footprint_features.py) and Figure 2.
 override-dependencies = [
-    "footprint-attributes @ git+https://github.com/GeomaticsCaminosUPM/footprint_attributes@v1.1.0",
+    "footprint-attributes @ git+https://github.com/GeomaticsCaminosUPM/footprint_attributes@v1.1.1",
 ]
 
 [tool.uv.sources]

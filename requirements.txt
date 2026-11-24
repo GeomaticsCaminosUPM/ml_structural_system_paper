@@ -72,7 +72,7 @@ flask-cors==6.0.5
     # via mlflow
 fonttools==4.65.0
     # via matplotlib
-footprint-attributes @ git+https://github.com/GeomaticsCaminosUPM/footprint_attributes@1fb77addb52c79b0ae98ef5ddd033c383f2a5229
+footprint-attributes @ git+https://github.com/GeomaticsCaminosUPM/footprint_attributes@3abae021807f82a61a4f7c858bddccfbc3ae21c1
     # via ml-structural-system
 frozenlist==1.8.0
     # via

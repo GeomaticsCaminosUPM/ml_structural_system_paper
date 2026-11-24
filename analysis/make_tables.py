@@ -69,7 +69,8 @@ def table1() -> None:
         print("Table 1 skipped: run data_stats.py first")
         return
     classes = ["ADO", "CR", "M", "S"]
-    lines = [r"\begin{tabular}{lrrrrr}", r"\toprule", "City & $N$ & " + " & ".join(classes) + r" \\", r"\midrule"]
+    header = [c if c != "S" else "S/W" for c in classes]  # code S is light steel and wood
+    lines = [r"\begin{tabular}{lrrrrr}", r"\toprule", "City & $N$ & " + " & ".join(header) + r" \\", r"\midrule"]
     for key, label in [*CITY_NAMES.items(), ("All", "All three cities")]:
         if key == "All":
             lines.append(r"\midrule")

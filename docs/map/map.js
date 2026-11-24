@@ -20,7 +20,7 @@ const OUTLINE = { light: "#000000", dark: "#ffffff" };
 const NO_DATA = { light: "#f3f3f1", dark: "#2a2f35" };
 const LAYER = "buildings";  // layer name inside the .pmtiles files
 
-const CLASS_NAMES = { ADO: "Adobe", CR: "Reinforced concrete", M: "Masonry", S: "Steel" };
+const CLASS_NAMES = { ADO: "Adobe", CR: "Reinforced concrete", M: "Masonry", S: "Light steel and wood (S/W)" };
 const CLASS_COLORS = {
   light: { ADO: "#B24A2A", CR: "#8A949E", M: "#F0D78C", S: "#2F6DB5" },
   dark: { ADO: "#D2694A", CR: "#A9B3BC", M: "#F0D78C", S: "#5FA2EC" },
@@ -42,8 +42,8 @@ const VIEWS = {
     metallic: ["Metallic", "#9e9ac8"], bright_concrete: ["Bright concrete", "#e0e0e0"],
     dark_shadow: ["Dark or shadow", "#525252"], asphalt: ["Asphalt", "#8c6d31"] } },
   position: { label: "Position in the block", type: "cat", values: {
-    isolated: ["Isolated", "#E4E4E4"], lateral: ["Lateral", "#A8CBE6"], corner: ["Corner", "#BCA9D8"],
-    confined: ["Confined", "#7DBBAE"], torque: ["Torque", "#DE95A3"] } },
+    isolated: ["Isolated", "#DDDDDD"], lateral: ["Lateral", "#77AADD"], corner: ["Corner", "#EEDD88"],
+    confined: ["Confined", "#44BB99"], torque: ["Torque", "#BBCC33"] } },
   hull: { label: "Convex-hull irregularity", type: "ramp", domain: [0, 0.4] },
   eccentricity: { label: "Eccentricity ratio (Eurocode 8)", type: "ramp", domain: [0, 0.4] },
   compact: { label: "Compactness (Eurocode 8)", type: "ramp", domain: [0.6, 1] },

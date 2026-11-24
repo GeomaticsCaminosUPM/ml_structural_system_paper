@@ -8,7 +8,7 @@ Palette logic:
   the train/validation/test partitions.
 - Structural classes use "material" colors, distinct from the blue ramp:
   brick red (adobe), concrete gray (reinforced concrete), sand (masonry) and
-  dark slate (steel), far enough apart in lightness to survive color blindness.
+  dark slate (light steel and wood), far enough apart in lightness to survive color blindness.
 - Relative-position categories use distinct muted hues (a single blue ramp
   was too hard to tell apart on a map).
 """
@@ -29,15 +29,18 @@ BLUES = ["#F2F6FA", "#D6E4F0", "#A9C6DF", "#6F9CC3", "#3E6F9E", "#1F4E79"]
 ACCENT = BLUES[5]
 PARTITION_COLORS = {"train": BLUES[5], "validation": BLUES[3], "test": BLUES[1]}
 POSITION_COLORS = {
-    "isolated": "#E4E4E4",  # gray
-    "lateral": "#A8CBE6",   # sky blue
-    "corner": "#BCA9D8",    # lavender
-    "confined": "#7DBBAE",  # teal
-    "torque": "#DE95A3",    # rose
+    # Paul Tol's "light" scheme, distinguishable with deuteranopia, protanopia and tritanopia
+    "isolated": "#DDDDDD",  # pale gray
+    "lateral": "#77AADD",   # light blue
+    "corner": "#EEDD88",    # light yellow
+    "confined": "#44BB99",  # mint
+    "torque": "#BBCC33",    # pear
 }
 
 CLASS_COLORS = {"ADO": "#B24A2A", "CR": "#9AA5AE", "M": "#F0D78C", "S": "#3D4F63"}
-CLASS_NAMES = {"ADO": "Adobe", "CR": "Reinforced concrete", "M": "Masonry", "S": "Steel"}
+CLASS_NAMES = {"ADO": "Adobe", "CR": "Reinforced concrete", "M": "Masonry", "S": "Light steel and wood (S/W)"}
+# Short labels for axes. The data and models keep the code S for light steel and wood.
+CLASS_SHORT = {"ADO": "ADO", "CR": "CR", "M": "M", "S": "S/W"}
 CLASS_ORDER = ["ADO", "CR", "M", "S"]
 
 SEQUENTIAL_CMAP = LinearSegmentedColormap.from_list("paper_blues", ["#FFFFFF"] + BLUES[1:])

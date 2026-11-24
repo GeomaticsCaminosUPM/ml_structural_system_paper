@@ -21,7 +21,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from footprint_attributes import position
-from footprint_attributes.geometry import max_inscribed_circle, min_bounding_box, setback_pieces
+from footprint_attributes.geometry import (main_element_a_lengths, max_inscribed_circle, min_bounding_box,
+                                           setback_pieces)
 from footprint_attributes.notebook_utils import basic_length_axis, dimension_arrow_gdfs
 from footprint_attributes.position import contact_force_vectors
 from footprint_attributes.testing_shapes import (asymmetric_l_shape_polygon, confined_quartet_gdf,
@@ -513,10 +514,11 @@ def fig_study_area() -> None:
 # Figure: footprint descriptors on simple shapes
 # ---------------------------------------------------------------------------
 
+RECT_COLOR, RECT_STYLE = "#B07A1F", (0, (4, 1.5, 1, 1.5))  # inscribed rectangle: ochre, dash-dot
 SIZE_STYLE = {  # dimension kind: (color, line style, legend label)
     "L1": (INK, "-", "Basic lengths $L_1$, $L_2$"),
     "L2": (INK, "-", None),
-    "a1": (BLUES[5], "-", "Main element $a_1$, $a_2$"),
+    "a1": (BLUES[5], "-", "Main element $a$"),
     "a2": (BLUES[5], "-", None),
     "b": ("#8F2F18", "-", "Setback $b$"),
 }
@@ -564,8 +566,18 @@ def fig_footprint_descriptors() -> None:
                                                              linewidth=0.5, linestyle=(0, (1, 1.5)), zorder=3)
         x, y, r = max_inscribed_circle(poly)
         ax.add_patch(Circle((x, y), r, fill=False, ec=BLUES[5], lw=0.6, ls=(0, (3, 1.5)), zorder=3))
+        # inscribed rectangle: a2 along dir1, a1 along dir2, around the circle's tangent points
+        u, v = np.asarray(d1)[0], np.asarray(d2)[0]
+        a1, a2, (mx, my) = main_element_a_lengths(poly, u, v)
+        corners = [np.array([mx, my]) + su * a2 / 2 * u + sv * a1 / 2 * v
+                   for su, sv in ((-1, -1), (1, -1), (1, 1), (-1, 1), (-1, -1))]
+        ax.plot(*np.array(corners).T, color=RECT_COLOR, lw=0.8, ls=RECT_STYLE, zorder=4)
         axis = basic_length_axis(g, L1, d1, L2, d2)
+        # GNDT-II uses only the dominant (a, L) pair, the one maximizing L*a (footprint_attributes)
+        dominant_a = "a1" if axis["L1"][0] * axis["a1"][0] >= axis["L2"][0] * axis["a2"][0] else "a2"
         for kind, arrows in dimension_arrow_gdfs(g, axis).items():
+            if kind in ("a1", "a2") and kind != dominant_a:
+                continue
             if kind in SIZE_STYLE and len(arrows):
                 color, ls, _ = SIZE_STYLE[kind]
                 arrows.plot(ax=ax, color=color, linestyle=ls, linewidth=0.8, zorder=5)
@@ -577,9 +589,10 @@ def fig_footprint_descriptors() -> None:
     handles = [Line2D([0], [0], color=c, ls=ls, lw=0.8, label=lab) for c, ls, lab in SIZE_STYLE.values() if lab]
     handles += [Patch(facecolor=BLUES[1], edgecolor="none", label="Setback area"),
                 Line2D([0], [0], color=BLUES[5], lw=0.6, ls=(0, (3, 1.5)), label="Largest inscribed circle"),
+                Line2D([0], [0], color=RECT_COLOR, lw=0.8, ls=RECT_STYLE, label="Inscribed rectangle"),
                 Line2D([0], [0], color=MUTED, lw=0.5, ls=(0, (1, 1.5)), label="Bounding rectangle")]
-    fig.legend(handles=handles, loc="center", ncol=3, frameon=False, fontsize=6.4,
-               bbox_to_anchor=(0.5, 0.465), handlelength=1.8, columnspacing=1.2)
+    fig.legend(handles=handles, loc="center", ncol=4, frameon=False, fontsize=6.4,
+               bbox_to_anchor=(0.5, 0.465), handlelength=1.8, columnspacing=1.0)
 
     for k, (name, gdf) in enumerate(scenarios):
         ax = fig.add_subplot(bottom[0, k])

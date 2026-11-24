@@ -17,7 +17,8 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
 
-from paper_style import ACCENT, BLUES, INK, MUTED, SEQUENTIAL_CMAP, TEXT_WIDTH_IN, apply_style, save_figure
+from paper_style import (ACCENT, BLUES, CLASS_SHORT, INK, MUTED, SEQUENTIAL_CMAP, TEXT_WIDTH_IN, apply_style,
+                         save_figure)
 
 GROUP_DIR = Path(__file__).resolve().parent.parent / "experiments"
 OUT = Path(__file__).resolve().parent.parent / "figures"
@@ -101,7 +102,7 @@ def fig_confusion_matrices():
             enc = prep["label_mapping"]
         code_to_name = {v: k for k, v in enc.items()}
         labels = sorted(code_to_name)
-        names = [code_to_name[c] for c in labels]
+        names = [CLASS_SHORT.get(code_to_name[c], code_to_name[c]) for c in labels]
 
         y_true = df["y_true"].to_numpy()
         y_pred = df[f"pred_{model}"].to_numpy()
