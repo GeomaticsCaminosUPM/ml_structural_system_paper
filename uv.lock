@@ -1619,6 +1619,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "catboost", specifier = ">=1.2.7" },
+    { name = "folium", marker = "extra == 'sanity'", specifier = ">=0.17" },
     { name = "footprint-attributes", git = "https://github.com/GeomaticsCaminosUPM/footprint_attributes?rev=v1.1.1" },
     { name = "geopandas", specifier = ">=1.0" },
     { name = "imbalanced-learn", specifier = ">=0.13" },
@@ -1634,6 +1635,7 @@ requires-dist = [
     { name = "tqdm", specifier = ">=4.66" },
     { name = "xgboost", specifier = ">=2.1" },
 ]
+provides-extras = ["sanity"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8" }]
