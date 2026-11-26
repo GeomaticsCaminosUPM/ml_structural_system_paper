@@ -160,8 +160,12 @@ def main() -> None:
         extents[city] = {"all": bounds(gdf), **{s: bounds(gdf[gdf["survey"] == s]) for s, _ in CITIES[city][2]}}
         path = OUT / f"buildings_{city}.pmtiles"
         path.unlink(missing_ok=True)
+        # Zooms 11 to 14 at full precision (8192 units per tile, 0.3 m at zoom 14),
+        # with no size limit, so no tile is simplified: the map overzooms zoom 14
+        # beyond it, and the coarser tiles shown while loading keep the shapes.
         gdf.to_file(path, driver="PMTiles", layer="buildings",
-                    dataset_options={"MINZOOM": 11, "MAXZOOM": 16, "NAME": f"buildings_{city}"})
+                    dataset_options={"MINZOOM": 11, "MAXZOOM": 14, "EXTENT": 8192, "NAME": f"buildings_{city}",
+                                     "MAX_SIZE": 20_000_000, "MAX_FEATURES": 10_000_000})
         print(f"written {path} ({len(gdf):,} buildings, {path.stat().st_size / 1e6:.1f} MB)", flush=True)
     experiments = {n: e for n in EXPERIMENT_TITLES if (e := experiment(n))}
     meta = {"cities": {k: v[0] for k, v in CITIES.items()},

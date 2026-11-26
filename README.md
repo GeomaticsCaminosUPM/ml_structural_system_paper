@@ -3,7 +3,7 @@
 Data and code to reproduce every table and figure of the paper. The models predict the structural system of individual buildings (adobe, reinforced concrete, masonry or steel) from the building footprint, its neighbors and a few low-cost attributes (height, construction era, code level and roof material). They are trained on field surveys from Guatemala City, San José (Costa Rica) and Santo Domingo (Dominican Republic) and evaluated within each city, across cities, across districts of the same city and as a single model trained on the three cities combined.
 
 > [!WARNING]
-> Until the peer-reviewed version of the paper is published, the footprints without a survey label in `data/` are not the real ones, except those that touch a surveyed building. Their geometry, height and other attributes have been altered, so they look similar to the buildings of the area but do not match them. The surveyed buildings, which make up the training, validation and test sets, are real, so every result of the paper can be reproduced.
+> Until the peer-reviewed version of the paper is published, the footprints without a survey label in `data/` are not the real ones, except those that touch a surveyed building. Their shapes (and positions), heights and other attributes have been altered, so they look similar to the buildings of the area but do not match them. The surveyed buildings, which make up the training, validation and test sets, are real, so every result of the paper can be reproduced.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/GeomaticsCaminosUPM/ml_structural_system_paper/blob/main/paper_results.ipynb)
 

@@ -59,7 +59,7 @@ const POPUP_FIELDS = [["survey", "Survey"], ["area", "Footprint area (m²)"], ["
   ["confinement", "Contact confinement ratio"]];
 
 const $ = (id) => document.getElementById(id);
-const state = { city: "guatemala", survey: "all", view: "cityPred", basemap: "light", threeD: true,
+const state = { city: "san_jose", survey: "all", view: "cityPred", basemap: "light", threeD: true,
   experiment: null, model: null };
 let meta = null;
 let testIndex = new Map();  // key -> index in the current experiment's test set
@@ -198,7 +198,7 @@ function addLayers() {
     if (l["source-layer"] === "building") map.setLayoutProperty(l.id, "visibility", "none");
   }
   map.addSource("b", { type: "vector", url: tilesUrl(state.city), promoteId: { [LAYER]: "k" },
-    attribution: "Buildings: field surveys of the paper, partly Microsoft Building Footprints. Unsurveyed footprints are altered until the paper is published" });
+    attribution: "Buildings: field surveys of the paper, partly Microsoft Building Footprints. Until the paper is published, the shapes and attributes of unsurveyed buildings are altered" });
   // Below the basemap's labels, so place names stay readable.
   const firstLabel = map.getStyle().layers.find((l) => l.type === "symbol")?.id;
   const common = { source: "b", "source-layer": LAYER };
@@ -229,6 +229,9 @@ function restyle() {
   if (!map.getLayer("b-fill")) return;
   map.setPaintProperty("b-fill", "fill-extrusion-color", colorExpression());
   map.setPaintProperty("b-fill", "fill-extrusion-height", heightExpression());
+  // Outlines lie on the ground: in 3D they go below the buildings, or they show through them.
+  if (state.threeD) for (const id of ["b-line", "b-glow", "b-surveyed"]) map.moveLayer(id, "b-fill");
+  else map.moveLayer("b-fill", "b-line");
   for (const id of ["b-line", "b-surveyed"]) map.setPaintProperty(id, "line-color", OUTLINE[tone()]);
   map.setPaintProperty("b-glow", "line-opacity", tone() === "dark" ? 0.55 : 0);
   renderLegend();
@@ -382,6 +385,7 @@ function selectCity(city) {
 async function init() {
   meta = await (await fetch("data/experiments.json")).json();
   $("city").innerHTML = Object.entries(meta.cities).map(([k, v]) => `<option value="${k}">${v}</option>`).join("");
+  $("city").value = state.city;
   $("colorBy").innerHTML = Object.entries(VIEWS).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join("");
   $("colorBy").value = state.view;
   $("basemap").innerHTML = Object.entries(BASEMAPS).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join("");
